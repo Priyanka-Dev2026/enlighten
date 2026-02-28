@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* Custom font imports — add font files to /public/fonts/ */
+@font-face {
+  font-family: 'Sentient';
+  src: url('/fonts/Sentient-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: 'Mylius Modern';
+  src: url('/fonts/MyliusModern-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base styles */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #0a0a0a;
+    color: #ffffff;
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Navbar color system ── */
+
+/* Default (dark background): white text, translucent white buttons */
+.nav-light .nav-link {
+  color: #fff;
+}
+
+.nav-light .nav-cta-bg {
+  background: rgba(242, 242, 242, 0.15);
+}
+
+.nav-light .nav-arrow-bg {
+  background: rgba(217, 217, 217, 0.15);
+}
+
+.nav-light .nav-arrow-icon {
+  color: #fff;
+}
+
+.nav-light .nav-logo-img {
+  filter: none;
+}
+
+.nav-light .nav-hamburger-icon {
+  color: #fff;
+}
+
+.nav-dark .nav-hamburger-icon {
+  color: #000;
+}
+
+/* Light sections: black text, black buttons at 70% opacity */
+.nav-dark .nav-link {
+  color: #000;
+}
+
+.nav-dark .nav-cta-bg {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.nav-dark .nav-cta-bg .nav-link {
+  color: #fff;
+}
+
+.nav-dark .nav-arrow-bg {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.nav-dark .nav-arrow-icon {
+  color: #fff;
+}
+
+.nav-dark .nav-logo-img {
+  filter: invert(1);
+}
+
+/* Team section — greyscale by default, colour on hover */
+.team-card:hover .team-photo {
+  filter: grayscale(0) !important;
+}
+
+/* ── Focus styles — keyboard navigation ── */
+:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Remove focus ring on mouse click (only show for keyboard) */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Skip to content link ── */
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 20px;
+  background: #c96b00;
+  color: #fff;
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 16px;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
