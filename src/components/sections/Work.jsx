@@ -165,14 +165,22 @@ export default function Work() {
       lightSections.forEach((el) => {
         if (progress > 0) {
           el.style.backgroundColor = `rgb(${v}, ${v}, ${v})`
-          const contentOpacity = Math.max(0, 1 - progress * 2.5)
-          const statsGrid = el.querySelectorAll(':scope > div')
-          statsGrid.forEach((child) => { child.style.opacity = contentOpacity })
+
+          if (el.id === 'bold-in-numbers') {
+            // Interpolate text from #393939 (57,57,57) → white (255,255,255)
+            const t = Math.round(57 + (255 - 57) * progress)
+            el.style.color = `rgb(${t}, ${t}, ${t})`
+          } else {
+            const contentOpacity = Math.max(0, 1 - progress * 2.5)
+            el.querySelectorAll(':scope > div').forEach((child) => { child.style.opacity = contentOpacity })
+          }
         } else {
           el.style.backgroundColor = ''
-          el.querySelectorAll(':scope > div').forEach((child) => {
-            child.style.opacity = ''
-          })
+          if (el.id === 'bold-in-numbers') {
+            el.style.color = ''
+          } else {
+            el.querySelectorAll(':scope > div').forEach((child) => { child.style.opacity = '' })
+          }
         }
       })
 

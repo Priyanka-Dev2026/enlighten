@@ -234,6 +234,7 @@ export default function BoldInNumbers({ entranceComplete }) {
       ref={sectionRef}
       id="bold-in-numbers"
       className="bg-[#ffffff] border-t border-[#898989] px-[48px] py-[98px] max-lg:px-5 max-lg:py-16"
+      style={{ color: '#393939' }}
       data-theme="light"
       data-scroll-section
     >
@@ -241,7 +242,7 @@ export default function BoldInNumbers({ entranceComplete }) {
       <div ref={labelRef} className="flex items-center gap-[22px] mb-[56px]">
         <div className="size-[17px] bg-[#c96b00]" />
         <p
-          className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] text-[#393939] max-lg:text-[28px]"
+          className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] max-lg:text-[28px]"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
           Bold in numbers
@@ -258,19 +259,19 @@ export default function BoldInNumbers({ entranceComplete }) {
           >
             <p
               ref={setValueRef(i)}
-              className="text-[98px] font-medium leading-[106px] tracking-[1px] text-[#393939] max-lg:text-[60px] max-lg:leading-[68px]"
+              className="text-[98px] font-medium leading-[106px] tracking-[1px] max-lg:text-[60px] max-lg:leading-[68px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
             >
               {stat.value}
             </p>
             <p
-              className="text-[22px] font-normal leading-[34px] tracking-[0.22px] uppercase text-[#393939] max-lg:text-[18px]"
+              className="text-[22px] font-normal leading-[34px] tracking-[0.22px] uppercase max-lg:text-[18px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
             >
               {stat.label}
             </p>
             <p
-              className="text-[18px] font-normal leading-[24px] tracking-[0.18px] text-[#393939] max-lg:text-[16px] max-lg:leading-[22px]"
+              className="text-[18px] font-normal leading-[24px] tracking-[0.18px] max-lg:text-[16px] max-lg:leading-[22px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
             >
               {stat.description}
