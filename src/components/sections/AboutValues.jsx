@@ -104,7 +104,7 @@ export default function AboutValues() {
       <div className="values-label flex items-center justify-start px-5 gap-[22px] mb-[52px] md:justify-center md:px-0">
         <div style={{ width: 17, height: 17, backgroundColor: '#c96b00', flexShrink: 0 }} />
         <p
-          className="text-[28px] font-medium leading-[38px] tracking-[-2.16px] text-[#393939] md:text-[36px]"
+          className="text-[28px] font-medium leading-[38px] tracking-[0px] text-[#393939] md:text-[36px]"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif", margin: 0 }}
         >
           Our Values
@@ -129,8 +129,8 @@ export default function AboutValues() {
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 400,
-                fontSize: 'clamp(14px, 1.67vw, 24px)',
-                lineHeight: '1.55',
+                fontSize: '24px',
+                lineHeight: '30px',
                 letterSpacing: '0.01em',
                 color: '#393939',
                 margin: 0,

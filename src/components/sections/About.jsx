@@ -114,7 +114,7 @@ export default function About({ entranceComplete }) {
         <div ref={labelRef} className="flex items-center gap-[22px] shrink-0">
           <div className="size-[17px] bg-[#c96b00]" />
           <p
-            className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] max-lg:text-[28px]"
+            className="text-[36px] font-medium leading-[38px] tracking-[0px] max-lg:text-[28px]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
             About Us
@@ -125,7 +125,7 @@ export default function About({ entranceComplete }) {
         <div className="flex flex-col gap-[65px] items-end w-full max-w-[858px] max-lg:max-w-none">
           <p
             ref={textRef}
-            className="text-[32px] font-normal leading-[34px] tracking-[0.32px] w-full max-lg:text-[22px] max-lg:leading-[30px]"
+            className="text-[28px] font-normal leading-[34px] tracking-[0.32px] w-full max-lg:text-[22px] max-lg:leading-[30px]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
             We believe in collaboration, innovation and quality—bringing ideas to life through cutting-edge design and development, seamless functionality and strategic insight. Our goal is to transform every client vision into a dynamic, functional and engaging online presence that stands out in a crowded digital landscape.

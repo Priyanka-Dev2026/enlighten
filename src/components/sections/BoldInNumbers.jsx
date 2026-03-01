@@ -242,7 +242,7 @@ export default function BoldInNumbers({ entranceComplete }) {
       <div ref={labelRef} className="flex items-center gap-[22px] mb-[56px]">
         <div className="size-[17px] bg-[#c96b00]" />
         <p
-          className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] max-lg:text-[28px]"
+          className="text-[36px] font-medium leading-[38px] tracking-[0px] max-lg:text-[28px]"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
           Bold in numbers

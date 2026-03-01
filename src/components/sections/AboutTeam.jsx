@@ -154,7 +154,7 @@ export default function AboutTeam() {
         <div className="team-label flex items-center gap-[22px] shrink-0">
           <div style={{ width: 17, height: 17, backgroundColor: '#c96b00', flexShrink: 0 }} />
           <p
-            className="text-[28px] font-medium leading-[38px] tracking-[-2.16px] text-white md:text-[36px]"
+            className="text-[28px] font-medium leading-[38px] tracking-[0px] text-white md:text-[36px]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif", margin: 0 }}
           >
             Meet the Team
@@ -167,8 +167,8 @@ export default function AboutTeam() {
           style={{
             fontFamily: "'Hanken Grotesk', sans-serif",
             fontWeight: 400,
-            fontSize: 'clamp(15px, 1.67vw, 32px)',
-            lineHeight: '1.55',
+            fontSize: '28px',
+            lineHeight: '34px',
             letterSpacing: '0.01em',
             color: '#b8b8b8',
             maxWidth: 857,

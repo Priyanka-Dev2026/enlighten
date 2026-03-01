@@ -65,7 +65,7 @@ export default function ServicesHero() {
             fontWeight: 300,
             fontSize: 'clamp(40px, 7.1vw, 98px)',
             lineHeight: 1.08,
-            letterSpacing: '-1px',
+            letterSpacing: '0px',
           }}
         >
           What we do
@@ -116,8 +116,8 @@ export default function ServicesHero() {
             style={{
               fontFamily: "'Hanken Grotesk', sans-serif",
               fontWeight: 400,
-              fontSize: 'clamp(16px, 2.2vw, 32px)',
-              lineHeight: '1.4',
+              fontSize: '28px',
+              lineHeight: '34px',
               letterSpacing: '0.01em',
               color: '#fff',
               maxWidth: '821px',

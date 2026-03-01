@@ -279,12 +279,12 @@ export default function Work() {
       >
         <div ref={headerLabelRef} className="flex items-center gap-[22px] shrink-0">
           <div className="size-[17px] bg-[#c96b00]" />
-          <p className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] text-white max-lg:text-[28px]">
+          <p className="text-[36px] font-medium leading-[38px] tracking-[0px] text-white max-lg:text-[28px]">
             Our Work
           </p>
         </div>
         <div className="flex flex-col gap-[65px] items-start w-full max-w-[859px] max-lg:max-w-none">
-          <p ref={headerTextRef} className="text-[32px] font-normal leading-[34px] tracking-[0.32px] text-[#f7f7f7] max-lg:text-[22px] max-lg:leading-[30px]">
+          <p ref={headerTextRef} className="text-[28px] font-normal leading-[34px] tracking-[0.32px] text-[#f7f7f7] max-lg:text-[22px] max-lg:leading-[30px]">
             From concept to code, we build clean, user-first websites that reflect your brand essence, guide visitors naturally, and turn attention into meaningful action.
           </p>
           <div ref={headerCtaRef}><CTAButton label="VIEW ALL" variant="light" href="/works" /></div>

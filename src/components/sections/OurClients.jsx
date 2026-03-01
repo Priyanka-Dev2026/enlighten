@@ -140,7 +140,7 @@ export default function OurClients() {
         {/* Left: Label */}
         <div ref={labelRef} className="flex items-center gap-[22px] shrink-0">
           <div className="size-[17px] bg-[#c96b00]" />
-          <p className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] text-[#393939] max-lg:text-[28px]">
+          <p className="text-[36px] font-medium leading-[38px] tracking-[0px] text-[#393939] max-lg:text-[28px]">
             Our Clients
           </p>
         </div>
@@ -148,7 +148,7 @@ export default function OurClients() {
         {/* Right: Description */}
         <p
           ref={textRef}
-          className="text-[32px] font-normal leading-[34px] tracking-[0.32px] text-[#111] w-full max-w-[858px] max-lg:max-w-none max-lg:text-[22px] max-lg:leading-[30px]"
+          className="text-[28px] font-normal leading-[34px] tracking-[0.32px] text-[#111] w-full max-w-[858px] max-lg:max-w-none max-lg:text-[22px] max-lg:leading-[30px]"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
           Honoured to collaborate with businesses shaping their digital presence.

@@ -144,7 +144,7 @@ export default function WhatWeDo() {
         {/* Left: Label */}
         <div ref={labelRef} className="flex items-center gap-[22px] shrink-0">
           <div className="size-[17px] bg-[#c96b00]" />
-          <p className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] text-white max-lg:text-[28px]">
+          <p className="text-[36px] font-medium leading-[38px] tracking-[0px] text-white max-lg:text-[28px]">
             What we can do
           </p>
         </div>
@@ -154,7 +154,7 @@ export default function WhatWeDo() {
           {/* Description */}
           <p
             ref={textRef}
-            className="text-[32px] font-normal leading-[34px] tracking-[0.32px] text-white max-lg:text-[22px] max-lg:leading-[30px]"
+            className="text-[28px] font-normal leading-[34px] tracking-[0.32px] text-white max-lg:text-[22px] max-lg:leading-[30px]"
           >
             From brand identity to digital presence, we create thoughtful solutions that help businesses connect authentically, communicate clearly, and show up with confidence.
           </p>

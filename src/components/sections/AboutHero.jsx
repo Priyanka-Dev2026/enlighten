@@ -124,7 +124,7 @@ export default function AboutHero() {
             fontWeight: 300,
             fontSize: 'clamp(36px, 7.1vw, 98px)',
             lineHeight: 1.08,
-            letterSpacing: '-1px',
+            letterSpacing: '0px',
           }}
         >
           A people-first<br />
@@ -179,11 +179,11 @@ export default function AboutHero() {
             style={{
               fontFamily: "'Hanken Grotesk', sans-serif",
               fontWeight: 400,
-              fontSize: 'clamp(13px, 1.5vw, 22px)',
-              lineHeight: '1.65',
+              fontSize: '28px',
+              lineHeight: '34px',
               letterSpacing: '0.01em',
               color: '#fff',
-              maxWidth: '600px',
+              maxWidth: '821px',
               margin: 0,
             }}
           >
