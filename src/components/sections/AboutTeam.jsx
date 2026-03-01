@@ -4,21 +4,33 @@ import { gsap, ScrollTrigger } from '@utils/gsap-utils'
 
 const TEAM = [
   {
-    name: 'Priyanka Agarwal',
+    name: 'Priyanka Aggarwal',
     role: 'FOUNDER',
-    image: '/images/team-1.webp',
-    offset: false, // content at top, shorter card
+    image: '/images/team-1.png',
+    offset: false,
   },
   {
-    name: 'Prakriti',
-    role: 'CONTENT STRATEGIST',
-    image: '/images/team-prakriti.webp',
-    offset: true, // content pushed to bottom
-  },
-  {
-    name: 'Fiona',
+    name: 'Fiona Shareen',
     role: 'BRAND CONSULTANT',
     image: '/images/team-fiona.webp',
+    offset: true,
+  },
+  {
+    name: 'Siyanshi Garg',
+    role: 'MANAGING DIRECTOR',
+    image: '/images/team-siyanshi.png',
+    offset: false,
+  },
+  {
+    name: 'Prakriti Gupta',
+    role: 'CONTENT STRATEGIST',
+    image: '/images/team-prakriti.webp',
+    offset: true,
+  },
+  {
+    name: 'Tushar Garg',
+    role: 'CREATIVE DESIGNER',
+    image: '/images/team-tushar.png',
     offset: false,
   },
   {
@@ -190,7 +202,7 @@ export default function AboutTeam() {
               <img
                 src={member.image}
                 alt={member.name}
-                className="team-photo absolute inset-0 w-full h-full object-cover"
+                className="team-photo absolute inset-0 w-full h-full object-cover object-top"
                 style={{ filter: 'grayscale(1)', transition: 'filter 0.5s ease' }}
               />
             </div>

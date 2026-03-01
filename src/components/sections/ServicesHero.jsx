@@ -74,7 +74,7 @@ export default function ServicesHero() {
 
       {/* Bottom: full-width image with overlay content */}
       <div
-        className="relative w-full overflow-hidden h-[50vh] lg:h-screen"
+        className="relative w-full overflow-hidden h-[50vh] lg:h-[90vh]"
       >
         {/* Background image */}
         <img

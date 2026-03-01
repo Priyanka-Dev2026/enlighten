@@ -135,13 +135,12 @@ export default function AboutHero() {
       {/* Bottom: Full-width dark image with overlay content */}
       <div
         ref={gifRef}
-        className="relative w-full overflow-hidden"
-        style={{ height: 'clamp(472px, 64vw, 923px)' }}
+        className="relative w-full overflow-hidden h-[50vh] lg:h-[90vh]"
       >
         {/* Background gif */}
         <img
           className="about-hero-image absolute inset-0 w-full h-full object-cover"
-          src="/images/about-hero-bg.webp"
+          src="/images/about-hero-bg.png"
           alt="Enlighten studio"
         />
 
