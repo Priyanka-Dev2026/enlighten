@@ -234,7 +234,7 @@ export default function BoldInNumbers({ entranceComplete }) {
       ref={sectionRef}
       id="bold-in-numbers"
       className="bg-[#ffffff] border-t border-[#898989] px-[48px] py-[98px] max-lg:px-5 max-lg:py-16"
-      style={{ color: '#393939' }}
+      style={{ color: 'rgb(57, 57, 57)' }}
       data-theme="light"
       data-scroll-section
     >

@@ -105,6 +105,7 @@ export default function About({ entranceComplete }) {
       ref={sectionRef}
       id="about"
       className="bg-[#ffffff] px-[48px] pt-[124px] pb-[60px] max-lg:px-5 max-lg:pt-16 max-lg:pb-10"
+      style={{ color: 'rgb(57, 57, 57)' }}
       data-theme="light"
       data-scroll-section
     >
@@ -113,7 +114,7 @@ export default function About({ entranceComplete }) {
         <div ref={labelRef} className="flex items-center gap-[22px] shrink-0">
           <div className="size-[17px] bg-[#c96b00]" />
           <p
-            className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] text-[#393939] max-lg:text-[28px]"
+            className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] max-lg:text-[28px]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
             About Us
@@ -124,7 +125,7 @@ export default function About({ entranceComplete }) {
         <div className="flex flex-col gap-[65px] items-end w-full max-w-[858px] max-lg:max-w-none">
           <p
             ref={textRef}
-            className="text-[32px] font-normal leading-[34px] tracking-[0.32px] text-[#393939] w-full max-lg:text-[22px] max-lg:leading-[30px]"
+            className="text-[32px] font-normal leading-[34px] tracking-[0.32px] w-full max-lg:text-[22px] max-lg:leading-[30px]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
             We believe in collaboration, innovation and quality—bringing ideas to life through cutting-edge design and development, seamless functionality and strategic insight. Our goal is to transform every client vision into a dynamic, functional and engaging online presence that stands out in a crowded digital landscape.

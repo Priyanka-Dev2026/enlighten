@@ -165,22 +165,14 @@ export default function Work() {
       lightSections.forEach((el) => {
         if (progress > 0) {
           el.style.backgroundColor = `rgb(${v}, ${v}, ${v})`
-
-          if (el.id === 'bold-in-numbers') {
-            // Interpolate text from #393939 (57,57,57) → white (255,255,255)
-            const t = Math.round(57 + (255 - 57) * progress)
-            el.style.color = `rgb(${t}, ${t}, ${t})`
-          } else {
-            const contentOpacity = Math.max(0, 1 - progress * 2.5)
-            el.querySelectorAll(':scope > div').forEach((child) => { child.style.opacity = contentOpacity })
-          }
+          // Text stays dark while bg is still light, then flips to white
+          // as bg gets dark — transition over progress 0.5 → 0.7
+          const textProgress = Math.min(1, Math.max(0, (progress - 0.5) / 0.2))
+          const textV = Math.round(57 + (255 - 57) * textProgress)
+          el.style.color = `rgb(${textV}, ${textV}, ${textV})`
         } else {
           el.style.backgroundColor = ''
-          if (el.id === 'bold-in-numbers') {
-            el.style.color = ''
-          } else {
-            el.querySelectorAll(':scope > div').forEach((child) => { child.style.opacity = '' })
-          }
+          el.style.color = 'rgb(57, 57, 57)'
         }
       })
 
