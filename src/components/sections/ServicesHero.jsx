@@ -74,7 +74,7 @@ export default function ServicesHero() {
 
       {/* Bottom: full-width image with overlay content */}
       <div
-        className="relative w-full overflow-hidden h-[50vh] lg:h-[90vh]"
+        className="relative w-full overflow-hidden h-[55vh] max-lg:mt-5 lg:h-[90vh] lg:mt-0"
       >
         {/* Background image */}
         <img
@@ -99,7 +99,7 @@ export default function ServicesHero() {
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 500,
-                fontSize: 'clamp(20px, 2.5vw, 36px)',
+                fontSize: 'clamp(28px, 2.5vw, 36px)',
                 lineHeight: '1.2',
                 letterSpacing: '-0.06em',
                 color: '#fff',
@@ -112,12 +112,10 @@ export default function ServicesHero() {
 
           {/* Right: body paragraph */}
           <p
-            className="services-hero-body"
+            className="services-hero-body text-[28px] leading-[34px] max-lg:text-[18px] max-lg:leading-[26px]"
             style={{
               fontFamily: "'Hanken Grotesk', sans-serif",
               fontWeight: 400,
-              fontSize: '28px',
-              lineHeight: '34px',
               letterSpacing: '0.01em',
               color: '#fff',
               maxWidth: '821px',

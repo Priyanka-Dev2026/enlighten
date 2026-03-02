@@ -100,15 +100,20 @@ export default function AboutValues() {
       className="w-full py-[47px]"
       data-scroll-section
     >
-      {/* Label */}
-      <div className="values-label flex items-center justify-start px-5 gap-[22px] mb-[52px] md:justify-center md:px-0">
-        <div style={{ width: 17, height: 17, backgroundColor: '#c96b00', flexShrink: 0 }} />
-        <p
-          className="text-[28px] font-medium leading-[38px] tracking-[0px] text-[#393939] md:text-[36px]"
-          style={{ fontFamily: "'Hanken Grotesk', sans-serif", margin: 0 }}
-        >
-          Our Values
-        </p>
+      {/* Label — aligned with values-list column on desktop */}
+      <div className="values-label px-5 mb-[52px] md:px-[48px]">
+        <div className="md:flex md:flex-row md:items-center" style={{ gap: '8.96%' }}>
+          <div className="hidden md:block shrink-0" style={{ width: '31%' }} />
+          <div className="flex items-center gap-[22px]">
+            <div style={{ width: 17, height: 17, backgroundColor: '#c96b00', flexShrink: 0 }} />
+            <p
+              className="text-[28px] font-medium leading-[38px] tracking-[-2.2px] text-[#393939] md:text-[36px]"
+              style={{ fontFamily: "'Hanken Grotesk', sans-serif", margin: 0 }}
+            >
+              Our Values
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Full-width top divider */}

@@ -357,7 +357,8 @@ export default function Navbar({ entranceComplete, variant = 'light' }) {
           <img
             src="/images/enlighten-logo.svg"
             alt="Enlighten"
-            className="nav-logo-img h-[36px] w-auto transition-[filter] duration-500"
+            className={`h-[36px] w-auto transition-[filter] duration-500 ${menuOpen ? '' : 'nav-logo-img'}`}
+            style={menuOpen ? { filter: 'none' } : undefined}
           />
         </Link>
 

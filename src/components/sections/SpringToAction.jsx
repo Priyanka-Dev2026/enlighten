@@ -12,13 +12,15 @@ export default function SpringToAction() {
   const mobileTextRef = useRef(null)
   const mobileCtaRef = useRef(null)
   const ctaRef = useRef(null)
+  const stickyRef = useRef(null)
+  const maxShiftRef = useRef(0)
   const [sectionHeight, setSectionHeight] = useState('200vh')
 
   // Calculate section height based on text width so sticky holds
   // until the entire text has scrolled through, then releases
   useEffect(() => {
-    const textWrapper = textWrapperRef.current
-    if (!textWrapper) return
+    const textEl = textRef.current
+    if (!textEl) return
 
     const calcHeight = () => {
       // On mobile: disable horizontal scroll, let section be natural height
@@ -26,18 +28,33 @@ export default function SpringToAction() {
         setSectionHeight('auto')
         return
       }
-      const textW = textWrapper.scrollWidth
+
+      // Use offsetWidth on the inline-block <p> directly — more reliable than
+      // scrollWidth on the container, especially in Safari where scrollWidth on
+      // a child of overflow:hidden can return the clipped/container width instead
+      const textW = textEl.offsetWidth
       const viewW = window.innerWidth
+      // Use window.innerHeight instead of 100vh to stay in sync with JS progress calc.
+      // In Safari, CSS 100vh and window.innerHeight can diverge, causing sticky
+      // container height to mismatch the scroll progress, producing extra whitespace.
       const vh = window.innerHeight
-      const maxShift = textW - viewW + 100
-      // Section height = viewport (for sticky) + scroll distance needed
-      // Add 15% extra so text holds briefly after completing
+      const maxShift = Math.max(0, textW - viewW + 100)
+
+      // Cache maxShift — avoids re-reading scrollWidth during scroll (unreliable in Safari)
+      maxShiftRef.current = maxShift
+
+      // Pin sticky container to exact JS viewport height to match scroll math
+      if (stickyRef.current) {
+        stickyRef.current.style.height = `${vh}px`
+      }
+
       const height = vh + maxShift * 1.15
       setSectionHeight(`${height}px`)
     }
 
-    // Wait a frame for SplitText to render
-    requestAnimationFrame(calcHeight)
+    // Double RAF: first ensures SplitText chars are in the DOM,
+    // second ensures layout has fully settled (needed in Safari)
+    requestAnimationFrame(() => requestAnimationFrame(calcHeight))
     window.addEventListener('resize', calcHeight)
     return () => window.removeEventListener('resize', calcHeight)
   }, [])
@@ -65,10 +82,8 @@ export default function SpringToAction() {
       const scrolled = -rect.top
       const progress = Math.min(1, Math.max(0, scrolled / scrollable))
 
-      // Text starts at x=0 (left-aligned) and scrolls fully left
-      const textW = textWrapper.scrollWidth
-      const viewW = window.innerWidth
-      const maxShift = textW - viewW + 100
+      // Use cached maxShift — avoids unreliable scrollWidth reads during scroll in Safari
+      const maxShift = maxShiftRef.current
       const x = -progress * maxShift
 
       textWrapper.style.transform = `translate3d(${x}px, 0, 0)`
@@ -219,7 +234,7 @@ export default function SpringToAction() {
       data-scroll-section
     >
       {/* Desktop: sticky horizontal scroll container */}
-      <div className="hidden lg:flex sticky top-0 h-screen flex-col justify-center">
+      <div ref={stickyRef} className="hidden lg:flex sticky top-0 h-screen flex-col justify-center">
         <div className="overflow-hidden px-[48px]">
           <div
             ref={textWrapperRef}

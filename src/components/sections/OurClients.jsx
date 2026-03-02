@@ -42,8 +42,52 @@ export default function OurClients() {
       if (whatWeDo) {
         if (progress > 0) {
           whatWeDo.style.backgroundColor = `rgb(${v}, ${v}, ${v})`
+
+          // Interpolate text: white (255) → dark #393939 (57)
+          const textV = Math.round(255 - 198 * progress)
+          const textColor = `rgb(${textV}, ${textV}, ${textV})`
+
+          // Target p tags and service-item spans only (excludes button spans)
+          whatWeDo.querySelectorAll('p').forEach(el => {
+            el.style.color = textColor
+          })
+          whatWeDo.querySelectorAll('.service-item span').forEach(el => {
+            el.style.color = textColor
+          })
+
+          // Invert plus icons as background lightens
+          whatWeDo.querySelectorAll('.service-item img').forEach(img => {
+            img.style.filter = `invert(${progress})`
+          })
+
+          // CTA button: interpolate pill/circle bg from light → dark variant
+          // light: rgba(242,242,242,0.15) → dark: rgba(0,0,0,0.58)
+          const ctaEl = document.querySelector('#whatwedo-cta')
+          if (ctaEl) {
+            const r = Math.round(242 * (1 - progress))
+            const alpha = (0.15 + 0.43 * progress).toFixed(3)
+            const btnBg = `rgba(${r},${r},${r},${alpha})`
+            ctaEl.querySelectorAll('a > span').forEach(span => {
+              span.style.backgroundColor = btnBg
+            })
+          }
         } else {
           whatWeDo.style.backgroundColor = ''
+          whatWeDo.querySelectorAll('p').forEach(el => {
+            el.style.color = ''
+          })
+          whatWeDo.querySelectorAll('.service-item span').forEach(el => {
+            el.style.color = ''
+          })
+          whatWeDo.querySelectorAll('.service-item img').forEach(img => {
+            img.style.filter = ''
+          })
+          const ctaEl = document.querySelector('#whatwedo-cta')
+          if (ctaEl) {
+            ctaEl.querySelectorAll('a > span').forEach(span => {
+              span.style.backgroundColor = ''
+            })
+          }
         }
       }
 
@@ -140,7 +184,7 @@ export default function OurClients() {
         {/* Left: Label */}
         <div ref={labelRef} className="flex items-center gap-[22px] shrink-0">
           <div className="size-[17px] bg-[#c96b00]" />
-          <p className="text-[36px] font-medium leading-[38px] tracking-[0px] text-[#393939] max-lg:text-[28px]">
+          <p className="text-[36px] font-medium leading-[38px] tracking-[-2.2px] text-[#393939] max-lg:text-[28px]">
             Our Clients
           </p>
         </div>

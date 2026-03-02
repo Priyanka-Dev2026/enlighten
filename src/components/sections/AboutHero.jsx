@@ -135,7 +135,7 @@ export default function AboutHero() {
       {/* Bottom: Full-width dark image with overlay content */}
       <div
         ref={gifRef}
-        className="relative w-full overflow-hidden h-[50vh] lg:h-[90vh]"
+        className="relative w-full overflow-hidden h-[55vh] max-lg:mt-5 lg:h-[90vh] lg:mt-0"
       >
         {/* Background gif */}
         <img
@@ -162,9 +162,9 @@ export default function AboutHero() {
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 500,
-                fontSize: 'clamp(22px, 2.5vw, 36px)',
+                fontSize: 'clamp(28px, 2.5vw, 36px)',
                 lineHeight: '38px',
-                letterSpacing: '-0.06em',
+                letterSpacing: '-2.2px',
                 color: '#fff',
                 margin: 0,
               }}
@@ -175,12 +175,10 @@ export default function AboutHero() {
 
           {/* Right: body paragraph */}
           <p
-            className="about-hero-body"
+            className="about-hero-body text-[28px] leading-[34px] max-lg:text-[18px] max-lg:leading-[26px]"
             style={{
               fontFamily: "'Hanken Grotesk', sans-serif",
               fontWeight: 400,
-              fontSize: '28px',
-              lineHeight: '34px',
               letterSpacing: '0.01em',
               color: '#fff',
               maxWidth: '821px',

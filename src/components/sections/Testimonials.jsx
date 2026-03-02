@@ -151,7 +151,7 @@ export default function Testimonials() {
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
           <div className="size-[17px] bg-[#c96b00] shrink-0 mt-[9px]" />
-          <p className="text-[36px] font-medium leading-[38px] tracking-[0px] text-[#393939] max-lg:text-[28px] max-lg:leading-[34px]">
+          <p className="text-[36px] font-medium leading-[38px] tracking-[-2.2px] text-[#393939] max-lg:text-[28px] max-lg:leading-[34px]">
             Hear from the Brands<br />That Trust Us
           </p>
         </div>
