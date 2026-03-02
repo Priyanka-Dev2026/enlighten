@@ -10,8 +10,7 @@ const PROJECTS = [
     client: 'Alam By Tulsi Patel',
     description:
       'Alam by Tulsi Patel is a brand born from a vision to celebrate the beauty of India\'s rich textile heritage. Rooted in Gujarati traditions, each piece showcases the timeless artistry of marodi embroidery - brought to life through high-end, sustainable festive wear.',
-    tags: ['WEBFLOW', 'UI/UX'],
-    date: '10/24',
+    tags: ['SHOPIFY'],
     imageLeft: '/images/wl-p1-left.webp',
     imageRight: '/images/wl-p1-right.webp',
     aspectLeft: '3/4',
@@ -22,9 +21,8 @@ const PROJECTS = [
     category: 'BRANDING',
     client: '3D Creations',
     description:
-      'A thoughtful brand identity crafted for a creative professional — minimal, elegant, and unmistakably personal.',
-    tags: ['BRANDING', 'IDENTITY'],
-    date: '09/24',
+      'A premium home décor brand specializing in 3D wallpaper collections for residential and bespoke interior projects.',
+    tags: ['WORDPRESS', 'BRANDING', 'UI/UX'],
     imageLeft: '/images/wl-p2-left.webp',
     imageRight: '/images/wl-p2-right.webp',
     aspectLeft: '3/4',
@@ -35,9 +33,8 @@ const PROJECTS = [
     category: 'WEBSITES',
     client: 'Aura Femhealth',
     description:
-      'A bold e-commerce experience designed around community and craft — seamless checkout meets editorial storytelling.',
-    tags: ['SHOPIFY', 'UI/UX'],
-    date: '08/24',
+      'AURA Fem Health is a dedicated platform for women that brings together ancient holistic practices and modern science to support overall well-being.',
+    tags: ['WORDPRESS', 'BRANDING'],
     imageLeft: '/images/wl-p3-left.webp',
     imageRight: '/images/wl-p3-right.webp',
     aspectLeft: '3/4',
@@ -48,9 +45,8 @@ const PROJECTS = [
     category: 'UI/UX',
     client: 'Nandita Sikchi',
     description:
-      'An artist portfolio that puts the work front and centre — immersive imagery, fluid navigation, zero distractions.',
-    tags: ['FIGMA', 'REACT'],
-    date: '07/24',
+      'Nandita Sikchi is an Indian D2C global fashion brand designing Indian ethnic ensembles deeply inspired by the centuries-old heritage of the land.',
+    tags: ['SHOPIFY', 'SOCIAL', 'UI/UX'],
     imageLeft: '/images/wl-p4-left.webp',
     imageRight: '/images/wl-p4-right.webp',
     aspectLeft: '3/4',
@@ -63,7 +59,6 @@ const PROJECTS = [
     description:
       'A wellness brand brought to life online — warm, inviting, and designed to convert curious visitors into loyal clients.',
     tags: ['WORDPRESS', 'UI/UX'],
-    date: '06/24',
     imageLeft: '/images/wl-p5-left.webp',
     imageRight: '/images/wl-p5-right.webp',
     aspectLeft: '3/4',
@@ -76,7 +71,6 @@ const PROJECTS = [
     description:
       'A fintech platform that makes complex finance feel accessible — dark, confident, and built for sophisticated users.',
     tags: ['REACT', 'DESIGN'],
-    date: '05/24',
     imageLeft: '/images/wl-p6-left.webp',
     imageRight: '/images/wl-p6-right.webp',
     aspectLeft: '3/4',
@@ -85,13 +79,48 @@ const PROJECTS = [
   {
     id: 7,
     category: 'BRANDING',
-    client: 'Tarus Fashion',
+    client: 'Taurus Fashion',
     description:
-      'A travel content brand that needed presence as rich as its stories — a visual identity built for the scroll-first world.',
-    tags: ['BRANDING', 'SOCIAL'],
-    date: '04/24',
+      'Taurus is a designer fashion brand offering prêt clothing for men/women with a distinctive signature style.',
+    tags: ['SHOPIFY'],
     imageLeft: '/images/wl-p7-left.webp',
     imageRight: '/images/wl-p7-right.webp',
+    aspectLeft: '3/4',
+    aspectRight: '3/4',
+  },
+  {
+    id: 8,
+    category: 'WEBSITES',
+    client: 'Young Founders Lab',
+    description:
+      'Young Founders Lab blends a start-up incubator with professional development, equipping young professionals with expert training and mentorship to build real, revenue-generating ventures.',
+    tags: ['SQUARESPACE', 'BRANDING'],
+    imageLeft: '/images/wl-p8-left.webp',
+    imageRight: '/images/wl-p8-right.webp',
+    aspectLeft: '3/4',
+    aspectRight: '3/4',
+  },
+  {
+    id: 9,
+    category: 'WEBSITES',
+    client: 'XY Percent',
+    description:
+      'XY Percent is a consulting firm dedicated to helping healthcare and professional practices unlock their full potential.',
+    tags: ['FRAMER', 'BRANDING', 'UI/UX'],
+    imageLeft: '/images/wl-p9-left.webp',
+    imageRight: '/images/wl-p9-right.webp',
+    aspectLeft: '3/4',
+    aspectRight: '3/4',
+  },
+  {
+    id: 10,
+    category: 'WEBSITES',
+    client: 'Flow Store',
+    description:
+      'Flow Store is a developer-first platform changing the computing paradigm with a fully serverless cloud infrastructure for AI, ML, and data applications.',
+    tags: ['SHOPIFY', 'UI/UX'],
+    imageLeft: '/images/wl-p10-left.webp',
+    imageRight: '/images/wl-p10-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
   },
@@ -192,36 +221,23 @@ function ProjectRow({ project, index }) {
           {project.description}
         </p>
 
-        {/* Tags + date */}
-        <div className="row-tags flex flex-row items-center justify-between md:flex-col md:items-end" style={{ gap: 6 }}>
-          <div className="flex items-center" style={{ gap: 12 }}>
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                style={{
-                  fontFamily: "'Hanken Grotesk', sans-serif",
-                  fontWeight: 400,
-                  fontSize: 'clamp(11px, 1vw, 16px)',
-                  letterSpacing: '0.06em',
-                  color: '#a4a4a4',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <span
-            style={{
-              fontFamily: "'Hanken Grotesk', sans-serif",
-              fontWeight: 400,
-              fontSize: 'clamp(11px, 0.9vw, 15px)',
-              color: '#a4a4a4',
-              letterSpacing: '0.04em',
-            }}
-          >
-            {project.date}
-          </span>
+        {/* Tags */}
+        <div className="row-tags flex flex-row items-center md:justify-end" style={{ gap: 12 }}>
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              style={{
+                fontFamily: "'Hanken Grotesk', sans-serif",
+                fontWeight: 400,
+                fontSize: 'clamp(11px, 1vw, 16px)',
+                letterSpacing: '0.06em',
+                color: '#a4a4a4',
+                textTransform: 'uppercase',
+              }}
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
 
