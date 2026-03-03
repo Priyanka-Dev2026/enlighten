@@ -237,8 +237,7 @@ export default function OurClients() {
               <img
                 src={logo.colorSrc}
                 alt={logo.alt}
-                className="logo-color absolute h-full w-auto object-contain lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100"
-                style={{ opacity: 0 }}
+                className="logo-color absolute h-full w-auto object-contain opacity-0 lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100"
               />
             </div>
           ))}
