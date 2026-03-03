@@ -63,7 +63,7 @@ export default function ServicesHero() {
           style={{
             fontFamily: "'Sentient', serif",
             fontWeight: 300,
-            fontSize: 'clamp(40px, 7.1vw, 98px)',
+            fontSize: 'clamp(52px, 9vw, 98px)',
             lineHeight: 1.08,
             letterSpacing: '0px',
           }}

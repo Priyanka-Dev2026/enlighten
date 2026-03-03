@@ -98,14 +98,22 @@ export default function AlwaysOn() {
     <section
       ref={sectionRef}
       id="always-on"
-      className="relative min-h-screen w-full overflow-hidden"
+      className="relative w-full overflow-hidden" style={{ height: '60vh' }}
       data-scroll-section
     >
-      {/* Background */}
+      {/* Background — GIF on desktop, MP4 video on mobile */}
       <img
-        src="/images/always-on-bg.webp"
+        src="/images/always-on-bg.gif"
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover hidden lg:block"
+      />
+      <video
+        className="absolute inset-0 h-full w-full object-cover lg:hidden"
+        src="/images/always-on-bg.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
       />
       {/* Gradient overlay */}
       <div
@@ -119,7 +127,7 @@ export default function AlwaysOn() {
       {/* Content — 3-slot flex: spacer / center content / bottom pills */}
       <div
         ref={contentRef}
-        className="relative z-10 flex min-h-screen flex-col justify-between p-[81px] max-lg:px-5 max-lg:py-16"
+        className="relative z-10 flex h-full flex-col justify-between p-[81px] max-lg:px-5 max-lg:py-16"
         style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
       >
         {/* Top spacer — pushes center content to vertical middle */}

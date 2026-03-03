@@ -52,7 +52,7 @@ export default function WorksHero({ activeFilter, onFilterChange }) {
           style={{
             fontFamily: "'Sentient', serif",
             fontWeight: 300,
-            fontSize: 'clamp(52px, 9vw, 140px)',
+            fontSize: 'clamp(52px, 9vw, 98px)',
             lineHeight: 1.08,
             letterSpacing: '-1px',
             color: '#0e0d0d',
