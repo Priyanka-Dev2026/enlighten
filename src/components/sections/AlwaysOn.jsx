@@ -98,7 +98,7 @@ export default function AlwaysOn() {
     <section
       ref={sectionRef}
       id="always-on"
-      className="relative w-full overflow-hidden" style={{ height: '60vh' }}
+      className="relative w-full overflow-hidden h-[60vh] lg:h-screen"
       data-scroll-section
     >
       {/* Background — GIF on desktop, MP4 video on mobile */}
