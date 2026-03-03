@@ -265,13 +265,13 @@ export default function BoldInNumbers({ entranceComplete }) {
               {stat.value}
             </p>
             <p
-              className="text-[22px] font-normal leading-[34px] tracking-[0.22px] uppercase max-lg:text-[18px]"
+              className="text-[22px] font-normal leading-[34px] tracking-[0.22px] uppercase max-lg:text-[22px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
             >
               {stat.label}
             </p>
             <p
-              className="text-[18px] font-normal leading-[24px] tracking-[0.18px] max-lg:text-[16px] max-lg:leading-[22px]"
+              className="text-[18px] font-normal leading-[24px] tracking-[0.18px] max-lg:text-[20px] max-lg:leading-[28px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
             >
               {stat.description}

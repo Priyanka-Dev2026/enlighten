@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, SplitText } from '@/utils/gsap-utils'
 import CTAButton from '@components/ui/CTAButton'
@@ -33,6 +33,7 @@ const SERVICES = [
 export default function WhatWeDo() {
   const sectionRef = useRef(null)
   const labelRef = useRef(null)
+  const [openIndex, setOpenIndex] = useState(null)
   const textRef = useRef(null)
   const gridRef = useRef(null)
   const ctaRef = useRef(null)
@@ -165,7 +166,7 @@ export default function WhatWeDo() {
             className="grid grid-cols-2 gap-x-[26px] w-full max-lg:grid-cols-1"
           >
             {SERVICES.map((service, i) => (
-              <AccordionItem key={i} service={service} />
+              <AccordionItem key={i} service={service} myIndex={i} openIndex={openIndex} onToggle={setOpenIndex} />
             ))}
           </div>
 
@@ -179,14 +180,15 @@ export default function WhatWeDo() {
   )
 }
 
-function AccordionItem({ service }) {
-  const [open, setOpen] = useState(false)
+function AccordionItem({ service, myIndex, openIndex, onToggle }) {
+  const [desktopOpen, setDesktopOpen] = useState(false)
   const contentRef = useRef(null)
+  const hasMountedRef = useRef(false)
 
-  const toggle = () => {
-    const next = !open
-    setOpen(next)
+  const isMobile = () => window.innerWidth < 1024
+  const open = isMobile() ? openIndex === myIndex : desktopOpen
 
+  const animateContent = (next) => {
     if (next) {
       gsap.set(contentRef.current, { height: 'auto' })
       const h = contentRef.current.offsetHeight
@@ -201,17 +203,34 @@ function AccordionItem({ service }) {
     }
   }
 
+  // On mobile, animate when openIndex changes (handles closing other items)
+  useEffect(() => {
+    if (!hasMountedRef.current) { hasMountedRef.current = true; return }
+    if (!isMobile()) return
+    animateContent(openIndex === myIndex)
+  }, [openIndex])
+
+  const toggle = () => {
+    if (isMobile()) {
+      onToggle(openIndex === myIndex ? null : myIndex)
+    } else {
+      const next = !desktopOpen
+      setDesktopOpen(next)
+      animateContent(next)
+    }
+  }
+
   return (
     <div className="service-item border-b border-[#626262]">
       <button
         onClick={toggle}
         className="flex w-full items-center justify-between py-[28px] text-left"
       >
-        <p className="text-[26px] font-normal leading-[34px] tracking-[0.26px] text-white max-lg:text-[20px]">
+        <p className="text-[26px] font-normal leading-[34px] tracking-[0.26px] text-white max-lg:text-[24px]">
           {service.title}
         </p>
         <div
-          className="size-[54px] shrink-0 flex items-center justify-center transition-transform duration-300"
+          className="size-[54px] max-lg:size-[38px] shrink-0 flex items-center justify-center transition-transform duration-300"
           style={{ transform: open ? 'rotate(45deg)' : 'rotate(0deg)' }}
         >
           <img src="/images/plus-icon.svg" alt="" className="size-full" />
@@ -222,11 +241,11 @@ function AccordionItem({ service }) {
         className="overflow-hidden"
         style={{ height: 0, opacity: 0 }}
       >
-        <div className="flex flex-wrap gap-3 pb-[28px]">
+        <div className="flex flex-wrap gap-3 pb-[28px] max-lg:pb-[48px]">
           {service.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-[#626262] px-5 py-2 text-[15px] tracking-[0.3px] text-white/80"
+              className="rounded-full border border-[#626262] px-5 py-2 max-lg:px-4 max-lg:py-2.5 text-[15px] max-lg:text-[18px] tracking-[0.3px] text-white/80"
             >
               {tag}
             </span>

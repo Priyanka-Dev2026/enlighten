@@ -316,10 +316,10 @@ export default function Work() {
           {/* Title + Description — vertically centered */}
           <div className="flex flex-1 items-center">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-14">
-              <p ref={titleRef} className="text-base font-semibold text-white tracking-wide md:text-2xl">
+              <p ref={titleRef} className="text-[22px] font-semibold text-white tracking-wide md:text-2xl">
                 {projects[0].title}
               </p>
-              <p ref={descRef} className="text-sm font-normal text-white/80 tracking-wide md:text-2xl md:text-white">
+              <p ref={descRef} className="text-[20px] font-normal text-white/80 tracking-wide md:text-2xl md:text-white">
                 {projects[0].description}
               </p>
             </div>
