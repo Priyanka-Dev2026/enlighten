@@ -257,7 +257,7 @@ export default function ServicesList() {
 
             {/* Right: image */}
             <div
-              className="service-image overflow-hidden w-full aspect-square lg:aspect-none lg:w-[36%] lg:shrink-0 lg:h-[613px]"
+              className="service-image overflow-hidden w-full h-[450px] lg:h-[613px] lg:aspect-none lg:w-[36%] lg:shrink-0"
             >
               <img
                 src={service.image}

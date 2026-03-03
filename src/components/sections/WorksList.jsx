@@ -9,7 +9,7 @@ const PROJECTS = [
     category: 'WEBSITE DEVELOPMENT',
     client: 'Alam By Tulsi Patel',
     description:
-      'Alam by Tulsi Patel is a brand born from a vision to celebrate the beauty of India\'s rich textile heritage. Rooted in Gujarati traditions, each piece showcases the timeless artistry of marodi embroidery - brought to life through high-end, sustainable festive wear.',
+      'Crafted a visually rich e-commerce Website for a luxury Indian festive wear brand, blending heritage storytelling with intuitive design and seamless navigation.',
     tags: ['SHOPIFY'],
     imageLeft: '/images/wl-p1-left.webp',
     imageRight: '/images/wl-p1-right.webp',
@@ -21,7 +21,7 @@ const PROJECTS = [
     category: ['WEBSITE DEVELOPMENT', 'UI/UX STRATEGY', 'GRAPHIC DESIGN'],
     client: '3D Creations',
     description:
-      'A premium home décor brand specializing in 3D wallpaper collections for residential and bespoke interior projects.',
+      'Designed and developed a dynamic, informative corporate website highlighting their premium wallpapers through immersive visuals and seamless user journeys.',
     tags: ['WORDPRESS', 'BRANDING', 'UI/UX'],
     imageLeft: '/images/wl-p2-left.webp',
     imageRight: '/images/wl-p2-right.webp',
@@ -33,7 +33,7 @@ const PROJECTS = [
     category: ['WEBSITE DEVELOPMENT', 'GRAPHIC DESIGN'],
     client: 'Aura Femhealth',
     description:
-      'AURA Fem Health is a dedicated platform for women that brings together ancient holistic practices and modern science to support overall well-being.',
+      'Designed and developed an informative women\'s health platform presenting holistic care services through structured content, and seamless digital flow.',
     tags: ['WORDPRESS', 'BRANDING'],
     imageLeft: '/images/wl-p3-left.webp',
     imageRight: '/images/wl-p3-right.webp',
@@ -45,7 +45,7 @@ const PROJECTS = [
     category: ['WEBSITE DEVELOPMENT', 'MARKETING', 'UI/UX STRATEGY'],
     client: 'Nandita Sikchi',
     description:
-      'Nandita Sikchi is an Indian D2C global fashion brand designing Indian ethnic ensembles deeply inspired by the centuries-old heritage of the land.',
+      'Developed a sophisticated fashion e-commerce platform blending editorial aesthetics, fluid browsing experience, and a streamlined purchase journey.',
     tags: ['SHOPIFY', 'SOCIAL', 'UI/UX'],
     imageLeft: '/images/wl-p4-left.webp',
     imageRight: '/images/wl-p4-right.webp',
@@ -81,7 +81,7 @@ const PROJECTS = [
     category: ['WEBSITE DEVELOPMENT'],
     client: 'Taurus Fashion',
     description:
-      'Taurus is a designer fashion brand offering prêt clothing for men/women with a distinctive signature style.',
+      'Developed a refined fashion retail website presenting contemporary prêt collections with bold identity and seamless browsing flow.',
     tags: ['SHOPIFY'],
     imageLeft: '/images/wl-p7-left.webp',
     imageRight: '/images/wl-p7-right.webp',
@@ -93,7 +93,7 @@ const PROJECTS = [
     category: ['WEBSITE DEVELOPMENT', 'GRAPHIC DESIGN'],
     client: 'Young Founders Lab',
     description:
-      'Young Founders Lab blends a start-up incubator with professional development, equipping young professionals with expert training and mentorship to build real, revenue-generating ventures.',
+      'Built a purpose-driven platform empowering young entrepreneurs with clear pathways, insightful resources, and engaging community showcases.',
     tags: ['SQUARESPACE', 'BRANDING'],
     imageLeft: '/images/wl-p8-left.webp',
     imageRight: '/images/wl-p8-right.webp',
@@ -105,10 +105,22 @@ const PROJECTS = [
     category: ['WEBSITE DEVELOPMENT', 'GRAPHIC DESIGN', 'UI/UX STRATEGY'],
     client: 'XY Percent',
     description:
-      'XY Percent is a consulting firm dedicated to helping healthcare and professional practices unlock their full potential.',
+      'Developed a strategic consultancy website presenting insight-driven services, clear frameworks, and purposeful professional positioning for founder growth.',
     tags: ['FRAMER', 'BRANDING', 'UI/UX'],
     imageLeft: '/images/wl-p9-left.webp',
     imageRight: '/images/wl-p9-right.webp',
+    aspectLeft: '3/4',
+    aspectRight: '3/4',
+  },
+  {
+    id: 11,
+    category: ['WEBSITE DEVELOPMENT'],
+    client: 'Precious Chemical',
+    description:
+      'A clean, professional website built to showcase industrial expertise, product offerings, and brand credibility for a leading chemical solutions company.',
+    tags: ['WORDPRESS'],
+    imageLeft: '/images/wl-p11-left.webp',
+    imageRight: '/images/wl-p11-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
   },
@@ -117,7 +129,7 @@ const PROJECTS = [
     category: ['WEBSITE DEVELOPMENT', 'UI/UX STRATEGY'],
     client: 'Flow Store',
     description:
-      'Flow Store is a developer-first platform changing the computing paradigm with a fully serverless cloud infrastructure for AI, ML, and data applications.',
+      'Designed and built an ultra-elegant, minimal Shopify website showcasing curated pieces through clean architecture and a refined purchasing experience.',
     tags: ['SHOPIFY', 'UI/UX'],
     imageLeft: '/images/wl-p10-left.webp',
     imageRight: '/images/wl-p10-right.webp',

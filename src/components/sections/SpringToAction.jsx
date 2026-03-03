@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react'
 import { gsap, SplitText } from '@/utils/gsap-utils'
 import CTAButton from '@components/ui/CTAButton'
 
-const HEADING_TEXT = 'Spring to action. Feed curiosity that\'s never sated.'
+const HEADING_TEXT = 'Where clarity, strategy and precise execution nurture growth.'
 
 export default function SpringToAction() {
   const sectionRef = useRef(null)
@@ -48,7 +48,7 @@ export default function SpringToAction() {
         stickyRef.current.style.height = `${vh}px`
       }
 
-      const height = vh + maxShift * 1.15
+      const height = vh + maxShift + vh * 0.6
       setSectionHeight(`${height}px`)
     }
 
@@ -264,10 +264,12 @@ export default function SpringToAction() {
       <div className="lg:hidden flex flex-col justify-center gap-10 px-5 py-20">
         <p
           ref={mobileTextRef}
-          className="text-[42px] font-extrabold uppercase leading-[1.07] tracking-[0.01em] text-[#393939]"
+          className="text-[36px] font-extrabold uppercase leading-[1.15] tracking-[0.01em] text-[#393939] break-words"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
-          {HEADING_TEXT}
+          Where clarity, strategy and{' '}
+          <span className="whitespace-nowrap">precise execution</span>
+          {' '}nurture growth.
         </p>
         <div ref={mobileCtaRef} className="flex items-center justify-start">
           <CTAButton label="CONNECT WITH US" variant="dark" href="#contact" />

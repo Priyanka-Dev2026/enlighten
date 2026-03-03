@@ -128,7 +128,7 @@ export default function About({ entranceComplete }) {
             className="text-[28px] font-normal leading-[34px] tracking-[0.32px] w-full max-lg:text-[22px] max-lg:leading-[30px]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
-            We believe in collaboration, innovation and quality—bringing ideas to life through cutting-edge design and development, seamless functionality and strategic insight. Our goal is to transform every client vision into a dynamic, functional and engaging online presence that stands out in a crowded digital landscape.
+            We believe in working closely, thinking deeply, and creating with care. Through thoughtful design, reliable development, and clear strategy, we bring ideas to life - shaping digital spaces that feel authentic, functional, and true to every client's vision.
           </p>
 
           {/* Images */}
