@@ -127,8 +127,7 @@ export default function AboutHero() {
             letterSpacing: '0px',
           }}
         >
-          A people-first<br />
-          digital studio who build with heart.
+          We build brands with purpose, precision, and people first.
         </h1>
       </div>
 
@@ -169,28 +168,23 @@ export default function AboutHero() {
                 margin: 0,
               }}
             >
-              Small but Mighty
+              Our Essence
             </p>
           </div>
 
           {/* Right: body paragraph */}
           <p
-            className="about-hero-body text-[28px] leading-[34px] max-lg:text-[18px] max-lg:leading-[26px]"
+            className="about-hero-body text-[28px] leading-[34px] max-lg:text-[22px] max-lg:leading-[30px]"
             style={{
               fontFamily: "'Hanken Grotesk', sans-serif",
               fontWeight: 400,
-              letterSpacing: '0.01em',
+              letterSpacing: '0.2px',
               color: '#fff',
               maxWidth: '821px',
               margin: 0,
             }}
           >
-            At Enlighten, we're a small team by design. Female-led, close-knit, and committed to
-            showing up with passion and dedication. We pride ourselves on creating one-on-one
-            partnerships that feel personal, not transactional. Balance matters to us, because
-            thriving as people helps us thrive as designers. So we celebrate the wins, learn from
-            the challenges, and keep pushing ourselves to grow. At the heart of it all is that
-            spark you can't quite put your finger on, but you feel it in everything we do.
+            At Enlighten Creatives, we help businesses communicate clearly through thoughtful design, strategy, and digital execution. From branding to websites and marketing, we focus on creating meaningful experiences that feel authentic, work practically, and support significant growth - built on trust, clarity, and purpose.
           </p>
         </div>
       </div>

@@ -35,26 +35,23 @@ export default function ServicesStatement() {
   return (
     <section
       ref={sectionRef}
+      id="services-statement"
       style={{ backgroundColor: '#ffffff' }}
       className="w-full"
       data-scroll-section
     >
       <div className="px-[48px] py-[68px] max-lg:px-5 max-lg:py-12">
         <p
-          className="services-statement-text"
+          className="services-statement-text text-[30px] lg:text-[clamp(36px,5vw,72px)] max-lg:leading-[34px] lg:leading-[1]"
           style={{
             fontFamily: "'Hanken Grotesk', sans-serif",
             fontWeight: 400,
-            fontSize: 'clamp(36px, 5vw, 72px)',
-            lineHeight: '1.06',
-            letterSpacing: '0.01em',
+            letterSpacing: '-0.06em',
             color: '#282828',
             margin: 0,
           }}
         >
-          Digital experiences that push<br />
-          boundaries and deliver<br />
-          excellence.
+          Digital experiences<br className="lg:hidden" />{' '}that push<br className="hidden lg:block" />{' '}boundaries<br className="lg:hidden" />{' '}and deliver<br className="hidden lg:block" />{' '}excellence.
         </p>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '@utils/gsap-utils'
 
@@ -31,6 +31,7 @@ const VALUES = [
 
 export default function AboutValues() {
   const sectionRef = useRef(null)
+  const [openIndex, setOpenIndex] = useState(null)
 
   useGSAP(() => {
     // ── Entrance animations ──────────────────────────────────────────────
@@ -154,7 +155,7 @@ export default function AboutValues() {
         {/* Values list */}
         <div className="values-list flex-1 flex flex-col">
           {VALUES.map((value, i) => (
-            <ValueRow key={i} value={value} index={i} />
+            <ValueRow key={i} value={value} index={i} openIndex={openIndex} onToggle={setOpenIndex} />
           ))}
         </div>
       </div>
@@ -162,13 +163,15 @@ export default function AboutValues() {
   )
 }
 
-function ValueRow({ value, index }) {
-  const [open, setOpen] = useState(false)
+function ValueRow({ value, index, openIndex, onToggle }) {
+  const [desktopOpen, setDesktopOpen] = useState(false)
   const contentRef = useRef(null)
+  const hasMountedRef = useRef(false)
 
-  const toggle = () => {
-    const next = !open
-    setOpen(next)
+  const isMobile = () => window.innerWidth < 768
+  const open = isMobile() ? openIndex === index : desktopOpen
+
+  const animateContent = (next) => {
     if (next) {
       gsap.set(contentRef.current, { height: 'auto' })
       const h = contentRef.current.offsetHeight
@@ -180,6 +183,22 @@ function ValueRow({ value, index }) {
       gsap.to(contentRef.current, {
         height: 0, opacity: 0, duration: 0.4, ease: 'smooth',
       })
+    }
+  }
+
+  useEffect(() => {
+    if (!hasMountedRef.current) { hasMountedRef.current = true; return }
+    if (!isMobile()) return
+    animateContent(openIndex === index)
+  }, [openIndex])
+
+  const toggle = () => {
+    if (isMobile()) {
+      onToggle(openIndex === index ? null : index)
+    } else {
+      const next = !desktopOpen
+      setDesktopOpen(next)
+      animateContent(next)
     }
   }
 
@@ -230,12 +249,12 @@ function ValueRow({ value, index }) {
               {value.number}
             </span>
             <p
+              className="text-[24px] md:text-[clamp(20px,2.2vw,32px)]"
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 400,
-                fontSize: 'clamp(20px, 2.2vw, 32px)',
                 lineHeight: '1.4',
-                letterSpacing: '0.01em',
+                letterSpacing: '0.3px',
                 color: '#393939',
                 margin: 0,
               }}
@@ -266,9 +285,9 @@ function ValueRow({ value, index }) {
             style={{
               fontFamily: "'Hanken Grotesk', sans-serif",
               fontWeight: 400,
-              fontSize: '14px',
-              lineHeight: '1.65',
-              letterSpacing: '0.01em',
+              fontSize: '20px',
+              lineHeight: '30px',
+              letterSpacing: '0.3px',
               color: '#666',
               margin: 0,
               paddingTop: 12,

@@ -112,7 +112,7 @@ export default function ServicesHero() {
 
           {/* Right: body paragraph */}
           <p
-            className="services-hero-body text-[28px] leading-[34px] max-lg:text-[18px] max-lg:leading-[26px]"
+            className="services-hero-body text-[28px] leading-[34px] max-lg:text-[22px] max-lg:leading-[30px]"
             style={{
               fontFamily: "'Hanken Grotesk', sans-serif",
               fontWeight: 400,

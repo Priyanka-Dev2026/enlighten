@@ -6,9 +6,9 @@ import SplitType from 'split-type'
 const SERVICES = [
   {
     number: '/01',
-    title: 'Website\nDevelopment',
+    title: 'Website Development',
     description:
-      'Great design starts with understanding people. We craft intuitive, user-first experiences that feel effortless, guide action, and build trust — turning every click into clarity and every interaction into meaningful engagement.',
+      'A powerful website isn\'t just visual - it\'s strategic. We create clean, user-first, search-friendly websites that tell your story, earn trust, and drive real business results.',
     tags: [
       ['WORDPRESS', 'SHOPIFY', 'SQUARESPACE'],
       ['FRAMER', 'WEBFLOW', 'REACT'],
@@ -17,47 +17,47 @@ const SERVICES = [
   },
   {
     number: '/02',
-    title: 'Brand\nStrategy',
+    title: 'UI/UX Strategy',
     description:
-      'A strong brand is more than a logo — it\'s a feeling. We build brand identities that communicate your values, resonate with your audience, and stand the test of time.',
+      'Great design starts with understanding people. We craft intuitive, user-first experiences that feel effortless, guide action, and build trust - turning every click into clarity and every interaction into meaningful engagement.',
     tags: [
-      ['IDENTITY', 'POSITIONING', 'MESSAGING'],
-      ['GUIDELINES', 'NAMING', 'VOICE'],
-    ],
-    image: '/images/service-brand-strategy.webp',
-  },
-  {
-    number: '/03',
-    title: 'UI/UX\nDesign',
-    description:
-      'We design digital products that people love to use. From wireframes to high-fidelity prototypes, every decision is rooted in user research and design thinking.',
-    tags: [
-      ['FIGMA', 'PROTOTYPING', 'WIREFRAMES'],
-      ['USER RESEARCH', 'DESIGN SYSTEMS'],
+      ['UX RESEARCH', 'USABILITY TESTING'],
+      ['UX FLOW', 'DESIGN ELEMENTS', 'ENGAGING ANIMATION'],
     ],
     image: '/images/service-uiux.webp',
   },
   {
-    number: '/04',
-    title: 'Content\nStrategy',
+    number: '/03',
+    title: 'Brand Communication',
     description:
-      'Words matter. We craft content strategies that align with your brand voice, connect with your audience, and drive meaningful engagement across every touchpoint.',
+      'Your brand deserves to be heard and remembered. We shape clear, consistent messaging that reflects your values, connects with your audience, and builds trust - helping your business speak with purpose across every digital touchpoint.',
     tags: [
-      ['COPYWRITING', 'SEO', 'EDITORIAL'],
-      ['SOCIAL', 'CAMPAIGNS', 'STORYTELLING'],
+      ['BRAND VOICE', 'CLEAR MESSAGING'],
+      ['STRONG POSITIONING', 'EMOTIONAL CONNECT'],
     ],
-    image: '/images/service-web-dev.webp',
+    image: '/images/service-brand-strategy.webp',
+  },
+  {
+    number: '/04',
+    title: 'Marketing',
+    description:
+      'We approach marketing with clarity and intention. Through thoughtful strategy, relevant content, and consistent execution, we help your brand stay visible, connect with the right audience, and grow steadily.',
+    tags: [
+      ['SEO', 'SOCIAL MEDIA MARKETING'],
+      ['EMAIL MARKETING', 'ADVERTISING'],
+    ],
+    image: '/images/service-digital-marketing.jpg',
   },
   {
     number: '/05',
-    title: 'Digital\nMarketing',
+    title: 'Graphic Design',
     description:
-      'Data-driven campaigns that reach the right people at the right time. We combine creativity with analytics to grow your audience and convert attention into action.',
+      'We design with purpose. From brand visuals to marketing creatives, our graphics are clean, consistent, and intentional - helping your business communicate clearly, and professionally across every digital and print touchpoint.',
     tags: [
-      ['PAID ADS', 'EMAIL', 'ANALYTICS'],
-      ['SOCIAL MEDIA', 'GROWTH', 'SEO'],
+      ['BROCHURE', 'CATALOGUE', 'STANDEE'],
+      ['PACKAGING', 'EXHIBITION POSTERS'],
     ],
-    image: '/images/service-web-dev.webp',
+    image: '/images/service-content-strategy.jpg',
   },
 ]
 
@@ -203,15 +203,14 @@ export default function ServicesList() {
               {/* Title + description */}
               <div className="flex flex-col gap-5 lg:gap-8">
                 <h2
-                  className="service-title"
+                  className="service-title text-[28px] lg:text-[58px] whitespace-nowrap tracking-[-0.03em] lg:tracking-[-0.06em]"
                   style={{
                     fontFamily: "'Hanken Grotesk', sans-serif",
                     fontWeight: 400,
-                    fontSize: 'clamp(36px, 5.5vw, 88px)',
                     lineHeight: '0.92',
+                    textTransform: 'uppercase',
                     color: '#000',
                     margin: 0,
-                    whiteSpace: 'pre-line',
                   }}
                 >
                   {service.title}
@@ -222,8 +221,8 @@ export default function ServicesList() {
                   style={{
                     fontFamily: "'Hanken Grotesk', sans-serif",
                     fontWeight: 400,
-                    fontSize: 'clamp(14px, 1.3vw, 20px)',
-                    lineHeight: '1.6',
+                    fontSize: '20px',
+                    lineHeight: '28px',
                     color: '#000',
                     margin: 0,
                   }}
@@ -233,17 +232,17 @@ export default function ServicesList() {
               </div>
 
               {/* Tech tags */}
-              <div className="service-tags flex flex-col gap-2 lg:gap-[10px]">
+              <div className="service-tags flex flex-wrap gap-x-4 gap-y-1 lg:flex-col lg:gap-2 lg:gap-[10px]">
                 {service.tags.map((row, ri) => (
-                  <div key={ri} className="flex items-center flex-wrap gap-6 lg:gap-9">
+                  <div key={ri} className="flex items-center flex-wrap gap-x-4 gap-y-1 lg:gap-9">
                     {row.map((tag) => (
                       <span
                         key={tag}
+                        className="text-[16px] lg:text-[18px]"
                         style={{
                           fontFamily: "'Hanken Grotesk', sans-serif",
                           fontWeight: 400,
-                          fontSize: 'clamp(11px, 1vw, 16px)',
-                          lineHeight: '2',
+                          lineHeight: '1.4',
                           letterSpacing: '0.05em',
                           color: '#a4a4a4',
                         }}
@@ -258,7 +257,7 @@ export default function ServicesList() {
 
             {/* Right: image */}
             <div
-              className="service-image overflow-hidden w-full aspect-square lg:w-[36%] lg:shrink-0 lg:max-h-[calc(100vh-200px)]"
+              className="service-image overflow-hidden w-full aspect-square lg:aspect-none lg:w-[36%] lg:shrink-0 lg:h-[613px]"
             >
               <img
                 src={service.image}

@@ -163,13 +163,11 @@ export default function AboutTeam() {
 
         {/* Description */}
         <p
-          className="team-desc"
+          className="team-desc text-[22px] md:text-[28px] leading-[30px] md:leading-[34px]"
           style={{
             fontFamily: "'Hanken Grotesk', sans-serif",
             fontWeight: 400,
-            fontSize: '28px',
-            lineHeight: '34px',
-            letterSpacing: '0.01em',
+            letterSpacing: '0.3px',
             color: '#b8b8b8',
             maxWidth: 857,
             margin: 0,
@@ -209,10 +207,10 @@ export default function AboutTeam() {
 
             {/* Name */}
             <p
+              className="text-[22px] md:text-[clamp(16px,1.6vw,28px)]"
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 400,
-                fontSize: 'clamp(16px, 1.6vw, 28px)',
                 lineHeight: '1.3',
                 letterSpacing: '0.01em',
                 color: '#e5e5e5',
