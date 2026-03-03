@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from '@utils/gsap-utils'
 import SplitType from 'split-type'
 
-const FILTERS = ['ALL', 'WEBSITES', 'BRANDING', 'UI/UX', 'SOCIAL']
+const FILTERS = ['ALL', 'WEBSITE DEVELOPMENT', 'UI/UX STRATEGY', 'BRAND COMMUNICATION', 'MARKETING', 'GRAPHIC DESIGN']
 
 export default function WorksHero({ activeFilter, onFilterChange }) {
   const sectionRef = useRef(null)
@@ -63,7 +63,7 @@ export default function WorksHero({ activeFilter, onFilterChange }) {
         </h1>
 
         {/* Filter tabs */}
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-10">
+        <div className="flex items-center gap-x-6 overflow-x-auto md:gap-x-10 whitespace-nowrap" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {FILTERS.map((filter) => (
             <button
               key={filter}
@@ -73,7 +73,7 @@ export default function WorksHero({ activeFilter, onFilterChange }) {
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 400,
-                fontSize: 'clamp(13px, 1.3vw, 22px)',
+                fontSize: '20px',
                 lineHeight: 1,
                 color: activeFilter === filter ? '#0e0d0d' : '#a4a4a4',
                 background: 'none',

@@ -6,7 +6,7 @@ import SplitType from 'split-type'
 const PROJECTS = [
   {
     id: 1,
-    category: 'WEBSITES',
+    category: 'WEBSITE DEVELOPMENT',
     client: 'Alam By Tulsi Patel',
     description:
       'Alam by Tulsi Patel is a brand born from a vision to celebrate the beauty of India\'s rich textile heritage. Rooted in Gujarati traditions, each piece showcases the timeless artistry of marodi embroidery - brought to life through high-end, sustainable festive wear.',
@@ -18,7 +18,7 @@ const PROJECTS = [
   },
   {
     id: 2,
-    category: 'BRANDING',
+    category: ['WEBSITE DEVELOPMENT', 'UI/UX STRATEGY', 'GRAPHIC DESIGN'],
     client: '3D Creations',
     description:
       'A premium home décor brand specializing in 3D wallpaper collections for residential and bespoke interior projects.',
@@ -30,7 +30,7 @@ const PROJECTS = [
   },
   {
     id: 3,
-    category: 'WEBSITES',
+    category: ['WEBSITE DEVELOPMENT', 'GRAPHIC DESIGN'],
     client: 'Aura Femhealth',
     description:
       'AURA Fem Health is a dedicated platform for women that brings together ancient holistic practices and modern science to support overall well-being.',
@@ -42,7 +42,7 @@ const PROJECTS = [
   },
   {
     id: 4,
-    category: 'UI/UX',
+    category: ['WEBSITE DEVELOPMENT', 'MARKETING', 'UI/UX STRATEGY'],
     client: 'Nandita Sikchi',
     description:
       'Nandita Sikchi is an Indian D2C global fashion brand designing Indian ethnic ensembles deeply inspired by the centuries-old heritage of the land.',
@@ -54,11 +54,11 @@ const PROJECTS = [
   },
   {
     id: 5,
-    category: 'WEBSITES',
+    category: ['WEBSITE DEVELOPMENT'],
     client: 'Consult For Impact',
     description:
-      'A wellness brand brought to life online — warm, inviting, and designed to convert curious visitors into loyal clients.',
-    tags: ['WORDPRESS', 'UI/UX'],
+      'Built a purpose-driven consultancy platform delivering clear impact insights, showcasing services through structured content and a thoughtful digital experience.',
+    tags: ['FRAMER'],
     imageLeft: '/images/wl-p5-left.webp',
     imageRight: '/images/wl-p5-right.webp',
     aspectLeft: '3/4',
@@ -66,11 +66,11 @@ const PROJECTS = [
   },
   {
     id: 6,
-    category: 'SOCIAL',
+    category: ['WEBSITE DEVELOPMENT', 'UI/UX STRATEGY'],
     client: 'SKG Foundation',
     description:
-      'A fintech platform that makes complex finance feel accessible — dark, confident, and built for sophisticated users.',
-    tags: ['REACT', 'DESIGN'],
+      'Created a clean nonprofit website showcasing community work with clear messaging and meaningful engagement touchpoints.',
+    tags: ['FRAMER', 'DESIGN'],
     imageLeft: '/images/wl-p6-left.webp',
     imageRight: '/images/wl-p6-right.webp',
     aspectLeft: '3/4',
@@ -78,7 +78,7 @@ const PROJECTS = [
   },
   {
     id: 7,
-    category: 'BRANDING',
+    category: ['WEBSITE DEVELOPMENT'],
     client: 'Taurus Fashion',
     description:
       'Taurus is a designer fashion brand offering prêt clothing for men/women with a distinctive signature style.',
@@ -90,7 +90,7 @@ const PROJECTS = [
   },
   {
     id: 8,
-    category: 'WEBSITES',
+    category: ['WEBSITE DEVELOPMENT', 'GRAPHIC DESIGN'],
     client: 'Young Founders Lab',
     description:
       'Young Founders Lab blends a start-up incubator with professional development, equipping young professionals with expert training and mentorship to build real, revenue-generating ventures.',
@@ -102,7 +102,7 @@ const PROJECTS = [
   },
   {
     id: 9,
-    category: 'WEBSITES',
+    category: ['WEBSITE DEVELOPMENT', 'GRAPHIC DESIGN', 'UI/UX STRATEGY'],
     client: 'XY Percent',
     description:
       'XY Percent is a consulting firm dedicated to helping healthcare and professional practices unlock their full potential.',
@@ -114,7 +114,7 @@ const PROJECTS = [
   },
   {
     id: 10,
-    category: 'WEBSITES',
+    category: ['WEBSITE DEVELOPMENT', 'UI/UX STRATEGY'],
     client: 'Flow Store',
     description:
       'Flow Store is a developer-first platform changing the computing paradigm with a fully serverless cloud infrastructure for AI, ML, and data applications.',
@@ -193,11 +193,10 @@ function ProjectRow({ project, index }) {
       <div className="grid grid-cols-1 gap-3 mb-7 md:grid-cols-[28%_1fr_20%] md:gap-[2%] md:mb-7">
         {/* Category */}
         <span
-          className="row-category"
+          className="row-category text-[22px] md:text-[24px]"
           style={{
             fontFamily: "'Hanken Grotesk', sans-serif",
             fontWeight: 400,
-            fontSize: 'clamp(11px, 1vw, 16px)',
             letterSpacing: '0.08em',
             color: '#0e0d0d',
             textTransform: 'uppercase',
@@ -212,8 +211,8 @@ function ProjectRow({ project, index }) {
           style={{
             fontFamily: "'Hanken Grotesk', sans-serif",
             fontWeight: 400,
-            fontSize: 'clamp(14px, 1.2vw, 20px)',
-            lineHeight: '1.5',
+            fontSize: '20px',
+            lineHeight: '28px',
             color: '#0e0d0d',
             margin: 0,
           }}
@@ -229,7 +228,7 @@ function ProjectRow({ project, index }) {
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 400,
-                fontSize: 'clamp(11px, 1vw, 16px)',
+                fontSize: '20px',
                 letterSpacing: '0.06em',
                 color: '#a4a4a4',
                 textTransform: 'uppercase',
@@ -273,7 +272,7 @@ export default function WorksList({ filter }) {
 
   const filtered = filter === 'ALL'
     ? PROJECTS
-    : PROJECTS.filter((p) => p.category === filter)
+    : PROJECTS.filter((p) => Array.isArray(p.category) ? p.category.includes(filter) : p.category === filter)
 
   return (
     <section
