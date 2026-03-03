@@ -2,15 +2,18 @@ import { useRef, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, SplitText } from '@/utils/gsap-utils'
 
+
 const CLIENT_LOGOS = [
-  { src: '/images/client-xy-percent.webp', alt: 'XY Percent' },
-  { src: '/images/client-alam.webp', alt: 'Alam by Tulsi Patel' },
-  { src: '/images/client-nandita-sikchi.webp', alt: 'Nandita Sikchi' },
-  { src: '/images/client-sapana-jain.webp', alt: 'Sapana Jain' },
-  { src: '/images/client-flow.webp', alt: 'Flow Furniture' },
-  { src: '/images/client-hill-staytion.webp', alt: 'Hill Staytion' },
-  { src: '/images/client-consult-for-impact.webp', alt: 'Consult for Impact' },
-  { src: '/images/client-aura.webp', alt: 'Aura Fem Health' },
+  { src: '/images/client-xy-percent.webp', colorSrc: '/images/client-xy-percent-color.webp', alt: 'XY Percent' },
+  { src: '/images/client-alam.webp', colorSrc: '/images/client-alam-color.webp', alt: 'Alam by Tulsi Patel' },
+  { src: '/images/client-nandita-sikchi.webp', colorSrc: '/images/client-nandita-sikchi-color.webp', alt: 'Nandita Sikchi' },
+  { src: '/images/client-sapana-jain.webp', colorSrc: '/images/client-sapana-jain-color.webp', alt: 'Sapana Jain' },
+  { src: '/images/client-flow.webp', colorSrc: '/images/client-flow-color.webp', alt: 'Flow Furniture' },
+  { src: '/images/client-hill-staytion.webp', colorSrc: '/images/client-hill-staytion-color.webp', alt: 'Hill Staytion' },
+  { src: '/images/client-consult-for-impact.webp', colorSrc: '/images/client-consult-for-impact-color.webp', alt: 'Consult for Impact' },
+  { src: '/images/client-aura.webp', colorSrc: '/images/client-aura-color.webp', alt: 'Aura Fem Health' },
+  { src: '/images/client-skg.webp', colorSrc: '/images/client-skg-color.webp', alt: 'SKG Foundation' },
+  { src: '/images/client-love-native.webp', colorSrc: '/images/client-love-native-color.webp', alt: 'Love Native' },
 ]
 
 export default function OurClients() {
@@ -166,7 +169,26 @@ export default function OurClients() {
       repeat: -1,
     })
 
-    return () => tween.kill()
+    // Mobile: color logos when visible in the horizontal viewport
+    const checkColors = () => {
+      if (window.innerWidth >= 1024) return
+      const items = marquee.querySelectorAll('.logo-item')
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect()
+        const inView = rect.left < window.innerWidth && rect.right > 0
+        const bwImg = item.querySelector('.logo-bw')
+        const colorImg = item.querySelector('.logo-color')
+        if (!bwImg || !colorImg) return
+        bwImg.style.opacity = inView ? '0' : '1'
+        colorImg.style.opacity = inView ? '1' : '0'
+      })
+    }
+    gsap.ticker.add(checkColors)
+
+    return () => {
+      tween.kill()
+      gsap.ticker.remove(checkColors)
+    }
   }, [])
 
   return (
@@ -205,19 +227,19 @@ export default function OurClients() {
           {CLIENT_LOGOS.map((logo, i) => (
             <div
               key={i}
-              className="group relative flex items-center justify-center h-[65px] max-lg:h-[40px]"
+              className="logo-item group relative flex items-center justify-center h-[65px] max-lg:h-[40px]"
             >
               <img
                 src={logo.src}
                 alt={logo.alt}
-                className="h-full w-auto object-contain transition-opacity duration-300 group-hover:opacity-0"
+                className="logo-bw h-full w-auto object-contain lg:transition-opacity lg:duration-300 lg:group-hover:opacity-0"
               />
-              <span
-                className="absolute inset-0 flex items-center justify-center whitespace-nowrap text-sm font-medium uppercase tracking-widest text-[#393939] opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-lg:text-xs"
-                style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
-              >
-                {logo.alt}
-              </span>
+              <img
+                src={logo.colorSrc}
+                alt={logo.alt}
+                className="logo-color absolute h-full w-auto object-contain lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100"
+                style={{ opacity: 0 }}
+              />
             </div>
           ))}
           {/* Spacer to maintain gap between end and cloned start */}
