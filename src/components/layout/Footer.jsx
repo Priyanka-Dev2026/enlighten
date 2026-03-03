@@ -70,13 +70,13 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="border-t border-[#c1c1c1] bg-[#ffffff] px-[48px] py-[60px] max-lg:px-5 max-lg:py-12"
+      className="border-t border-[#c1c1c1] bg-[#ffffff] px-[48px] pt-[60px] pb-0 max-lg:px-5 max-lg:pt-8 max-lg:pb-0"
       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
       data-theme="light"
       data-scroll-section
     >
       {/* Top row */}
-      <div className="flex items-start justify-between gap-12 mb-[100px] max-lg:flex-col max-lg:gap-10 max-lg:mb-16">
+      <div className="flex items-start justify-between gap-12 mb-[100px] max-lg:flex-col max-lg:gap-6 max-lg:mb-8">
         {/* Credits */}
         <div className="flex items-start gap-[16px] shrink-0">
           <div className="size-[13px] bg-[#c96b00] mt-[5px]" />
@@ -166,7 +166,7 @@ export default function Footer() {
         <img
           src="/images/footer-logo.svg"
           alt="Enlighten Creatives"
-          className="w-full h-auto"
+          className="w-full h-auto block"
         />
       </div>
     </footer>
