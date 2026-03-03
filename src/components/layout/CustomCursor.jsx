@@ -6,6 +6,8 @@ export default function CustomCursor() {
   const followerRef = useRef(null)
 
   useEffect(() => {
+    if (window.innerWidth < 1024) return
+
     const cursor = cursorRef.current
     const follower = followerRef.current
 
@@ -56,11 +58,11 @@ export default function CustomCursor() {
     <>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white mix-blend-difference hidden lg:block"
       />
       <div
         ref={followerRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9998] h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50 mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-[9998] h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50 mix-blend-difference hidden lg:block"
       />
     </>
   )

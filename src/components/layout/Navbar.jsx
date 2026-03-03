@@ -267,7 +267,7 @@ export default function Navbar({ entranceComplete, variant = 'light' }) {
         <nav className="flex flex-col">
           {ALL_LINKS.map((link, i) => {
             const isInternal = link.href.startsWith('/')
-            const linkClass = "block py-5 text-[40px] font-medium text-white uppercase tracking-[-0.02em] border-b border-white/10 transition-opacity duration-200 active:opacity-50"
+            const linkClass = "block py-5 text-[26px] font-medium text-white uppercase tracking-[-0.02em] border-b border-white/10 transition-opacity duration-200 active:opacity-50"
             const linkStyle = { fontFamily: "'Hanken Grotesk', sans-serif" }
             return (
               <div
@@ -306,7 +306,7 @@ export default function Navbar({ entranceComplete, variant = 'light' }) {
           <a
             href="#contact"
             onClick={closeMenu}
-            className="inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-[14px] uppercase tracking-[0.8px] text-[#202020]"
+            className="flex w-full justify-center items-center gap-3 rounded-full bg-white px-8 py-4 text-[14px] uppercase tracking-[0.8px] text-[#202020]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
             GET IN TOUCH
