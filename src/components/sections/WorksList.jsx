@@ -189,8 +189,8 @@ function ProjectRow({ project, index }) {
         style={{ height: 1, backgroundColor: '#c0c0c0', marginBottom: 32 }}
       />
 
-      {/* Info row — stacked on mobile, 3 cols on desktop */}
-      <div className="grid grid-cols-1 gap-3 mb-7 md:grid-cols-[28%_1fr_20%] md:gap-[2%] md:mb-7">
+      {/* Info row — stacked on mobile, 2 cols on desktop (mirrors images row) */}
+      <div className="grid grid-cols-1 gap-3 mb-7 md:grid-cols-[28%_1fr] md:gap-[2%] md:mb-7">
         {/* Category */}
         <span
           className="row-category text-[22px] md:text-[24px]"
@@ -205,38 +205,41 @@ function ProjectRow({ project, index }) {
           {project.client}
         </span>
 
-        {/* Description */}
-        <p
-          className="row-desc"
-          style={{
-            fontFamily: "'Hanken Grotesk', sans-serif",
-            fontWeight: 400,
-            fontSize: '20px',
-            lineHeight: '28px',
-            color: '#0e0d0d',
-            margin: 0,
-          }}
-        >
-          {project.description}
-        </p>
+        {/* Description + Tags — side by side on desktop, stacked on mobile */}
+        <div className="flex flex-col gap-3 md:flex-row md:items-start">
+          {/* Description */}
+          <p
+            className="row-desc md:flex-1"
+            style={{
+              fontFamily: "'Hanken Grotesk', sans-serif",
+              fontWeight: 400,
+              fontSize: '20px',
+              lineHeight: '28px',
+              color: '#0e0d0d',
+              margin: 0,
+            }}
+          >
+            {project.description}
+          </p>
 
-        {/* Tags */}
-        <div className="row-tags flex flex-row items-center md:justify-end" style={{ gap: 12 }}>
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              style={{
-                fontFamily: "'Hanken Grotesk', sans-serif",
-                fontWeight: 400,
-                fontSize: '20px',
-                letterSpacing: '0.06em',
-                color: '#a4a4a4',
-                textTransform: 'uppercase',
-              }}
-            >
-              {tag}
-            </span>
-          ))}
+          {/* Tags */}
+          <div className="row-tags flex flex-row items-center md:flex-1 md:justify-end" style={{ gap: 12 }}>
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  fontFamily: "'Hanken Grotesk', sans-serif",
+                  fontWeight: 400,
+                  fontSize: '20px',
+                  letterSpacing: '0.06em',
+                  color: '#a4a4a4',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
