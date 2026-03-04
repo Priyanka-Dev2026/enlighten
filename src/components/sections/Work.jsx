@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, SplitText } from '@/utils/gsap-utils'
 import CTAButton from '@components/ui/CTAButton'
@@ -73,7 +73,6 @@ function scrambleText(element, newText, duration = 0.6) {
   }
 
   rafId = requestAnimationFrame(update)
-  // Return cancel function — always set final text on cancel
   return () => {
     if (rafId) cancelAnimationFrame(rafId)
     element.textContent = newText
@@ -85,12 +84,15 @@ export default function Work() {
   const headerLabelRef = useRef(null)
   const headerTextRef = useRef(null)
   const headerCtaRef = useRef(null)
+  // The overlay is position:fixed — it lives in the viewport, JS shows/hides it
+  // as the cards scroll. Same effect as M&C's GSAP-pinned section approach,
+  // but without ScrollTrigger (which breaks due to the Hero pin offset).
+  const overlayRef = useRef(null)
   const titleRef = useRef(null)
   const descRef = useRef(null)
   const categoryRef = useRef(null)
   const yearRef = useRef(null)
   const cardsContainerRef = useRef(null)
-  const firstCardRef = useRef(null)
   const activeIndexRef = useRef(0)
   const cancelScrambleRef = useRef({ title: null, desc: null, category: null, year: null })
 
@@ -118,46 +120,46 @@ export default function Work() {
     gsap.set(split.lines, { opacity: 0, y: '100%' })
     gsap.set(headerCtaRef.current, { opacity: 0, y: 20 })
 
-    let triggered = false
-    const onScroll = () => {
-      if (triggered) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      const vh = window.innerHeight
-      if (rect.top < vh * 0.4) {
-        triggered = true
-        const tl = gsap.timeline()
-        tl.to(label, { opacity: 1, y: 0, duration: 1.1, ease: 'smoothOut' }, 0)
-        tl.to(split.lines, { opacity: 1, y: '0%', duration: 1.3, stagger: 0.12, ease: 'smoothOut' }, 0.1)
-        tl.to(headerCtaRef.current, { opacity: 1, y: 0, duration: 1.1, ease: 'smoothOut' }, 0.5)
-      }
-    }
-
-    const lenis = window.__lenis
-    if (lenis) lenis.on('scroll', onScroll)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+    // IntersectionObserver fires synchronously with layout — reliable on Safari
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          const tl = gsap.timeline()
+          tl.to(label, { opacity: 1, y: 0, duration: 1.1, ease: 'smoothOut' }, 0)
+          tl.to(split.lines, { opacity: 1, y: '0%', duration: 1.3, stagger: 0.12, ease: 'smoothOut' }, 0.1)
+          tl.to(headerCtaRef.current, { opacity: 1, y: 0, duration: 1.1, ease: 'smoothOut' }, 0.5)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '0px 0px -60% 0px', threshold: 0 }
+    )
+    observer.observe(sectionRef.current)
 
     return () => {
-      if (lenis) lenis.off('scroll', onScroll)
-      window.removeEventListener('scroll', onScroll)
+      observer.disconnect()
       split.revert()
     }
   }, { scope: sectionRef })
 
-  // Scroll-driven background transition using Lenis scroll events directly
-  // Bypasses ScrollTrigger to avoid Hero pin offset issues
+  // Background transition + fixed overlay show/hide
   useEffect(() => {
     const section = sectionRef.current
-    if (!section) return
+    const overlay = overlayRef.current
+    const container = cardsContainerRef.current
+    if (!section || !overlay || !container) return
 
-    const updateBg = () => {
-      const rect = section.getBoundingClientRect()
+    // Track overlay visibility so we only tween on state change
+    let overlayVisible = false
+
+    const update = () => {
+      const sectionRect = section.getBoundingClientRect()
+      const containerRect = container.getBoundingClientRect()
       const vh = window.innerHeight
 
+      // ── Background colour transition (white → dark) ──
       const start = vh
       const end = vh * 0.2
-      const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)))
-
+      const progress = Math.min(1, Math.max(0, (start - sectionRect.top) / (start - end)))
       const v = Math.round(255 + (32 - 255) * progress)
       section.style.backgroundColor = `rgb(${v}, ${v}, ${v})`
 
@@ -165,8 +167,6 @@ export default function Work() {
       lightSections.forEach((el) => {
         if (progress > 0) {
           el.style.backgroundColor = `rgb(${v}, ${v}, ${v})`
-          // Text stays dark while bg is still light, then flips to white
-          // as bg gets dark — transition over progress 0.5 → 0.7
           const textProgress = Math.min(1, Math.max(0, (progress - 0.5) / 0.2))
           const textV = Math.round(57 + (255 - 57) * textProgress)
           el.style.color = `rgb(${textV}, ${textV}, ${textV})`
@@ -176,25 +176,43 @@ export default function Work() {
         }
       })
 
-      // First card: scale up from 0.88 → 1 and round corners 16px → 0
-      const firstCard = firstCardRef.current
-      if (firstCard) {
-        const scale = 0.88 + 0.12 * progress
-        const radius = Math.round(16 * (1 - progress))
-        firstCard.style.transform = `scale(${scale})`
-        firstCard.style.borderRadius = `${radius}px`
-      }
 
+      // ── Fixed overlay: clamp to last card ──
+      // As the last card scrolls away, translate the overlay upward so the
+      // text never floats outside the card. When containerRect.bottom is less
+      // than the overlay height, the delta is negative → overlay tracks the card.
+      const overlayH = overlay.offsetHeight
+      const clampedY = Math.min(0, containerRect.bottom - overlayH)
+      overlay.style.transform = `translateY(${clampedY}px)`
+
+      // ── Fixed overlay visibility ──
+      const shouldShow = containerRect.top <= 0 && containerRect.bottom > 0
+      if (shouldShow !== overlayVisible) {
+        overlayVisible = shouldShow
+        if (shouldShow) {
+          // Appear instantly — no fade in
+          gsap.set(overlay, { opacity: 1 })
+        } else {
+          gsap.to(overlay, { opacity: 0, duration: 0.25, overwrite: true, ease: 'power2.inOut' })
+        }
+      }
     }
 
-    const lenis = window.__lenis
-    if (lenis) lenis.on('scroll', updateBg)
-    window.addEventListener('scroll', updateBg, { passive: true })
-    updateBg()
+    let lenisSubscribed = false
+    const subscribeLenis = () => {
+      if (lenisSubscribed) return
+      const lenis = window.__lenis
+      if (lenis) { lenis.on('scroll', update); lenisSubscribed = true }
+    }
+    subscribeLenis()
+    const rafId = requestAnimationFrame(subscribeLenis)
+    window.addEventListener('scroll', update, { passive: true })
+    update()
 
     return () => {
-      if (lenis) lenis.off('scroll', updateBg)
-      window.removeEventListener('scroll', updateBg)
+      cancelAnimationFrame(rafId)
+      if (window.__lenis) window.__lenis.off('scroll', update)
+      window.removeEventListener('scroll', update)
     }
   }, [])
 
@@ -225,13 +243,11 @@ export default function Work() {
         activeIndexRef.current = closestIndex
         const project = projects[closestIndex]
 
-        // Cancel any running scramble
         if (cancelScrambleRef.current.title) cancelScrambleRef.current.title()
         if (cancelScrambleRef.current.desc) cancelScrambleRef.current.desc()
         if (cancelScrambleRef.current.category) cancelScrambleRef.current.category()
         if (cancelScrambleRef.current.year) cancelScrambleRef.current.year()
 
-        // Start new scramble
         cancelScrambleRef.current.title = scrambleText(titleRef.current, project.title, 0.5)
         cancelScrambleRef.current.desc = scrambleText(descRef.current, project.description, 0.5)
         cancelScrambleRef.current.category = scrambleText(categoryRef.current, project.category, 0.3)
@@ -239,9 +255,6 @@ export default function Work() {
       }
     }
 
-    // useEffect in children runs before the parent SmoothScroll sets window.__lenis.
-    // Subscribe immediately (covers desktop re-renders) then retry after one RAF
-    // to catch the case where SmoothScroll's useEffect hasn't run yet.
     let lenisSubscribed = false
     const subscribeLenis = () => {
       if (lenisSubscribed) return
@@ -250,7 +263,6 @@ export default function Work() {
     }
     subscribeLenis()
     const rafId = requestAnimationFrame(subscribeLenis)
-
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
 
@@ -291,55 +303,55 @@ export default function Work() {
         </div>
       </div>
 
-      {/* Projects area — grid stacking: both children share same cell so no
-          negative margin is needed. This fixes position:sticky on Safari iOS
-          which breaks when a sibling has a negative margin equal to the
-          sticky element's height. */}
-      <div className="grid" style={{ gridTemplateAreas: "'stack'" }}>
-        {/* Project cards — first in DOM, defines the grid row height */}
-        <div ref={cardsContainerRef} style={{ gridArea: 'stack' }}>
-          {projects.map((project, i) => (
-            <ProjectCard
-              key={i}
-              project={project}
-              index={i}
-              scaleRef={i === 0 ? firstCardRef : undefined}
-            />
-          ))}
+      {/*
+        Fixed overlay — mimics M&C's GSAP-pin approach without ScrollTrigger.
+        M&C pins the whole section so their absolute overlay stays in the viewport.
+        We achieve the same effect: overlay is position:fixed (always in viewport),
+        and JS fades it in/out based on whether the cards container is scrolling past.
+        No sticky quirks, no Safari containing-block bugs.
+      */}
+      <div
+        ref={overlayRef}
+        className="fixed top-0 left-0 right-0 z-10 flex h-[177.78vw] flex-col justify-between pointer-events-none px-6 pb-10 lg:h-[47.5vw] md:px-[107px] md:pb-[47px]"
+        style={{ opacity: 0, fontFamily: "'Hanken Grotesk', sans-serif" }}
+      >
+        {/* Title + Description — vertically centered */}
+        <div className="flex flex-1 items-center">
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-14">
+            <p ref={titleRef} className="text-[22px] font-semibold text-white tracking-wide md:text-2xl">
+              {projects[0].title}
+            </p>
+            <p ref={descRef} className="text-[20px] font-normal text-white/80 tracking-wide md:text-2xl md:text-white">
+              {projects[0].description}
+            </p>
+          </div>
         </div>
+        {/* Category + Year — pinned to bottom */}
+        <div className="flex items-center gap-6 text-xs tracking-wide text-white/75 md:text-lg md:gap-8">
+          <p ref={categoryRef}>{projects[0].category}</p>
+          <p ref={yearRef}>{projects[0].year}</p>
+        </div>
+      </div>
 
-        {/* Sticky title + description + tags overlay — layered on top via z-10 */}
-        <div
-          className="sticky top-0 z-10 flex h-[177.78vw] lg:h-[47.5vw] flex-col justify-between pointer-events-none px-6 pb-10 md:px-[107px] md:pb-[47px] self-start"
-          style={{ gridArea: 'stack', fontFamily: "'Hanken Grotesk', sans-serif" }}
-        >
-          {/* Title + Description — vertically centered */}
-          <div className="flex flex-1 items-center">
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-14">
-              <p ref={titleRef} className="text-[22px] font-semibold text-white tracking-wide md:text-2xl">
-                {projects[0].title}
-              </p>
-              <p ref={descRef} className="text-[20px] font-normal text-white/80 tracking-wide md:text-2xl md:text-white">
-                {projects[0].description}
-              </p>
-            </div>
-          </div>
-          {/* Category + Year — pinned to bottom */}
-          <div className="flex items-center gap-6 text-xs tracking-wide text-white/75 md:text-lg md:gap-8">
-            <p ref={categoryRef}>{projects[0].category}</p>
-            <p ref={yearRef}>{projects[0].year}</p>
-          </div>
-        </div>
+      {/* Project cards — normal stacked flow, scroll underneath the fixed overlay */}
+      <div ref={cardsContainerRef}>
+        {projects.map((project, i) => (
+          <ProjectCard
+            key={i}
+            project={project}
+            index={i}
+          />
+        ))}
       </div>
     </section>
   )
 }
 
-function ProjectCard({ project, index, scaleRef }) {
+function ProjectCard({ project, index }) {
   const cardRef = useRef(null)
   const imgRef = useRef(null)
 
-  // Parallax on the image — runs on all screen sizes
+  // Parallax on the image
   useEffect(() => {
     const card = cardRef.current
     const img = imgRef.current
@@ -364,17 +376,11 @@ function ProjectCard({ project, index, scaleRef }) {
     }
   }, [])
 
-  // Pick the right image src — mobileImage via CSS picture element for responsiveness
   return (
     <div
-      ref={(el) => {
-        cardRef.current = el
-        if (scaleRef) scaleRef.current = el
-      }}
+      ref={cardRef}
       className="project-card relative h-[177.78vw] lg:h-[47.5vw] w-full overflow-hidden"
-      style={scaleRef ? { willChange: 'transform', transform: 'scale(0.88)', borderRadius: '16px' } : undefined}
     >
-      {/* Responsive image: mobile src below 1024px, desktop src above */}
       <picture>
         <source media="(max-width: 1023px)" srcSet={project.mobileImage || project.image} />
         <img
@@ -386,7 +392,6 @@ function ProjectCard({ project, index, scaleRef }) {
           loading={index === 0 ? 'eager' : 'lazy'}
         />
       </picture>
-      {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/25" />
     </div>
   )

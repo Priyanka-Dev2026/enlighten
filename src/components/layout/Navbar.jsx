@@ -6,7 +6,7 @@ import { gsap } from '@utils/gsap-utils'
 const NAV_LINKS_LEFT = [
   { label: 'HOME', href: '/' },
   { label: 'SERVICES', href: '/services' },
-  { label: 'OUR WORKS', href: '/works' },
+  { label: 'WORK', href: '/works' },
 ]
 
 const NAV_LINKS_RIGHT = [

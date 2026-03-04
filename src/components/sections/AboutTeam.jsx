@@ -173,8 +173,7 @@ export default function AboutTeam() {
             margin: 0,
           }}
         >
-          Talks open the door to deeper exploration of topics and themes, and are an invitation to
-          find inspiration.
+          The minds and hearts behind Enlighten - passionate, thoughtful creators building with purpose and partnership.
         </p>
       </div>
 
