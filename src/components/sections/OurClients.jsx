@@ -4,16 +4,20 @@ import { gsap, SplitText } from '@/utils/gsap-utils'
 
 
 const CLIENT_LOGOS = [
-  { src: '/images/client-xy-percent.webp', colorSrc: '/images/client-xy-percent-color.webp', alt: 'XY Percent' },
-  { src: '/images/client-alam.webp', colorSrc: '/images/client-alam-color.webp', alt: 'Alam by Tulsi Patel' },
-  { src: '/images/client-nandita-sikchi.webp', colorSrc: '/images/client-nandita-sikchi-color.webp', alt: 'Nandita Sikchi' },
-  { src: '/images/client-sapana-jain.webp', colorSrc: '/images/client-sapana-jain-color.webp', alt: 'Sapana Jain' },
-  { src: '/images/client-flow.webp', colorSrc: '/images/client-flow-color.webp', alt: 'Flow Furniture' },
-  { src: '/images/client-hill-staytion.webp', colorSrc: '/images/client-hill-staytion-color.webp', alt: 'Hill Staytion' },
+  { src: '/images/client-xy-percent.svg', colorSrc: '/images/client-xy-percent-color.svg', alt: 'XY Percent' },
+  { src: '/images/client-alam.svg', colorSrc: '/images/client-alam-color.svg', alt: 'Alam by Tulsi Patel' },
+  { src: '/images/client-nandita-sikchi.svg', colorSrc: '/images/client-nandita-sikchi-color.svg', alt: 'Nandita Sikchi', itemClass: 'h-[39px] max-lg:h-[24px]' },
+  { src: '/images/client-sapna-jain.svg', colorSrc: '/images/client-sapna-jain-color.svg', alt: 'Sapna Jain', itemClass: 'h-[45px] max-lg:h-[28px]' },
+  { src: '/images/client-flow.svg', colorSrc: '/images/client-flow-color.svg', alt: 'Flow Furniture' },
+  { src: '/images/client-hill-staytion.svg', colorSrc: '/images/client-hill-staytion-color.svg', alt: 'Hill Staytion', itemClass: 'h-[72px] max-lg:h-[44px]' },
   { src: '/images/client-consult-for-impact.webp', colorSrc: '/images/client-consult-for-impact-color.webp', alt: 'Consult for Impact' },
-  { src: '/images/client-aura.webp', colorSrc: '/images/client-aura-color.webp', alt: 'Aura Fem Health' },
-  { src: '/images/client-skg.webp', colorSrc: '/images/client-skg-color.webp', alt: 'SKG Foundation' },
+  { src: '/images/client-aura.svg', colorSrc: '/images/client-aura-color.svg', alt: 'Aura Fem Health' },
+  { src: '/images/client-skg.svg', colorSrc: '/images/client-skg-color.svg', alt: 'Smt. Krishna Goel', itemClass: 'h-[59px] max-lg:h-[36px]' },
   { src: '/images/client-love-native.webp', colorSrc: '/images/client-love-native-color.webp', alt: 'Love Native' },
+  { src: '/images/client-keo.svg', colorSrc: '/images/client-keo-color.svg', alt: 'Keo', itemClass: 'h-[52px] max-lg:h-[32px]' },
+  { src: '/images/client-raw-wood-shed.svg', colorSrc: '/images/client-raw-wood-shed-color.svg', alt: 'Raw Wood Shed' },
+  { src: '/images/client-kanta.svg', colorSrc: '/images/client-kanta-color.svg', alt: 'Kanta' },
+  { src: '/images/client-3d-concepts.svg', colorSrc: '/images/client-3d-concepts-color.svg', alt: '3D Concepts' },
 ]
 
 export default function OurClients() {
@@ -227,7 +231,7 @@ export default function OurClients() {
           {CLIENT_LOGOS.map((logo, i) => (
             <div
               key={i}
-              className="logo-item group relative flex items-center justify-center h-[65px] max-lg:h-[40px]"
+              className={`logo-item group relative flex items-center justify-center ${logo.itemClass ?? 'h-[65px] max-lg:h-[40px]'}`}
             >
               <img
                 src={logo.src}

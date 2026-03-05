@@ -9,7 +9,7 @@
  *  - href: optional link destination
  *  - className: extra classes on wrapper
  */
-export default function CTAButton({ label, variant = 'light', href, className = '' }) {
+export default function CTAButton({ label, variant = 'light', href, onClick, className = '' }) {
   const isLight = variant === 'light'
 
   const pillBg = isLight
@@ -22,8 +22,8 @@ export default function CTAButton({ label, variant = 'light', href, className = 
 
   const arrowColor = 'currentColor'
 
-  const Tag = href ? 'a' : 'div'
-  const linkProps = href ? { href } : {}
+  const Tag = onClick ? 'button' : href ? 'a' : 'div'
+  const linkProps = onClick ? { onClick, type: 'button' } : href ? { href } : {}
 
   return (
     <Tag

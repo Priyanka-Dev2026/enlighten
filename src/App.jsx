@@ -20,11 +20,15 @@ import Work from '@components/sections/Work'
 import WhatWeDo from '@components/sections/WhatWeDo'
 import OurClients from '@components/sections/OurClients'
 import Testimonials from '@components/sections/Testimonials'
+import ContactPopup from '@components/layout/ContactPopup'
 import AlwaysOn from '@components/sections/AlwaysOn'
+import Insights from '@components/sections/Insights'
 import SpringToAction from '@components/sections/SpringToAction'
 import AboutPage from '@/pages/AboutPage'
 import ServicesPage from '@/pages/ServicesPage'
 import WorksPage from '@/pages/WorksPage'
+import InsightsPage from '@/pages/InsightsPage'
+import InsightDetailPage from '@/pages/InsightDetailPage'
 
 function HomePage() {
   const [entranceComplete, setEntranceComplete] = useState(false)
@@ -43,6 +47,7 @@ function HomePage() {
         <OurClients />
         <Testimonials />
         <AlwaysOn />
+        <Insights />
         <SpringToAction />
       </main>
       <Footer />
@@ -54,11 +59,14 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <ContactPopup />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/works" element={<WorksPage />} />
+        <Route path="/insights" element={<InsightsPage />} />
+        <Route path="/insights/:slug" element={<InsightDetailPage />} />
       </Routes>
     </>
   )

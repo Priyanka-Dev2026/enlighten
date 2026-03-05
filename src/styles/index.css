@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Ensure page content sits above the fixed footer (z-index: 0) */
+#main-content {
+  position: relative;
+  z-index: 1;
+}
+
 /* Custom font imports — add font files to /public/fonts/ */
 @font-face {
   font-family: 'Sentient';

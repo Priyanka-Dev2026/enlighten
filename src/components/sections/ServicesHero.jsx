@@ -16,10 +16,19 @@ export default function ServicesHero() {
       wrapper.appendChild(line)
     })
 
+    const body = new SplitType('.services-hero-body', { types: 'lines' })
+    body.lines?.forEach((line) => {
+      const wrapper = document.createElement('div')
+      wrapper.style.overflow = 'hidden'
+      wrapper.style.display = 'block'
+      line.parentNode.insertBefore(wrapper, line)
+      wrapper.appendChild(line)
+    })
+
     gsap.set(heading.lines, { yPercent: 110 })
     gsap.set('.services-hero-image', { scale: 1.08, opacity: 0 })
     gsap.set('.services-hero-label', { opacity: 0, x: -24 })
-    gsap.set('.services-hero-body', { opacity: 0, y: 16 })
+    gsap.set(body.lines, { yPercent: 110 })
 
     const tl = gsap.timeline({ delay: 0.1 })
 
@@ -41,12 +50,13 @@ export default function ServicesHero() {
         duration: 0.8,
         ease: 'smoothOut',
       }, '-=0.4')
-      .to('.services-hero-body', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'smoothOut',
-      }, '-=0.5')
+      .to(body.lines, {
+        yPercent: 0,
+        duration: 1.0,
+        ease: 'smooth',
+        stagger: 0.04,
+        onComplete: () => body.revert(),
+      }, '-=0.6')
   }, { scope: sectionRef })
 
   return (

@@ -11,7 +11,7 @@ const NAV_LINKS_LEFT = [
 
 const NAV_LINKS_RIGHT = [
   { label: 'ABOUT US', href: '/about' },
-  { label: 'INSIGHTS', href: '#insights' },
+  { label: 'INSIGHTS', href: '/insights' },
 ]
 
 const ALL_LINKS = [...NAV_LINKS_LEFT, ...NAV_LINKS_RIGHT]
@@ -303,14 +303,13 @@ export default function Navbar({ entranceComplete, variant = 'light' }) {
           ref={(el) => { menuLinksRef.current[ALL_LINKS.length] = el }}
           className="pb-4"
         >
-          <a
-            href="#contact"
-            onClick={closeMenu}
+          <button
+            onClick={() => { closeMenu(); window.dispatchEvent(new CustomEvent('open-contact-popup')) }}
             className="flex w-full justify-center items-center gap-3 rounded-full bg-white px-8 py-4 text-[14px] uppercase tracking-[0.8px] text-[#202020]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
             GET IN TOUCH
-          </a>
+          </button>
         </div>
       </div>
 
@@ -389,9 +388,9 @@ export default function Navbar({ entranceComplete, variant = 'light' }) {
           ))}
 
           {/* CTA button + arrow */}
-          <a
+          <button
             ref={setLinkRef(NAV_LINKS_LEFT.length + NAV_LINKS_RIGHT.length)}
-            href="#contact"
+            onClick={() => window.dispatchEvent(new CustomEvent('open-contact-popup'))}
             className="group flex items-center"
             data-cursor-hover
           >
@@ -418,7 +417,7 @@ export default function Navbar({ entranceComplete, variant = 'light' }) {
                 </svg>
               </span>
             </span>
-          </a>
+          </button>
         </div>
 
         {/* Mobile: hamburger / close button (hidden until entrance completes) */}

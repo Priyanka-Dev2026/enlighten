@@ -168,7 +168,7 @@ export default function ServicesList() {
       {SERVICES.map((service, i) => (
         <div
           key={i}
-          className="service-item bg-white overflow-hidden flex flex-col p-5 h-screen sticky top-0 lg:p-[48px]"
+          className="service-item bg-white overflow-hidden flex flex-col p-5 lg:h-screen lg:sticky lg:top-0 lg:p-[48px]"
         >
           {/* Top divider */}
           <div

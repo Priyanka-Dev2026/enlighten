@@ -256,7 +256,7 @@ export default function SpringToAction() {
           ref={ctaRef}
           className="mt-16 flex items-center justify-center"
         >
-          <CTAButton label="CONNECT WITH US" variant="dark" href="#contact" />
+          <CTAButton label="CONNECT WITH US" variant="dark" onClick={() => window.dispatchEvent(new CustomEvent('open-contact-popup'))} />
         </div>
       </div>
 
@@ -272,7 +272,7 @@ export default function SpringToAction() {
           {' '}nurture growth.
         </p>
         <div ref={mobileCtaRef} className="flex items-center justify-start">
-          <CTAButton label="CONNECT WITH US" variant="dark" href="#contact" />
+          <CTAButton label="CONNECT WITH US" variant="dark" onClick={() => window.dispatchEvent(new CustomEvent('open-contact-popup'))} />
         </div>
       </div>
     </section>

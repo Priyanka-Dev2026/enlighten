@@ -6,6 +6,7 @@ import Footer from '@components/layout/Footer'
 import AboutHero from '@components/sections/AboutHero'
 import AboutValues from '@components/sections/AboutValues'
 import AboutTeam from '@components/sections/AboutTeam'
+import AboutWorkWithUs from '@components/sections/AboutWorkWithUs'
 
 export default function AboutPage() {
   useSEO({
@@ -21,6 +22,7 @@ export default function AboutPage() {
         <AboutHero />
         <AboutValues />
         <AboutTeam />
+        <AboutWorkWithUs />
       </main>
       <Footer />
     </SmoothScroll>

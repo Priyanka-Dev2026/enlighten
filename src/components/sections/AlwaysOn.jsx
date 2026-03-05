@@ -98,14 +98,17 @@ export default function AlwaysOn() {
     <section
       ref={sectionRef}
       id="always-on"
-      className="relative w-full overflow-hidden h-[60vh] lg:h-screen"
+      className="relative w-full overflow-hidden h-[60vh] lg:h-[90vh]"
       data-scroll-section
     >
-      {/* Background — GIF on desktop, MP4 video on mobile */}
-      <img
-        src="/images/always-on-bg.gif"
-        alt=""
+      {/* Background — MP4 video on desktop, MP4 video on mobile */}
+      <video
         className="absolute inset-0 h-full w-full object-cover hidden lg:block"
+        src="/images/always-on-bg-desktop.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
       />
       <video
         className="absolute inset-0 h-full w-full object-cover lg:hidden"
@@ -124,16 +127,13 @@ export default function AlwaysOn() {
         }}
       />
 
-      {/* Content — 3-slot flex: spacer / center content / bottom pills */}
+      {/* Content — vertically centered, left-aligned */}
       <div
         ref={contentRef}
-        className="relative z-10 flex h-full flex-col justify-between p-[81px] max-lg:px-5 max-lg:py-16"
+        className="relative z-10 flex h-full flex-col justify-center gap-10 p-[81px] max-lg:px-5 max-lg:py-0"
         style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
       >
-        {/* Top spacer — pushes center content to vertical middle */}
-        <div />
-
-        {/* Center: Heading + Clocks — left-aligned */}
+        {/* Heading + Clocks — left-aligned */}
         <div className="flex flex-col gap-[13px] max-w-[874px] text-white">
           <h2 className="ao-heading text-[clamp(60px,10vw,157px)] font-extrabold uppercase leading-[1.07] tracking-[0.01em]">
             Always on
@@ -153,7 +153,7 @@ export default function AlwaysOn() {
           </div>
         </div>
 
-        {/* Bottom: Social pills */}
+        {/* Social pills */}
         <div className="flex gap-[12px] flex-wrap">
           {SOCIALS.map((name) => (
             <span
