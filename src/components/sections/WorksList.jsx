@@ -138,7 +138,7 @@ const PROJECTS = [
   },
 ]
 
-function ProjectRow({ project, index }) {
+function ProjectRow({ project }) {
   const rowRef = useRef(null)
 
   useGSAP(() => {
@@ -166,34 +166,47 @@ function ProjectRow({ project, index }) {
     const descSplit = new SplitType(descEl, { types: 'lines' })
     wrapLines(descSplit)
 
+    const isMobile = window.innerWidth < 768
+
     // ── Initial states ─────────────────────────────────────────────────
     gsap.set(divider, { scaleX: 0, transformOrigin: 'left center' })
     gsap.set(catSplit.lines, { yPercent: 110 })
     gsap.set(descSplit.lines, { yPercent: 110 })
     gsap.set(tagsEl, { opacity: 0, y: 12 })
-    // Both images slide up from bottom
-    gsap.set(leftImg, { y: 80, opacity: 0 })
-    gsap.set(rightImg, { y: 80, opacity: 0 })
+    gsap.set(leftImg, { y: isMobile ? 40 : 80, opacity: 0 })
+    gsap.set(rightImg, { y: isMobile ? 40 : 80, opacity: 0 })
 
-    // ── Timeline ───────────────────────────────────────────────────────
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: rowRef.current,
-        start: 'top 82%',
-        toggleActions: 'play none none none',
+    // ── IntersectionObserver — fires reliably on mount and filter change ─
+    // rootMargin fires when row top is 40px above viewport bottom — consistent
+    // regardless of element height (fixes threshold: 0.05 being unpredictable
+    // on tall mobile rows with stacked images)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return
+        observer.disconnect()
+
+        const tl = gsap.timeline()
+        tl.to(divider, { scaleX: 1, duration: 0.5, ease: 'smoothOut' })
+          .to(catSplit.lines, { yPercent: 0, duration: 0.45, ease: 'smooth' }, '-=0.25')
+          .to(descSplit.lines, { yPercent: 0, duration: 0.6, ease: 'smooth', stagger: 0.04 }, '-=0.3')
+          .to(tagsEl, { opacity: 1, y: 0, duration: 0.4, ease: 'smoothOut' }, '-=0.4')
+          .to(leftImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, '-=0.35')
+          // Mobile: stacked images get a clear stagger; desktop: near-simultaneous
+          .to(rightImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, isMobile ? '-=0.4' : '-=0.6')
       },
-    })
+      { threshold: 0, rootMargin: '0px 0px -40px 0px' }
+    )
+    observer.observe(rowRef.current)
 
-    tl.to(divider, { scaleX: 1, duration: 0.5, ease: 'smoothOut' })
-      .to(catSplit.lines, { yPercent: 0, duration: 0.45, ease: 'smooth' }, '-=0.25')
-      .to(descSplit.lines, { yPercent: 0, duration: 0.6, ease: 'smooth', stagger: 0.04 }, '-=0.3')
-      .to(tagsEl, { opacity: 1, y: 0, duration: 0.4, ease: 'smoothOut' }, '-=0.4')
-      .to(leftImg, { y: 0, opacity: 1, duration: 0.75, ease: 'smoothOut' }, '-=0.35')
-      .to(rightImg, { y: 0, opacity: 1, duration: 0.75, ease: 'smoothOut' }, '-=0.6')
+    return () => {
+      observer.disconnect()
+      catSplit.revert()
+      descSplit.revert()
+    }
   }, { scope: rowRef })
 
   return (
-    <div ref={rowRef} className="project-row" style={{ paddingBottom: 64 }} data-cursor-hover>
+    <div ref={rowRef} className="project-row pb-10 md:pb-16" data-cursor-hover>
 
       {/* Divider */}
       <div
@@ -298,9 +311,9 @@ export default function WorksList({ filter }) {
       aria-label="Project portfolio"
     >
       <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        {filtered.map((project, i) => (
-          <li key={project.id}>
-            <ProjectRow project={project} index={i} />
+        {filtered.map((project) => (
+          <li key={`${project.id}-${filter}`}>
+            <ProjectRow project={project} />
           </li>
         ))}
       </ol>

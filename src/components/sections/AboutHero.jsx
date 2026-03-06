@@ -68,7 +68,7 @@ export default function AboutHero() {
     // Set initial states
     gsap.set(heading.lines, { yPercent: 110 })
     gsap.set('.about-hero-image', { scale: 1.08, opacity: 0 })
-    gsap.set('.about-hero-label', { opacity: 0, x: -24 })
+    gsap.set('.about-hero-label', { opacity: 0, y: 30 })
     gsap.set(body.lines, { yPercent: 110 })
 
     // Master timeline — runs on page load (no scroll trigger needed, this is the hero)
@@ -93,7 +93,7 @@ export default function AboutHero() {
     // 3. Label slides in
     tl.to('.about-hero-label', {
       opacity: 1,
-      x: 0,
+      y: 0,
       duration: 0.8,
       ease: 'smoothOut',
     }, '-=0.4')

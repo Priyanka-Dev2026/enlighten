@@ -27,7 +27,7 @@ export default function ServicesHero() {
 
     gsap.set(heading.lines, { yPercent: 110 })
     gsap.set('.services-hero-image', { scale: 1.08, opacity: 0 })
-    gsap.set('.services-hero-label', { opacity: 0, x: -24 })
+    gsap.set('.services-hero-label', { opacity: 0, y: 30 })
     gsap.set(body.lines, { yPercent: 110 })
 
     const tl = gsap.timeline({ delay: 0.1 })
@@ -46,7 +46,7 @@ export default function ServicesHero() {
       }, '-=0.6')
       .to('.services-hero-label', {
         opacity: 1,
-        x: 0,
+        y: 0,
         duration: 0.8,
         ease: 'smoothOut',
       }, '-=0.4')
