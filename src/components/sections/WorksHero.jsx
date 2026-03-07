@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from '@utils/gsap-utils'
 import SplitType from 'split-type'
 
-const FILTERS = ['ALL', 'WEBSITE DEVELOPMENT', 'UI/UX STRATEGY', 'BRAND COMMUNICATION', 'MARKETING', 'GRAPHIC DESIGN']
+const FILTERS = ['ALL', 'WEBSITE DEVELOPMENT', 'UI/UX STRATEGY', 'MARKETING', 'GRAPHIC DESIGN']
 
 export default function WorksHero({ activeFilter, onFilterChange }) {
   const sectionRef = useRef(null)

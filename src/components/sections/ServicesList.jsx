@@ -66,13 +66,10 @@ export default function ServicesList() {
 
   useGSAP(() => {
     const items = gsap.utils.toArray('.service-item', sectionRef.current)
-    const isMobile = window.innerWidth < 1024
+    const isMobile = window.innerWidth < 768
     const cleanups = []
 
-    items.forEach((item, i) => {
-      const titleEl = item.querySelector('.service-title')
-      const split = new SplitType(titleEl, { types: 'lines' })
-
+    const wrapLines = (split) => {
       split.lines?.forEach((line) => {
         const wrapper = document.createElement('div')
         wrapper.style.overflow = 'hidden'
@@ -80,77 +77,67 @@ export default function ServicesList() {
         line.parentNode.insertBefore(wrapper, line)
         wrapper.appendChild(line)
       })
+    }
 
+    items.forEach((item, i) => {
+      const divider = item.querySelector('.service-divider')
       const number = item.querySelector('.service-number')
+      const titleEl = item.querySelector('.service-title')
       const desc = item.querySelector('.service-desc')
       const tags = item.querySelector('.service-tags')
       const image = item.querySelector('.service-image')
-      const divider = item.querySelector('.service-divider')
 
-      if (!isMobile) {
-        // ── Desktop: sticky ScrollTrigger entrance + scale-down ──────────
-        gsap.set(divider, { scaleX: 0, transformOrigin: 'left center' })
-        gsap.set(number, { opacity: 0, y: 12 })
-        gsap.set(split.lines, { yPercent: 110 })
-        gsap.set(desc, { opacity: 0, y: 16 })
-        gsap.set(tags, { opacity: 0, y: 12 })
-        gsap.set(image, { opacity: 0, scale: 1.04 })
+      // ── Split text into lines (same as WorksList) ──────────────────────
+      const titleSplit = new SplitType(titleEl, { types: 'lines' })
+      wrapLines(titleSplit)
+      const descSplit = new SplitType(desc, { types: 'lines' })
+      wrapLines(descSplit)
 
-        const tl = gsap.timeline({
+      // ── Initial states ─────────────────────────────────────────────────
+      gsap.set(divider, { scaleX: 0, transformOrigin: 'left center' })
+      gsap.set(number, { opacity: 0, y: 12 })
+      gsap.set(titleSplit.lines, { yPercent: 110 })
+      gsap.set(descSplit.lines, { yPercent: 110 })
+      gsap.set(tags, { opacity: 0, y: 12 })
+      gsap.set(image, { y: isMobile ? 40 : 80, opacity: 0 })
+
+      // ── IntersectionObserver — fires on both mobile and desktop ────────
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries[0].isIntersecting) return
+          observer.disconnect()
+
+          const tl = gsap.timeline()
+          tl.to(divider, { scaleX: 1, duration: 0.8, ease: 'smoothOut' })
+            .to(number, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.4')
+            .to(titleSplit.lines, { yPercent: 0, duration: 0.7, ease: 'smooth', stagger: 0.05 }, '-=0.3')
+            .to(descSplit.lines, { yPercent: 0, duration: 0.9, ease: 'smooth', stagger: 0.06 }, '-=0.45')
+            .to(tags, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.55')
+            .to(image, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, '-=0.7')
+        },
+        { threshold: 0, rootMargin: '0px 0px -40px 0px' }
+      )
+      observer.observe(item)
+
+      cleanups.push(() => {
+        observer.disconnect()
+        titleSplit.revert()
+        descSplit.revert()
+      })
+
+      // ── Desktop only: scale-down stacking effect ───────────────────────
+      if (window.innerWidth >= 1024 && i < items.length - 1) {
+        gsap.to(item, {
+          scale: 0.88,
+          borderRadius: '16px',
+          ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start:
-              i === 0
-                ? 'top 80%'
-                : () => `top+=${(i - 1) * window.innerHeight + window.innerHeight * 0.3} top`,
-            toggleActions: 'play none none none',
+            start: () => `top+=${i * window.innerHeight} top`,
+            end: () => `top+=${(i + 1) * window.innerHeight} top`,
+            scrub: true,
             invalidateOnRefresh: true,
           },
-        })
-
-        tl.to(divider, { scaleX: 1, duration: 0.5, ease: 'smoothOut' })
-          .to(number, { opacity: 1, y: 0, duration: 0.35, ease: 'smoothOut' }, '-=0.25')
-          .to(split.lines, { yPercent: 0, duration: 0.7, ease: 'smooth', stagger: 0.05 }, '-=0.15')
-          .to(desc, { opacity: 1, y: 0, duration: 0.5, ease: 'smoothOut' }, '-=0.4')
-          .to(tags, { opacity: 1, y: 0, duration: 0.35, ease: 'smoothOut' }, '-=0.25')
-          .to(image, { opacity: 1, scale: 1, duration: 0.65, ease: 'smoothOut' }, '-=0.5')
-
-        if (i < items.length - 1) {
-          gsap.to(item, {
-            scale: 0.88,
-            borderRadius: '16px',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: () => `top+=${i * window.innerHeight} top`,
-              end: () => `top+=${(i + 1) * window.innerHeight} top`,
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          })
-        }
-      } else {
-        // ── Mobile: simple fade-in as each item enters viewport ───────────
-        const els = [divider, number, titleEl, desc, tags, image].filter(Boolean)
-        gsap.set(els, { opacity: 0, y: 20 })
-
-        let triggered = false
-        const onScroll = () => {
-          if (triggered) return
-          if (item.getBoundingClientRect().top < window.innerHeight * 0.88) {
-            triggered = true
-            gsap.to(els, { opacity: 1, y: 0, duration: 0.8, ease: 'smoothOut', stagger: 0.08 })
-          }
-        }
-
-        const lenis = window.__lenis
-        if (lenis) lenis.on('scroll', onScroll)
-        window.addEventListener('scroll', onScroll, { passive: true })
-        onScroll()
-
-        cleanups.push(() => {
-          if (window.__lenis) window.__lenis.off('scroll', onScroll)
-          window.removeEventListener('scroll', onScroll)
         })
       }
     })

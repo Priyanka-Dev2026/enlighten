@@ -127,12 +127,36 @@ const PROJECTS = [
   {
     id: 12,
     category: ['WEBSITE DEVELOPMENT'],
-    client: 'Precious Electrochem',
+    client: 'Kanta Essential Oils',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     tags: ['WORDPRESS'],
     imageLeft: '/images/wl-p12-left.png',
     imageRight: '/images/wl-p12-right.png',
+    aspectLeft: '3/4',
+    aspectRight: '3/4',
+  },
+  {
+    id: 13,
+    category: ['WEBSITE DEVELOPMENT', 'BRANDING'],
+    client: 'Mascot',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    tags: ['HTML', 'BRANDING'],
+    imageLeft: '/images/wl-p13-left.png',
+    imageRight: '/images/wl-p13-right.png',
+    aspectLeft: '3/4',
+    aspectRight: '3/4',
+  },
+  {
+    id: 14,
+    category: ['WEBSITE DEVELOPMENT'],
+    client: 'Love Native',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    tags: ['SHOPIFY', 'UI/UX'],
+    imageLeft: '/images/wl-p14-left.png',
+    imageRight: '/images/wl-p14-right.png',
     aspectLeft: '3/4',
     aspectRight: '3/4',
   },
@@ -198,13 +222,13 @@ function ProjectRow({ project }) {
         observer.disconnect()
 
         const tl = gsap.timeline()
-        tl.to(divider, { scaleX: 1, duration: 0.5, ease: 'smoothOut' })
-          .to(catSplit.lines, { yPercent: 0, duration: 0.45, ease: 'smooth' }, '-=0.25')
-          .to(descSplit.lines, { yPercent: 0, duration: 0.6, ease: 'smooth', stagger: 0.04 }, '-=0.3')
-          .to(tagsEl, { opacity: 1, y: 0, duration: 0.4, ease: 'smoothOut' }, '-=0.4')
-          .to(leftImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, '-=0.35')
+        tl.to(divider, { scaleX: 1, duration: 0.8, ease: 'smoothOut' })
+          .to(catSplit.lines, { yPercent: 0, duration: 0.7, ease: 'smooth' }, '-=0.35')
+          .to(descSplit.lines, { yPercent: 0, duration: 0.9, ease: 'smooth', stagger: 0.06 }, '-=0.45')
+          .to(tagsEl, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.55')
+          .to(leftImg, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, '-=0.5')
           // Mobile: stacked images get a clear stagger; desktop: near-simultaneous
-          .to(rightImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, isMobile ? '-=0.4' : '-=0.6')
+          .to(rightImg, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, isMobile ? '-=0.55' : '-=0.9')
       },
       { threshold: 0, rootMargin: '0px 0px -40px 0px' }
     )
