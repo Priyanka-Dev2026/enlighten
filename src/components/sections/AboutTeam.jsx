@@ -16,27 +16,39 @@ const TEAM = [
     offset: true,
   },
   {
+    name: 'Tanisha Gupta',
+    role: 'INTEGRATED BRAND STRATEGIST',
+    image: '/images/team-tanisha.png',
+    offset: false,
+  },
+  {
     name: 'Siyanshi Garg',
     role: 'MANAGING DIRECTOR',
     image: '/images/team-siyanshi.png',
-    offset: false,
+    offset: true,
   },
   {
     name: 'Prakriti Gupta',
     role: 'CONTENT STRATEGIST',
     image: '/images/team-prakriti.webp',
-    offset: true,
+    offset: false,
   },
   {
     name: 'Tushar Garg',
     role: 'CREATIVE DESIGNER',
     image: '/images/team-tushar.png',
-    offset: false,
+    offset: true,
   },
   {
     name: 'Pushkar',
     role: 'DESIGNER',
     image: '/images/team-pushkar.webp',
+    offset: false,
+  },
+  {
+    name: 'Sagar Vasant',
+    role: '2D/3D ANIMATOR',
+    image: '/images/team-sagar.png',
     offset: true,
   },
 ]
@@ -93,6 +105,14 @@ export default function AboutTeam() {
             invalidateOnRefresh: true,
           },
         })
+
+        // Refresh after images load so scrollWidth is accurate
+        const onLoad = () => ScrollTrigger.refresh()
+        if (document.readyState === 'complete') {
+          setTimeout(onLoad, 100)
+        } else {
+          window.addEventListener('load', onLoad, { once: true })
+        }
       },
     })
   }, { scope: sectionRef })

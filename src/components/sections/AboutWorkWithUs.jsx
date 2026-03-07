@@ -90,11 +90,11 @@ export default function AboutWorkWithUs() {
         </div>
 
         {/* Right: image */}
-        <div className="wwu-image overflow-hidden w-full lg:w-1/2 h-[500px] lg:h-auto max-lg:order-first">
+        <div className="wwu-image overflow-hidden w-full lg:w-1/2 self-stretch max-lg:order-first max-lg:h-[400px]">
           <img
-            src="/images/about-work-with-us.webp"
+            src="/images/about-work-with-us-new.png"
             alt="Work with us at Enlighten"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover block"
           />
         </div>
 

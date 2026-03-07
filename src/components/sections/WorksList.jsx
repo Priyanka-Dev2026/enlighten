@@ -125,6 +125,18 @@ const PROJECTS = [
     aspectRight: '3/4',
   },
   {
+    id: 12,
+    category: ['WEBSITE DEVELOPMENT'],
+    client: 'Precious Electrochem',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    tags: ['WORDPRESS'],
+    imageLeft: '/images/wl-p12-left.png',
+    imageRight: '/images/wl-p12-right.png',
+    aspectLeft: '3/4',
+    aspectRight: '3/4',
+  },
+  {
     id: 10,
     category: ['WEBSITE DEVELOPMENT', 'UI/UX STRATEGY'],
     client: 'Flow Store',
