@@ -5,27 +5,27 @@ import { gsap } from '@utils/gsap-utils'
 const VALUES = [
   {
     number: '01',
-    label: 'Creatively Curious',
+    label: 'Thoughtful Design',
     description:
-      'We thrive on the unconventional and champion bold, original ideas. Our love of learning fuels our drive to explore uncharted territories in our designs and thinking.',
+      'Every decision begins with understanding your brand and audience. We design with intention, creating meaningful visuals and experiences that feel natural, purposeful, and aligned with your long-term business goals.',
   },
   {
     number: '02',
-    label: 'Freedom to Lead',
+    label: 'Focused Execution',
     description:
-      'We empower every voice on our team to lead with intention and ownership. Great work comes from people who feel trusted, heard, and free to bring their full selves.',
+      'We believe in clear direction, realistic planning, and transparent communication. No shortcuts or hype - just practical strategies built on insight, consistency, and what truly works for your business.',
   },
   {
     number: '03',
-    label: 'Design Excellence',
+    label: 'Human Connection',
     description:
-      'Craft matters. We sweat the details others overlook — because the difference between good and great lives in precision, consistency, and an uncompromising eye for quality.',
+      'Brands grow through real relationships. We focus on creating authentic touchpoints that resonate with people, build trust, and help your business communicate with warmth and clarity across every platform.',
   },
   {
     number: '04',
-    label: 'Collective Success',
+    label: 'Purposeful Growth',
     description:
-      'We grow alongside our clients, not just for them. Every partnership is built on shared ambition, radical transparency, and the belief that when they win, we win.',
+      'We support sustainable progress through structured creativity and smart execution - helping your brand evolve thoughtfully while staying true to its identity and values.',
   },
 ]
 

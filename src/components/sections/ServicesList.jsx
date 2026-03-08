@@ -66,7 +66,6 @@ export default function ServicesList() {
 
   useGSAP(() => {
     const items = gsap.utils.toArray('.service-item', sectionRef.current)
-    const isMobile = window.innerWidth < 768
     const cleanups = []
 
     const wrapLines = (split) => {
@@ -99,7 +98,7 @@ export default function ServicesList() {
       gsap.set(titleSplit.lines, { yPercent: 110 })
       gsap.set(descSplit.lines, { yPercent: 110 })
       gsap.set(tags, { opacity: 0, y: 12 })
-      gsap.set(image, { y: isMobile ? 40 : 80, opacity: 0 })
+      gsap.set(image, { clipPath: 'inset(100% 0 0 0)', opacity: 0 })
 
       // ── IntersectionObserver — fires on both mobile and desktop ────────
       const observer = new IntersectionObserver(
@@ -113,7 +112,7 @@ export default function ServicesList() {
             .to(titleSplit.lines, { yPercent: 0, duration: 0.7, ease: 'smooth', stagger: 0.05 }, '-=0.3')
             .to(descSplit.lines, { yPercent: 0, duration: 0.9, ease: 'smooth', stagger: 0.06 }, '-=0.45')
             .to(tags, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.55')
-            .to(image, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, '-=0.7')
+            .to(image, { clipPath: 'inset(0% 0 0 0)', opacity: 1, duration: 1.6, ease: 'smooth' }, '-=0.7')
         },
         { threshold: 0, rootMargin: '0px 0px -40px 0px' }
       )

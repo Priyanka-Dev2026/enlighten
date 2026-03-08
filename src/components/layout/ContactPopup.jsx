@@ -85,7 +85,8 @@ export default function ContactPopup() {
           className="bg-white w-full max-w-[900px] pointer-events-auto shadow-2xl"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
-          <div className="px-[48px] py-[60px] max-lg:px-6 max-lg:py-10">
+          <div className="overflow-hidden">
+          <div className="px-[48px] pt-[60px] pb-0 max-lg:px-6 max-lg:pt-10">
 
             {/* Header row */}
             <div className="flex items-start justify-between gap-8 mb-8">
@@ -194,6 +195,20 @@ export default function ContactPopup() {
               </div>
 
             </form>
+
+            {/* Bottom spacer above logo */}
+            <div className="h-10 max-lg:h-6" />
+          </div>
+
+          {/* Full-width wordmark */}
+          <div className="w-full px-[48px] pb-[40px] max-lg:px-6 max-lg:pb-6">
+            <img
+              src="/images/enlighten-wordmark-dark.svg"
+              alt="enlighten"
+              className="w-full block"
+              aria-hidden="true"
+            />
+          </div>
           </div>
         </div>
       </div>
