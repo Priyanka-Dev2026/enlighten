@@ -5,21 +5,21 @@ import { gsap } from '@utils/gsap-utils'
 const VALUES = [
   {
     number: '01',
+    label: 'Human Connection',
+    description:
+      'Brands grow through real relationships. We focus on creating authentic touchpoints that resonate with people, build trust, and help your business communicate with warmth and clarity across every platform.',
+  },
+  {
+    number: '02',
     label: 'Thoughtful Design',
     description:
       'Every decision begins with understanding your brand and audience. We design with intention, creating meaningful visuals and experiences that feel natural, purposeful, and aligned with your long-term business goals.',
   },
   {
-    number: '02',
+    number: '03',
     label: 'Focused Execution',
     description:
-      'We believe in clear direction, realistic planning, and transparent communication. No shortcuts or hype - just practical strategies built on insight, consistency, and what truly works for your business.',
-  },
-  {
-    number: '03',
-    label: 'Human Connection',
-    description:
-      'Brands grow through real relationships. We focus on creating authentic touchpoints that resonate with people, build trust, and help your business communicate with warmth and clarity across every platform.',
+      'We believe in clear direction, realistic planning, and open communication. No shortcuts or hype - just practical strategies built on insight, consistency, and what truly works for your business.',
   },
   {
     number: '04',

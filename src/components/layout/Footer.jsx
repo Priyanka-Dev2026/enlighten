@@ -78,16 +78,16 @@ export default function Footer() {
               Contact Info
             </p>
             <a
-              href="mailto:priyanka@enlighten.in.net"
+              href="mailto:connect@enlighten.in.net"
               className="text-[18px] font-normal leading-[28px] tracking-[-0.18px] text-[#aaa] hover:text-white transition-colors max-lg:text-[16px]"
             >
-              priyanka@enlighten.in.net
+              connect@enlighten.in.net
             </a>
             <a
-              href="tel:+919876543210"
+              href="tel:+919717069750"
               className="text-[18px] font-normal leading-[28px] tracking-[-0.18px] text-[#aaa] hover:text-white transition-colors max-lg:text-[16px]"
             >
-              +91 9876543210
+              +91 9717069750
             </a>
           </address>
 
