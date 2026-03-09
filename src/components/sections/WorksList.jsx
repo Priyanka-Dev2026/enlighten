@@ -15,11 +15,12 @@ const PROJECTS = [
     imageRight: '/images/wl-p1-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://www.alambytulsi.com/',
   },
   {
     id: 2,
     category: ['WEBSITE DEVELOPMENT', 'UI/UX STRATEGY', 'GRAPHIC DESIGN'],
-    client: '3D Creations',
+    client: '3D Concepts India',
     description:
       'Designed and developed a dynamic, informative corporate website highlighting their premium wallpapers through immersive visuals and seamless user journeys.',
     tags: ['WORDPRESS', 'BRANDING', 'UI/UX'],
@@ -27,6 +28,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p2-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://3dconceptsindia.com/',
   },
   {
     id: 13,
@@ -39,6 +41,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p13-right.png',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://www.mascot.in/',
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p4-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://nanditasikchi.com/',
   },
   {
     id: 5,
@@ -63,6 +67,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p5-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://consultforimpact.org/',
   },
   {
     id: 6,
@@ -75,6 +80,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p6-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://skgfoundation.in/',
   },
   {
     id: 7,
@@ -99,6 +105,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p8-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://www.youngfounderslab.org/',
   },
   {
     id: 9,
@@ -111,11 +118,12 @@ const PROJECTS = [
     imageRight: '/images/wl-p9-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://xypercent.com/',
   },
   {
     id: 11,
     category: ['WEBSITE DEVELOPMENT'],
-    client: 'Precious Chemical',
+    client: 'Precious Electrochem',
     description:
       'A clean, professional website built to showcase industrial expertise, product offerings, and brand credibility for a leading chemical solutions company.',
     tags: ['WORDPRESS'],
@@ -123,6 +131,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p11-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://preciouselectrochem.com/',
   },
   {
     id: 12,
@@ -130,11 +139,12 @@ const PROJECTS = [
     client: 'Kanta Essential Oils',
     description:
       'Corporate website for Kanta Essential Oils, focused on product visibility, structured navigation, and clean professional design.',
-    tags: ['WORDPRESS', 'BRANDING', 'MARKETING', 'GRAPHIC DESIGN'],
+    tags: ['WORDPRESS', 'MARKETING', 'GRAPHIC DESIGN'],
     imageLeft: '/images/wl-p12-left.png',
     imageRight: '/images/wl-p12-right.png',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://www.kantaessentialoils.com/',
   },
   {
     id: 3,
@@ -147,6 +157,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p3-right.png',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://aurafemhealth.com/',
   },
   {
     id: 14,
@@ -159,6 +170,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p14-right.png',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://lovenative.in/',
   },
   {
     id: 10,
@@ -171,6 +183,7 @@ const PROJECTS = [
     imageRight: '/images/wl-p10-right.webp',
     aspectLeft: '3/4',
     aspectRight: '3/4',
+    url: 'https://theflowstore.in/',
   },
 ]
 
@@ -242,7 +255,13 @@ function ProjectRow({ project }) {
   }, { scope: rowRef })
 
   return (
-    <div ref={rowRef} className="project-row pb-10 md:pb-16" data-cursor-hover>
+    <div
+      ref={rowRef}
+      className="project-row pb-10 md:pb-16"
+      data-cursor-hover
+      onClick={project.url ? () => window.open(project.url, '_blank', 'noopener,noreferrer') : undefined}
+      style={project.url ? { cursor: 'pointer' } : undefined}
+    >
 
       {/* Divider */}
       <div

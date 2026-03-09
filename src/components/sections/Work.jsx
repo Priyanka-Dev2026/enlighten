@@ -11,6 +11,7 @@ const projects = [
     year: '2025',
     image: '/images/work-love-native-desktop.webp',
     mobileImage: '/images/work-love-native-mobile.webp',
+    url: 'https://lovenative.in/',
   },
   {
     title: 'SAPNA JAIN STUDIO',
@@ -19,6 +20,7 @@ const projects = [
     year: '2026',
     image: '/images/work-sapna-jain-desktop.webp',
     mobileImage: '/images/work-sapna-jain-mobile.webp',
+    url: 'https://sapanajainstudio.com/',
   },
   {
     title: 'YOUNG FOUNDERS LAB',
@@ -27,6 +29,7 @@ const projects = [
     year: '2025',
     image: '/images/work-young-founders-desktop.webp',
     mobileImage: '/images/work-young-founders-mobile.webp',
+    url: 'https://www.youngfounderslab.org/',
   },
   {
     title: 'CONSULT FOR IMPACT',
@@ -35,6 +38,7 @@ const projects = [
     year: '2026',
     image: '/images/work-consult-for-impact-desktop.webp',
     mobileImage: '/images/work-consult-for-impact-mobile.webp',
+    url: 'https://consultforimpact.org/',
   },
 ]
 
@@ -380,6 +384,8 @@ function ProjectCard({ project, index }) {
     <div
       ref={cardRef}
       className="project-card relative h-[177.78vw] lg:h-[47.5vw] w-full overflow-hidden"
+      onClick={project.url ? () => window.open(project.url, '_blank', 'noopener,noreferrer') : undefined}
+      style={project.url ? { cursor: 'pointer' } : undefined}
     >
       <picture>
         <source media="(max-width: 1023px)" srcSet={project.mobileImage || project.image} />

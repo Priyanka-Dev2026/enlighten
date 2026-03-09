@@ -82,10 +82,10 @@ export default function ContactPopup() {
       <div className="absolute inset-0 flex items-center justify-center p-4 max-lg:p-0 pointer-events-none">
         <div
           ref={panelRef}
-          className="bg-white w-full max-w-[900px] pointer-events-auto shadow-2xl max-lg:h-screen max-lg:overflow-y-auto"
+          className="bg-white w-full max-w-[900px] pointer-events-auto shadow-2xl max-h-[82vh] overflow-y-auto max-lg:max-h-[100dvh] max-lg:h-[100dvh]"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
-          <div className="overflow-hidden">
+          <div>
           <div className="px-[48px] pt-[60px] pb-0 max-lg:px-6 max-lg:pt-10">
 
             {/* Header row */}

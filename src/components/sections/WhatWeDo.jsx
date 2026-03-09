@@ -172,7 +172,7 @@ export default function WhatWeDo() {
 
           {/* CTA */}
           <div ref={ctaRef} id="whatwedo-cta">
-            <CTAButton label="VIEW SERVICES" variant="light" href="#services" />
+            <CTAButton label="VIEW SERVICES" variant="light" href="/services" />
           </div>
         </div>
       </div>
