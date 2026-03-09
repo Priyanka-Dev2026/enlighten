@@ -152,7 +152,7 @@ export default function Testimonials() {
         >
           <div className="size-[17px] bg-[#c96b00] shrink-0 mt-[9px]" />
           <p className="text-[36px] font-medium leading-[38px] tracking-[-2.2px] text-[#393939] max-lg:text-[28px] max-lg:leading-[34px]">
-            Hear from the Brands<br />That Trust Us
+            Hear From the Brands<br />That Trust Us
           </p>
         </div>
 
@@ -165,7 +165,7 @@ export default function Testimonials() {
             className="text-[28px] font-normal leading-[34px] tracking-[0.32px] text-[#111] max-lg:text-[22px] max-lg:leading-[30px]"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
-            {TESTIMONIALS[activeIndex].quote}
+            "{TESTIMONIALS[activeIndex].quote}"
           </p>
 
           {/* Author name + role */}

@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useParams, Navigate } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '@/utils/gsap-utils'
 import SplitType from 'split-type'
@@ -8,61 +9,7 @@ import SmoothScroll from '@components/layout/SmoothScroll'
 import CustomCursor from '@components/layout/CustomCursor'
 import Navbar from '@components/layout/Navbar'
 import Footer from '@components/layout/Footer'
-
-const ARTICLE = {
-  tag: 'Latest News',
-  date: '2026',
-  readTime: '5 mins',
-  title: 'Proud to Launch: The New Sapana Jain Studio Website',
-  image: '/images/insight-sapana-jain.webp',
-  intro: 'At Enlighten, we believe design can be a powerful tool for change — not just for big brands, but for grassroots organisations doing vital work in their communities. That\'s why we were proud to partner with Sapana Jain Studio to create a digital home that truly reflects the craft.',
-  body: [
-    {
-      type: 'paragraph',
-      text: 'The project came to us through a longstanding relationship built on trust and shared values. When we were introduced to the brief, we immediately saw an opportunity to help amplify a deeply considered creative vision with a website that matched its energy, ambition, and impact.',
-    },
-    {
-      type: 'paragraph',
-      text: 'Sapana Jain Studio supports an audience of discerning clients through considered collections, bespoke tailoring, and a commitment to slow fashion. But the existing website no longer reflected the full scope or spirit of the work.',
-    },
-    {
-      type: 'paragraph',
-      text: 'We set out to change that. Working closely with the studio team, we delivered a full digital rebuild — creating a space that is refined, welcoming, and effortless to navigate. The new site features:',
-    },
-    {
-      type: 'list',
-      items: [
-        'A clean, editorial layout with clear paths for clients, press and wholesale enquiries',
-        'Full-bleed photography that lets the garments breathe without heavy UI interference',
-        'Smooth page transitions and carefully structured information architecture',
-        'A flexible CMS setup so the studio team can manage collections and editorials independently',
-      ],
-    },
-  ],
-  attribution: {
-    name: 'Sapana Jain',
-    role: 'Founder, Sapana Jain Studio',
-  },
-  quote: "This website marks a new chapter for the studio. It's more than a digital upgrade — it's a reflection of our commitment to the clients we serve. We now have a platform that truly tells our story.",
-  cta: { label: 'View Project', href: '#' },
-}
-
-const RELATED = [
-  {
-    tag: 'News',
-    title: 'Proud to Launch: The New Henry Smith Foundation Website',
-    excerpt: 'We partnered with the Henry Smith Foundation to craft a platform that communicates purpose with clarity.',
-    image: '/images/insight-henry-smith.webp',
-    href: '#',
-  },
-  {
-    tag: 'Awards',
-    title: 'We Won a Clutch Award for Top Creative Agency 2024',
-    excerpt: 'Recognised among the top creative agencies globally, this Clutch award reflects the dedication our team brings to every project.',
-    image: '/images/insights-article-placeholder.webp',
-    href: '#',
-  },
-]
+import { getCaseStudyBySlug, CASE_STUDIES } from '@/data/caseStudies'
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
 
@@ -176,6 +123,25 @@ function ArticleBody({ article }) {
 
             {/* Body blocks */}
             {article.body.map((block, i) => {
+              if (block.type === 'heading') {
+                return (
+                  <h2
+                    key={i}
+                    className="article-block mt-8 mb-4 max-lg:mt-6 max-lg:mb-3"
+                    style={{
+                      fontFamily: "'Hanken Grotesk', sans-serif",
+                      fontWeight: 600,
+                      fontSize: 'clamp(18px, 1.6vw, 24px)',
+                      lineHeight: 1.4,
+                      color: '#111',
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {block.text}
+                  </h2>
+                )
+              }
+
               if (block.type === 'paragraph') {
                 return (
                   <p
@@ -219,52 +185,56 @@ function ArticleBody({ article }) {
               return null
             })}
 
-            {/* Attribution */}
-            <div className="article-block mt-12 max-lg:mt-10">
-              <div className="w-full mb-5" style={{ height: 1, backgroundColor: '#c0c0c0' }} />
-              <div className="flex items-center gap-[48px] max-lg:gap-6">
-                <span
-                  style={{
-                    fontFamily: "'Hanken Grotesk', sans-serif",
-                    fontWeight: 400,
-                    fontSize: 'clamp(14px, 1.2vw, 18px)',
-                    color: '#0c0c0c',
-                    letterSpacing: '0.01em',
-                  }}
-                >
-                  {article.attribution.name}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'Hanken Grotesk', sans-serif",
-                    fontWeight: 400,
-                    fontSize: 'clamp(14px, 1.2vw, 18px)',
-                    color: '#0c0c0c',
-                    letterSpacing: '0.01em',
-                  }}
-                >
-                  {article.attribution.role}
-                </span>
+            {/* Attribution — only if present */}
+            {article.attribution && (
+              <div className="article-block mt-12 max-lg:mt-10">
+                <div className="w-full mb-5" style={{ height: 1, backgroundColor: '#c0c0c0' }} />
+                <div className="flex items-center gap-[48px] max-lg:gap-6">
+                  <span
+                    style={{
+                      fontFamily: "'Hanken Grotesk', sans-serif",
+                      fontWeight: 400,
+                      fontSize: 'clamp(14px, 1.2vw, 18px)',
+                      color: '#0c0c0c',
+                      letterSpacing: '0.01em',
+                    }}
+                  >
+                    {article.attribution.name}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "'Hanken Grotesk', sans-serif",
+                      fontWeight: 400,
+                      fontSize: 'clamp(14px, 1.2vw, 18px)',
+                      color: '#0c0c0c',
+                      letterSpacing: '0.01em',
+                    }}
+                  >
+                    {article.attribution.role}
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* ── Quote block ── */}
-            <div className="article-block mt-[80px] max-lg:mt-14">
-              <p
-                style={{
-                  fontFamily: "'Hanken Grotesk', sans-serif",
-                  fontWeight: 600,
-                  fontSize: 'clamp(22px, 3.5vw, 52px)',
-                  lineHeight: 1.3,
-                  color: '#393939',
-                  letterSpacing: '0.01em',
-                }}
-              >
-                {article.quote}
-              </p>
-            </div>
+            {/* Quote block — only if present */}
+            {article.quote && (
+              <div className="article-block mt-[80px] max-lg:mt-14">
+                <p
+                  style={{
+                    fontFamily: "'Hanken Grotesk', sans-serif",
+                    fontWeight: 600,
+                    fontSize: 'clamp(22px, 3.5vw, 52px)',
+                    lineHeight: 1.3,
+                    color: '#393939',
+                    letterSpacing: '0.01em',
+                  }}
+                >
+                  {article.quote}
+                </p>
+              </div>
+            )}
 
-            {/* ── View Project CTA ── */}
+            {/* View Project CTA */}
             <div className="article-block mt-[48px] max-lg:mt-10 pb-[80px] max-lg:pb-14">
               <CTAButton label={article.cta.label} variant="dark" href={article.cta.href} />
             </div>
@@ -290,9 +260,16 @@ function ArticleBody({ article }) {
                 Share:
               </p>
               <div className="flex items-center gap-3 mb-6">
-                {['f', 'in', 'X'].map((label, i) => (
-                  <button
-                    key={i}
+                {[
+                  { label: 'f', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}` },
+                  { label: 'in', href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(article.title)}&summary=${encodeURIComponent(article.intro)}&source=enlighten.in.net` },
+                  { label: 'X', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(article.title)}` },
+                ].map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-[46px] h-[46px] rounded-full bg-[#eee] flex items-center justify-center hover:bg-[#ddd] transition-colors"
                     style={{
                       fontFamily: "'Hanken Grotesk', sans-serif",
@@ -302,7 +279,7 @@ function ArticleBody({ article }) {
                     }}
                   >
                     {label}
-                  </button>
+                  </a>
                 ))}
               </div>
               <div className="w-full mb-6" style={{ height: 1, backgroundColor: '#c0c0c0' }} />
@@ -381,7 +358,6 @@ function ArticleBody({ article }) {
           </div>
         </div>
 
-
       </div>
     </section>
   )
@@ -389,8 +365,15 @@ function ArticleBody({ article }) {
 
 // ─── Related Posts ────────────────────────────────────────────────────────────
 
-function RelatedPosts({ posts }) {
+function RelatedPosts({ currentSlug }) {
   const sectionRef = useRef(null)
+  const posts = CASE_STUDIES.filter((cs) => cs.slug !== currentSlug).slice(0, 2).map((cs) => ({
+    tag: cs.tag,
+    title: cs.title,
+    excerpt: cs.intro,
+    image: cs.image,
+    href: `/insights/${cs.slug}`,
+  }))
 
   useGSAP(() => {
     const cards = gsap.utils.toArray('.related-card', sectionRef.current)
@@ -415,6 +398,8 @@ function RelatedPosts({ posts }) {
     })
     return () => cards.forEach((c) => c._cleanup?.())
   }, { scope: sectionRef })
+
+  if (posts.length === 0) return null
 
   return (
     <section ref={sectionRef} className="w-full bg-white" data-scroll-section data-theme="light">
@@ -447,7 +432,7 @@ function RelatedPosts({ posts }) {
         </h2>
       </div>
 
-      {/* Cards — same style as InsightsList */}
+      {/* Cards */}
       <div className="mt-10 max-lg:mt-6">
         {posts.map((post, i) => (
           <a
@@ -486,14 +471,12 @@ function RelatedPosts({ posts }) {
                 >
                   {post.title}
                 </h3>
-                {post.excerpt && (
-                  <p
-                    className="text-[clamp(14px,1.1vw,18px)] leading-[1.65] text-[#555]"
-                    style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
-                  >
-                    {post.excerpt}
-                  </p>
-                )}
+                <p
+                  className="text-[clamp(14px,1.1vw,18px)] leading-[1.65] text-[#555] line-clamp-3"
+                  style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
+                >
+                  {post.excerpt}
+                </p>
               </div>
 
               <div className="mt-8 max-lg:mt-6">
@@ -520,19 +503,45 @@ function RelatedPosts({ posts }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function InsightDetailPage() {
+  const { slug } = useParams()
+  const article = getCaseStudyBySlug(slug)
+
+  const pageUrl = `https://enlighten.in.net/insights/${slug}`
+
   useSEO({
-    title: ARTICLE.title,
-    description: ARTICLE.intro,
+    title: article?.title ?? 'Case Study',
+    description: article?.intro ?? '',
+    image: article?.image ? `https://enlighten.in.net${article.image}` : undefined,
+    url: pageUrl,
   })
+
+  if (!article) return <Navigate to="/insights" replace />
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.intro,
+    image: `https://enlighten.in.net${article.image}`,
+    url: pageUrl,
+    datePublished: article.date,
+    author: { '@type': 'Organization', name: 'Enlighten Creatives' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Enlighten Creatives',
+      url: 'https://enlighten.in.net',
+    },
+  }
 
   return (
     <SmoothScroll autoStart>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <CustomCursor />
       <Navbar variant="dark" />
       <main id="main-content" style={{ backgroundColor: '#ffffff' }}>
-        <ArticleHero article={ARTICLE} />
-        <ArticleBody article={ARTICLE} />
-        <RelatedPosts posts={RELATED} />
+        <ArticleHero article={article} />
+        <ArticleBody article={article} />
+        <RelatedPosts currentSlug={slug} />
       </main>
       <Footer />
     </SmoothScroll>

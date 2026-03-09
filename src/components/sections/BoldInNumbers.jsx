@@ -245,7 +245,7 @@ export default function BoldInNumbers({ entranceComplete }) {
           className="text-[36px] font-medium leading-[38px] tracking-[-2.2px] max-lg:text-[28px]"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
-          Bold in numbers
+          Bold in Numbers
         </p>
       </div>
 

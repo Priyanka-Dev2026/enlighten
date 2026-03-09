@@ -5,42 +5,22 @@ import Navbar from '@components/layout/Navbar'
 import Footer from '@components/layout/Footer'
 import InsightsHero from '@components/sections/InsightsHero'
 import InsightsList from '@components/sections/InsightsList'
+import { CASE_STUDIES } from '@/data/caseStudies'
 
 const FEATURED_POST = {
-  title: 'Proud to Launch: The New Sapana Jain Studio Website',
-  image: '/images/insights-hero.webp',
-  href: '#',
+  title: CASE_STUDIES[0].title,
+  image: CASE_STUDIES[0].image,
+  href: `/insights/${CASE_STUDIES[0].slug}`,
 }
 
 const POSTS = [
-  {
-    tag: 'NEWS',
-    title: 'Proud to Launch: The New Sapana Jain Studio Website',
-    excerpt: 'A refined digital home for the Sapana Jain Studio — blending editorial elegance with seamless e-commerce, built to reflect the brand\'s quiet luxury.',
-    image: '/images/insight-sapana-jain.webp',
-    href: '/insights/sapana-jain-studio',
-  },
-  {
-    tag: 'NEWS',
-    title: 'Proud to Launch: The New Henry Smith Foundation Website',
-    excerpt: 'We partnered with the Henry Smith Foundation to craft a platform that communicates purpose with clarity — a developer-first build on a fully serverless infrastructure.',
-    image: '/images/insight-henry-smith.webp',
-    href: '#',
-  },
-  {
-    tag: 'NEWS',
-    title: 'Proud to Launch: The New Sapana Jain Studio Website',
-    excerpt: 'A refined digital home for the Sapana Jain Studio — blending editorial elegance with seamless e-commerce, built to reflect the brand\'s quiet luxury.',
-    image: '/images/insights-article-placeholder.webp',
-    href: '#',
-  },
-  {
-    tag: 'AWARDS',
-    title: 'We Won a Clutch Award for Top Creative Agency 2024',
-    excerpt: 'Recognised among the top creative agencies globally, this Clutch award reflects the dedication our team brings to every project — from strategy through to launch.',
-    image: '/images/insights-article-placeholder.webp',
-    href: '#',
-  },
+  ...CASE_STUDIES.filter((cs) => cs.slug !== FEATURED_POST.href.split('/').pop()).map((cs) => ({
+    tag: cs.tag.toUpperCase(),
+    title: cs.title,
+    excerpt: cs.intro,
+    image: cs.image,
+    href: `/insights/${cs.slug}`,
+  })),
 ]
 
 export default function InsightsPage() {

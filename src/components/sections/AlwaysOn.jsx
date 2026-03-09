@@ -2,7 +2,11 @@ import { useRef, useState, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '@/utils/gsap-utils'
 
-const SOCIALS = ['FACEBOOK', 'INSTAGRAM', 'WHATSAPP']
+const SOCIALS = [
+  { label: 'LINKEDIN', href: 'https://www.linkedin.com/in/priyanka-aggarwal-digital-expert/' },
+  { label: 'INSTAGRAM', href: 'https://www.instagram.com/enlightendesign_studio' },
+  { label: 'WHATSAPP', href: 'https://wa.me/919717069750' },
+]
 
 function formatTime(zone) {
   const d = new Date()
@@ -14,39 +18,55 @@ function formatTime(zone) {
   })
 }
 
-function formatZoneLabel(zone) {
-  const parts = zone.split('/')
-  if (parts.length < 2) return zone
-  const city = parts[parts.length - 1].replace(/_/g, ' ')
-  const region = parts[0].replace(/_/g, ' ')
-  return `${city}, ${region}`
-}
-
 function useClocks() {
   const userZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-  const timezones = [
-    { zone: 'Asia/Kolkata', label: 'New Delhi, India' },
-    { zone: userZone, label: formatZoneLabel(userZone) },
-  ]
-
-  const [times, setTimes] = useState(() =>
-    timezones.map((tz) => formatTime(tz.zone))
-  )
+  const [indiaTime, setIndiaTime] = useState(() => formatTime('Asia/Kolkata'))
+  const [visitorTime, setVisitorTime] = useState(() => formatTime(userZone))
+  const [visitorLocation, setVisitorLocation] = useState({ region: '—', country: '—' })
 
   useEffect(() => {
     const id = setInterval(() => {
-      setTimes(timezones.map((tz) => formatTime(tz.zone)))
+      setIndiaTime(formatTime('Asia/Kolkata'))
+      setVisitorTime(formatTime(userZone))
     }, 1000)
     return () => clearInterval(id)
+  }, [userZone])
+
+  useEffect(() => {
+    const tryFetch = async () => {
+      const apis = [
+        {
+          url: 'https://ipwho.is/',
+          parse: (d) => d.success && d.region && d.country ? { region: d.region, country: d.country } : null,
+        },
+        {
+          url: 'https://ipapi.co/json/',
+          parse: (d) => d.region && d.country_name ? { region: d.region, country: d.country_name } : null,
+        },
+        {
+          url: 'https://get.geojs.io/v1/ip/geo.json',
+          parse: (d) => d.region && d.country ? { region: d.region, country: d.country } : null,
+        },
+      ]
+      for (const api of apis) {
+        try {
+          const r = await fetch(api.url)
+          const d = await r.json()
+          const result = api.parse(d)
+          if (result) { setVisitorLocation(result); return }
+        } catch (_) {}
+      }
+    }
+    tryFetch()
   }, [])
 
-  return { times, timezones }
+  return { indiaTime, visitorTime, visitorLocation }
 }
 
 export default function AlwaysOn() {
   const sectionRef = useRef(null)
   const contentRef = useRef(null)
-  const { times, timezones: TIMEZONES } = useClocks()
+  const { indiaTime, visitorTime, visitorLocation } = useClocks()
 
   // Reveal animation
   useGSAP(() => {
@@ -140,28 +160,40 @@ export default function AlwaysOn() {
           </h2>
 
           <div className="flex gap-[94px] max-lg:flex-col max-lg:gap-8">
-            {TIMEZONES.map((tz, i) => (
-              <div key={tz.zone} className="ao-clock flex flex-col gap-[13px]">
-                <p className="text-[clamp(36px,5vw,80px)] font-bold leading-[1.07] tracking-[0.01em] whitespace-nowrap">
-                  {times[i]}
-                </p>
-                <p className="text-[20px] font-normal leading-[28px] tracking-[0.2px] max-lg:text-[16px]">
-                  {tz.label}
-                </p>
-              </div>
-            ))}
+            {/* India time */}
+            <div className="ao-clock flex flex-col gap-[13px]">
+              <p className="text-[clamp(36px,5vw,80px)] font-bold leading-[1.07] tracking-[0.01em] whitespace-nowrap">
+                {indiaTime}
+              </p>
+              <p className="text-[20px] font-normal leading-[28px] tracking-[0.2px] max-lg:text-[16px]">
+                New Delhi, India
+              </p>
+            </div>
+
+            {/* Visitor time + location */}
+            <div className="ao-clock flex flex-col gap-[13px]">
+              <p className="text-[clamp(36px,5vw,80px)] font-bold leading-[1.07] tracking-[0.01em] whitespace-nowrap">
+                {visitorTime}
+              </p>
+              <p className="text-[20px] font-normal leading-[28px] tracking-[0.2px] max-lg:text-[16px]">
+                {visitorLocation.region}, {visitorLocation.country}
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Social pills */}
         <div className="flex gap-[12px] flex-wrap">
-          {SOCIALS.map((name) => (
-            <span
-              key={name}
-              className="ao-pill rounded-[21px] bg-white px-[14px] py-[7px] text-[20px] font-normal leading-[24px] tracking-[0.2px] text-[#363636] max-lg:text-[16px]"
+          {SOCIALS.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ao-pill rounded-[21px] bg-white px-[14px] py-[7px] text-[20px] font-normal leading-[24px] tracking-[0.2px] text-[#363636] hover:bg-[#f0f0f0] transition-colors max-lg:text-[16px]"
             >
-              {name}
-            </span>
+              {s.label}
+            </a>
           ))}
         </div>
       </div>

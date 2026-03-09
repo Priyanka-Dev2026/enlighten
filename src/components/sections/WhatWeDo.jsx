@@ -146,7 +146,7 @@ export default function WhatWeDo() {
         <div ref={labelRef} className="flex items-center gap-[22px] shrink-0">
           <div className="size-[17px] bg-[#c96b00]" />
           <p className="text-[36px] font-medium leading-[38px] tracking-[-2.2px] text-white max-lg:text-[28px]">
-            What we can do
+            What We Can Do
           </p>
         </div>
 
