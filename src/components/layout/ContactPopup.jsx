@@ -86,15 +86,15 @@ export default function ContactPopup() {
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
           <div>
-          <div className="px-[48px] pt-[60px] pb-0 max-lg:px-6 max-lg:pt-10">
+          <div className="px-[48px] pt-[60px] pb-0 max-lg:px-5 max-lg:pt-6">
 
             {/* Header row */}
-            <div className="flex items-start justify-between gap-8 mb-8">
+            <div className="flex items-start justify-between gap-8 mb-8 max-lg:mb-5">
               <div>
-                <h2 className="text-[28px] font-medium leading-[1.2] tracking-[-0.05em] text-[#393939] max-w-[520px] max-lg:text-[22px]">
+                <h2 className="text-[28px] font-medium leading-[1.2] tracking-[-0.05em] text-[#393939] max-w-[520px] max-lg:text-[19px]">
                   Partner with us and give your brand the competitive edge.
                 </h2>
-                <p className="text-[18px] font-normal leading-[1.5] tracking-[0.18px] text-[#454545] mt-2 max-lg:text-[15px]">
+                <p className="text-[18px] font-normal leading-[1.5] tracking-[0.18px] text-[#454545] mt-2 max-lg:text-[13px]">
                   Get in touch to find out how we can help.
                 </p>
               </div>
@@ -112,12 +112,12 @@ export default function ContactPopup() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8 max-lg:gap-4">
 
               {/* Name + Email row */}
-              <div className="flex gap-8 max-lg:flex-col max-lg:gap-5">
+              <div className="flex gap-8 max-lg:flex-col max-lg:gap-4">
                 <div className="flex flex-col gap-2 flex-1">
-                  <label className="text-[20px] font-normal tracking-[-0.02em] text-[#111] max-lg:text-[16px]">
+                  <label className="text-[20px] font-normal tracking-[-0.02em] text-[#111] max-lg:text-[14px]">
                     Your Name
                   </label>
                   <div className="border-b border-[#acacac]">
@@ -128,13 +128,13 @@ export default function ContactPopup() {
                       onChange={handleChange}
                       placeholder="Jane Smith"
                       required
-                      className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:text-[15px]"
+                      className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:py-3 max-lg:text-[14px]"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2 flex-1">
-                  <label className="text-[20px] font-normal tracking-[-0.02em] text-[#111] max-lg:text-[16px]">
+                  <label className="text-[20px] font-normal tracking-[-0.02em] text-[#111] max-lg:text-[14px]">
                     Your Email
                   </label>
                   <div className="border-b border-[#acacac]">
@@ -145,7 +145,7 @@ export default function ContactPopup() {
                       onChange={handleChange}
                       placeholder="jane@example.com"
                       required
-                      className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:text-[15px]"
+                      className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:py-3 max-lg:text-[14px]"
                     />
                   </div>
                 </div>
@@ -153,7 +153,7 @@ export default function ContactPopup() {
 
               {/* Message */}
               <div className="flex flex-col gap-2">
-                <label className="text-[20px] font-normal tracking-[-0.02em] text-[#111] max-lg:text-[16px]">
+                <label className="text-[20px] font-normal tracking-[-0.02em] text-[#111] max-lg:text-[14px]">
                   Your Message
                 </label>
                 <div className="border-b border-[#acacac]">
@@ -163,8 +163,8 @@ export default function ContactPopup() {
                     onChange={handleChange}
                     placeholder="Tell us about your project..."
                     required
-                    rows={4}
-                    className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none resize-none max-lg:text-[15px]"
+                    rows={typeof window !== 'undefined' && window.innerWidth < 1024 ? 3 : 4}
+                    className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none resize-none max-lg:py-3 max-lg:text-[14px] max-lg:rows-3"
                   />
                 </div>
               </div>
@@ -197,11 +197,11 @@ export default function ContactPopup() {
             </form>
 
             {/* Bottom spacer above logo */}
-            <div className="h-10 max-lg:h-6" />
+            <div className="h-10 max-lg:h-3" />
           </div>
 
           {/* Full-width wordmark */}
-          <div className="w-full px-[48px] pb-[40px] max-lg:px-6 max-lg:pb-6">
+          <div className="w-full px-[48px] pb-[40px] max-lg:px-5 max-lg:pb-4">
             <img
               src="/images/enlighten-wordmark-dark.svg"
               alt="enlighten"
