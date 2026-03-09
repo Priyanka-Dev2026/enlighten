@@ -79,10 +79,10 @@ export default function ContactPopup() {
       />
 
       {/* Panel — centered, content-hugging, slides up from below */}
-      <div className="absolute inset-0 flex items-center justify-center p-4 max-lg:p-0 pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center p-4 max-lg:p-0 max-lg:items-start max-lg:overflow-y-auto pointer-events-none">
         <div
           ref={panelRef}
-          className="bg-white w-full max-w-[900px] pointer-events-auto shadow-2xl max-h-[82vh] overflow-y-auto max-lg:max-h-[100dvh] max-lg:h-[100dvh]"
+          className="bg-white w-full max-w-[900px] pointer-events-auto shadow-2xl max-h-[82vh] overflow-y-auto max-lg:max-h-none max-lg:overflow-visible max-lg:min-h-full"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
           <div>
