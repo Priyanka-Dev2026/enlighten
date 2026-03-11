@@ -51,6 +51,12 @@ const TEAM = [
     image: '/images/team-sagar.png',
     offset: true,
   },
+  {
+    name: 'Navjot Dhiman',
+    role: 'FRONTEND DEVELOPER',
+    image: '/images/team-navjot.webp',
+    offset: false,
+  },
 ]
 
 export default function AboutTeam() {

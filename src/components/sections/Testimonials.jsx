@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { useGSAP } from '@gsap/react'
-import { gsap, SplitText } from '@/utils/gsap-utils'
+import { gsap } from '@/utils/gsap-utils'
 
 const TESTIMONIALS = [
   {
@@ -15,6 +15,7 @@ const TESTIMONIALS = [
     name: "Tejas G Naik",
     role: "Founder, Marketing Mane",
     image: "/images/testimonial-tejas.webp",
+    linkedin: "https://www.linkedin.com/in/tejasgirish/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
   },
   {
     quote: "Few things that come to my mind while talking about Priyanka; Very talented, professional and smart worker. She gives 200% to the project and most importantly adherence to timelines is what fascinates me. She understands your requirement and always come up with out of the box ideas that really works. Wish her all the best.",
@@ -47,22 +48,10 @@ export default function Testimonials() {
   const isFirstRender = useRef(true)
   const [activeIndex, setActiveIndex] = useState(0)
 
-  // Initial scroll-triggered reveal — SplitText lines + staggered elements
+  // Initial scroll-triggered reveal — simple fade+slide (no SplitText, avoids DOM conflict with React)
   useGSAP(() => {
-    const quote = quoteRef.current
-    if (!quote) return
-
-    const split = new SplitText(quote, { type: 'lines' })
-
-    split.lines.forEach((line) => {
-      const wrapper = document.createElement('div')
-      wrapper.style.overflow = 'hidden'
-      line.parentNode.insertBefore(wrapper, line)
-      wrapper.appendChild(line)
-    })
-
     gsap.set(labelRef.current, { opacity: 0, y: 30 })
-    gsap.set(split.lines, { opacity: 0, y: '100%' })
+    gsap.set(quoteRef.current, { opacity: 0, y: 30 })
     gsap.set(authorRef.current, { opacity: 0, y: 20 })
     gsap.set(avatarsRef.current, { opacity: 0, y: 20 })
 
@@ -75,14 +64,11 @@ export default function Testimonials() {
         triggered = true
 
         const tl = gsap.timeline({
-          onComplete: () => {
-            split.revert()
-            hasRevealedRef.current = true
-          },
+          onComplete: () => { hasRevealedRef.current = true },
         })
 
         tl.to(labelRef.current, { opacity: 1, y: 0, duration: 1.1, ease: 'smoothOut' }, 0)
-        tl.to(split.lines, { opacity: 1, y: '0%', duration: 1.3, stagger: 0.12, ease: 'smoothOut' }, 0.1)
+        tl.to(quoteRef.current, { opacity: 1, y: 0, duration: 1.3, ease: 'smoothOut' }, 0.1)
         tl.to(authorRef.current, { opacity: 1, y: 0, duration: 1.1, ease: 'smoothOut' }, 0.5)
         tl.to(avatarsRef.current, { opacity: 1, y: 0, duration: 1.1, ease: 'smoothOut' }, 0.65)
       }
@@ -96,7 +82,6 @@ export default function Testimonials() {
     return () => {
       if (lenis) lenis.off('scroll', onScroll)
       window.removeEventListener('scroll', onScroll)
-      split.revert()
     }
   }, { scope: sectionRef })
 

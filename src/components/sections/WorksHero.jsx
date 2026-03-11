@@ -63,7 +63,7 @@ export default function WorksHero({ activeFilter, onFilterChange }) {
         </h1>
 
         {/* Filter tabs */}
-        <div className="flex items-center gap-x-6 overflow-x-auto md:gap-x-10 whitespace-nowrap" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="flex items-center gap-x-6 overflow-x-auto md:gap-x-10 whitespace-nowrap" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch', touchAction: 'pan-x' }}>
           {FILTERS.map((filter) => (
             <button
               key={filter}
@@ -73,13 +73,13 @@ export default function WorksHero({ activeFilter, onFilterChange }) {
               style={{
                 fontFamily: "'Hanken Grotesk', sans-serif",
                 fontWeight: 400,
-                fontSize: '20px',
+                fontSize: 'clamp(18px, 4.5vw, 20px)',
                 lineHeight: 1,
                 color: activeFilter === filter ? '#0e0d0d' : '#a4a4a4',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                padding: 0,
+                padding: '10px 0',
                 transition: 'color 0.3s ease',
                 letterSpacing: '0.01em',
               }}

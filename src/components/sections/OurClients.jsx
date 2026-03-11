@@ -7,7 +7,7 @@ const CLIENT_LOGOS = [
   { src: '/images/client-xy-percent.svg', colorSrc: '/images/client-xy-percent-color.svg', alt: 'XY Percent' },
   { src: '/images/client-alam.svg', colorSrc: '/images/client-alam-color.svg', alt: 'Alam by Tulsi Patel' },
   { src: '/images/client-nandita-sikchi.svg', colorSrc: '/images/client-nandita-sikchi-color.svg', alt: 'Nandita Sikchi', itemClass: 'h-[39px] max-lg:h-[24px]' },
-  { src: '/images/client-sapna-jain.svg', colorSrc: '/images/client-sapna-jain-color.svg', alt: 'Sapna Jain', itemClass: 'h-[45px] max-lg:h-[28px]' },
+  { src: '/images/client-sapna-jain.svg', colorSrc: '/images/client-sapna-jain-color.svg', alt: 'Sapana Jain Studio', itemClass: 'h-[45px] max-lg:h-[28px]' },
   { src: '/images/client-flow.svg', colorSrc: '/images/client-flow-color.svg', alt: 'Flow Furniture' },
   { src: '/images/client-hill-staytion.svg', colorSrc: '/images/client-hill-staytion-color.svg', alt: 'Hill Staytion', itemClass: 'h-[72px] max-lg:h-[44px]' },
   { src: '/images/client-consult-for-impact.webp', colorSrc: '/images/client-consult-for-impact-color.webp', alt: 'Consult for Impact' },

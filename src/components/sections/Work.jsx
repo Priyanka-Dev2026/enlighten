@@ -14,7 +14,7 @@ const projects = [
     url: 'https://lovenative.in/',
   },
   {
-    title: 'SAPNA JAIN STUDIO',
+    title: 'SAPANA JAIN STUDIO',
     description: 'Elegant Digital Storefront',
     category: 'INTERIOR DESIGN',
     year: '2026',
