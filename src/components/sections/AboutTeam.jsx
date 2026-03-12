@@ -57,6 +57,12 @@ const TEAM = [
     image: '/images/team-navjot.webp',
     offset: false,
   },
+  {
+    name: 'Deepak Kumar',
+    role: 'FULL STACK DEVELOPER',
+    image: '/images/team-deepak.png',
+    offset: true,
+  },
 ]
 
 export default function AboutTeam() {
