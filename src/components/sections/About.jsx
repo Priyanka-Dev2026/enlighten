@@ -138,7 +138,7 @@ export default function About({ entranceComplete }) {
               className="h-[329px] w-[286px] shrink-0 overflow-hidden max-lg:w-full max-lg:h-[350px]"
             >
               <img
-                src="/images/about-phone.webp"
+                src="/images/about-phone-new.png"
                 alt="Mobile design showcase"
                 className="h-full w-full object-cover"
               />
