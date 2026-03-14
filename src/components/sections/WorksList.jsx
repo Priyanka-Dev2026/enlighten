@@ -198,7 +198,7 @@ function ProjectRow({ project }) {
     const leftImg = rowRef.current.querySelector('.row-img-left')
     const rightImg = rowRef.current.querySelector('.row-img-right')
 
-    // ── Split text into lines ──────────────────────────────────────────
+    // ── Split client name into lines only (short text, safe to split) ───
     const wrapLines = (split) => {
       split.lines?.forEach((line) => {
         const wrapper = document.createElement('div')
@@ -212,18 +212,36 @@ function ProjectRow({ project }) {
     const catSplit = new SplitType(categoryEl, { types: 'lines' })
     wrapLines(catSplit)
 
-    const descSplit = new SplitType(descEl, { types: 'lines' })
-    wrapLines(descSplit)
+    // ── Description is NOT split — SplitType locks line breaks at mount
+    // time which causes mid-phrase breaks when the flex layout or fonts
+    // haven't fully settled. Animate the whole paragraph instead.
 
     const isMobile = window.innerWidth < 768
 
     // ── Initial states ─────────────────────────────────────────────────
     gsap.set(divider, { scaleX: 0, transformOrigin: 'left center' })
     gsap.set(catSplit.lines, { yPercent: 110 })
-    gsap.set(descSplit.lines, { yPercent: 110 })
+    gsap.set(descEl, { opacity: 0, y: 18 })
     gsap.set(tagsEl, { opacity: 0, y: 12 })
     gsap.set(leftImg, { y: isMobile ? 40 : 80, opacity: 0 })
     gsap.set(rightImg, { y: isMobile ? 40 : 80, opacity: 0 })
+
+    // ── Animation runner — guarded so it only fires once ───────────────
+    let animated = false
+    const runAnimation = () => {
+      if (animated) return
+      animated = true
+      observer.disconnect()
+
+      const tl = gsap.timeline()
+      tl.to(divider, { scaleX: 1, duration: 0.8, ease: 'smoothOut' })
+        .to(catSplit.lines, { yPercent: 0, duration: 0.7, ease: 'smooth' }, '-=0.35')
+        .to(descEl, { opacity: 1, y: 0, duration: 0.8, ease: 'smooth' }, '-=0.45')
+        .to(tagsEl, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.55')
+        .to(leftImg, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, '-=0.5')
+        // Mobile: stacked images get a clear stagger; desktop: near-simultaneous
+        .to(rightImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, isMobile ? '-=0.55' : '-=0.9')
+    }
 
     // ── IntersectionObserver — fires reliably on mount and filter change ─
     // rootMargin fires when row top is 40px above viewport bottom — consistent
@@ -232,25 +250,29 @@ function ProjectRow({ project }) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries[0].isIntersecting) return
-        observer.disconnect()
-
-        const tl = gsap.timeline()
-        tl.to(divider, { scaleX: 1, duration: 0.8, ease: 'smoothOut' })
-          .to(catSplit.lines, { yPercent: 0, duration: 0.7, ease: 'smooth' }, '-=0.35')
-          .to(descSplit.lines, { yPercent: 0, duration: 0.9, ease: 'smooth', stagger: 0.06 }, '-=0.45')
-          .to(tagsEl, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.55')
-          .to(leftImg, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, '-=0.5')
-          // Mobile: stacked images get a clear stagger; desktop: near-simultaneous
-          .to(rightImg, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, isMobile ? '-=0.55' : '-=0.9')
+        runAnimation()
       },
       { threshold: 0, rootMargin: '0px 0px -40px 0px' }
     )
     observer.observe(rowRef.current)
 
+    // ── RAF fallback for rows already in the viewport on mount ─────────
+    // useGSAP runs as useLayoutEffect (before paint). IO callbacks are async
+    // and can be delayed or missed when Lenis is initialising or on filter
+    // change remounts. A single rAF fires after the first paint; by then
+    // layout is stable and we can reliably check getBoundingClientRect.
+    let rafId = requestAnimationFrame(() => {
+      if (!rowRef.current || animated) return
+      const rect = rowRef.current.getBoundingClientRect()
+      if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
+        runAnimation()
+      }
+    })
+
     return () => {
+      cancelAnimationFrame(rafId)
       observer.disconnect()
       catSplit.revert()
-      descSplit.revert()
     }
   }, { scope: rowRef })
 
