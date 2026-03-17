@@ -231,7 +231,6 @@ function ProjectRow({ project }) {
     const runAnimation = () => {
       if (animated) return
       animated = true
-      observer.disconnect()
 
       const tl = gsap.timeline()
       tl.to(divider, { scaleX: 1, duration: 0.8, ease: 'smoothOut' })
@@ -243,35 +242,28 @@ function ProjectRow({ project }) {
         .to(rightImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, isMobile ? '-=0.55' : '-=0.9')
     }
 
-    // ── IntersectionObserver — fires reliably on mount and filter change ─
-    // rootMargin fires when row top is 40px above viewport bottom — consistent
-    // regardless of element height (fixes threshold: 0.05 being unpredictable
-    // on tall mobile rows with stacked images)
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting) return
-        runAnimation()
-      },
-      { threshold: 0, rootMargin: '0px 0px -40px 0px' }
-    )
-    observer.observe(rowRef.current)
-
-    // ── RAF fallback for rows already in the viewport on mount ─────────
-    // useGSAP runs as useLayoutEffect (before paint). IO callbacks are async
-    // and can be delayed or missed when Lenis is initialising or on filter
-    // change remounts. A single rAF fires after the first paint; by then
-    // layout is stable and we can reliably check getBoundingClientRect.
-    let rafId = requestAnimationFrame(() => {
-      if (!rowRef.current || animated) return
+    // ── Scroll-based trigger — more reliable than IntersectionObserver with Lenis ─
+    // IO can miss elements when Lenis intercepts wheel events before the native
+    // scroll position updates. A direct scroll listener always fires.
+    const checkInView = () => {
+      if (animated || !rowRef.current) return
       const rect = rowRef.current.getBoundingClientRect()
       if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
         runAnimation()
       }
-    })
+    }
+
+    const lenis = window.__lenis
+    lenis?.on('scroll', checkInView)
+    window.addEventListener('scroll', checkInView, { passive: true })
+
+    // ── RAF for rows already in viewport on mount (before first scroll) ─
+    let rafId = requestAnimationFrame(checkInView)
 
     return () => {
       cancelAnimationFrame(rafId)
-      observer.disconnect()
+      lenis?.off('scroll', checkInView)
+      window.removeEventListener('scroll', checkInView)
       catSplit.revert()
     }
   }, { scope: rowRef })
