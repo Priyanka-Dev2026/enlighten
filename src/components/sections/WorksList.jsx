@@ -198,7 +198,6 @@ function ProjectRow({ project }) {
     const leftImg = rowRef.current.querySelector('.row-img-left')
     const rightImg = rowRef.current.querySelector('.row-img-right')
 
-    // ── Split client name into lines only (short text, safe to split) ───
     const wrapLines = (split) => {
       split.lines?.forEach((line) => {
         const wrapper = document.createElement('div')
@@ -212,13 +211,9 @@ function ProjectRow({ project }) {
     const catSplit = new SplitType(categoryEl, { types: 'lines' })
     wrapLines(catSplit)
 
-    // ── Description is NOT split — SplitType locks line breaks at mount
-    // time which causes mid-phrase breaks when the flex layout or fonts
-    // haven't fully settled. Animate the whole paragraph instead.
-
     const isMobile = window.innerWidth < 768
 
-    // ── Initial states ─────────────────────────────────────────────────
+    // ── Initial states ──────────────────────────────────────────────────
     gsap.set(divider, { scaleX: 0, transformOrigin: 'left center' })
     gsap.set(catSplit.lines, { yPercent: 110 })
     gsap.set(descEl, { opacity: 0, y: 18 })
@@ -226,53 +221,65 @@ function ProjectRow({ project }) {
     gsap.set(leftImg, { y: isMobile ? 40 : 80, opacity: 0 })
     gsap.set(rightImg, { y: isMobile ? 40 : 80, opacity: 0 })
 
-    // ── Animation runner — guarded so it only fires once ───────────────
+    // ── Animation — fires exactly once, guarded by flag ─────────────────
     let animated = false
-    const runAnimation = () => {
+    const triggerAnimation = () => {
       if (animated) return
       animated = true
-
       const tl = gsap.timeline()
       tl.to(divider, { scaleX: 1, duration: 0.8, ease: 'smoothOut' })
         .to(catSplit.lines, { yPercent: 0, duration: 0.7, ease: 'smooth' }, '-=0.35')
         .to(descEl, { opacity: 1, y: 0, duration: 0.8, ease: 'smooth' }, '-=0.45')
         .to(tagsEl, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.55')
         .to(leftImg, { y: 0, opacity: 1, duration: 1.1, ease: 'smoothOut' }, '-=0.5')
-        // Mobile: stacked images get a clear stagger; desktop: near-simultaneous
         .to(rightImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, isMobile ? '-=0.55' : '-=0.9')
     }
 
-    // ── Scroll-based trigger — more reliable than IntersectionObserver with Lenis ─
-    // IO can miss elements when Lenis intercepts wheel events before the native
-    // scroll position updates. A direct scroll listener always fires.
+    // ── Viewport check for scroll-listener trigger ──────────────────────
     const checkInView = () => {
       if (animated || !rowRef.current) return
       const rect = rowRef.current.getBoundingClientRect()
-      if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
-        runAnimation()
+      // Use 95% of viewport height — proportional threshold for all screen sizes
+      if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+        triggerAnimation()
       }
     }
 
+    // ── Layer 1: IntersectionObserver — viewport-based, works on all   ──
+    // browsers including iOS Safari regardless of scroll implementation.
+    // rootMargin '40px' fires just before element reaches viewport edge
+    // so animation is already starting as user scrolls to it.
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) triggerAnimation() },
+      { threshold: 0, rootMargin: '0px 0px 40px 0px' }
+    )
+    observer.observe(rowRef.current)
+
+    // ── Layer 2: Lenis + native scroll listeners ─────────────────────────
+    // Lenis emits its own 'scroll' event on every RAF tick while scrolling.
+    // Native 'scroll' covers fallback for non-Lenis scroll (momentum, keyboard).
     const lenis = window.__lenis
     lenis?.on('scroll', checkInView)
     window.addEventListener('scroll', checkInView, { passive: true })
 
-    // ── Immediate check — same pattern as BoldInNumbers/WhatWeDo ───────
-    // Calling synchronously inside useGSAP context ensures the animation
-    // timeline is tracked by GSAP alongside the gsap.set initial states.
-    // RAF-based calls are async (outside context), which can cause gsap.set
-    // to revert on cleanup while the untracked timeline continues, making
-    // desc/tags/images appear to not animate (they revert to visible mid-tween).
+    // ── Layer 3: Immediate check ─────────────────────────────────────────
+    // Handles rows already in viewport at mount time (e.g. card 1).
+    // Called synchronously inside useGSAP so the timeline is tracked
+    // within the GSAP context alongside the gsap.set initial states.
     checkInView()
 
-    // ── Delayed fallback — catches the cross-page navigation race ──────
-    // The immediate call above uses stale Lenis scroll position when coming
-    // from another page. This timeout fires after ScrollToTop's useEffect
-    // resets Lenis to 0, catching rows the immediate check missed.
-    let timeoutId = setTimeout(checkInView, 200)
+    // ── Layer 4: Staggered timeouts — cross-page navigation fallback ─────
+    // When navigating from another page, the immediate check (Layer 3)
+    // uses a stale Lenis scroll position (ScrollToTop's useEffect hasn't
+    // fired yet). Two timeouts at different intervals ensure we catch
+    // any rows the other layers missed, even on slow connections.
+    const t1 = setTimeout(checkInView, 300)
+    const t2 = setTimeout(checkInView, 800)
 
     return () => {
-      clearTimeout(timeoutId)
+      clearTimeout(t1)
+      clearTimeout(t2)
+      observer.disconnect()
       lenis?.off('scroll', checkInView)
       window.removeEventListener('scroll', checkInView)
       catSplit.revert()
