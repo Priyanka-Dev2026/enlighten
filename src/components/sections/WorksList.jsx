@@ -260,8 +260,17 @@ function ProjectRow({ project }) {
     // ── RAF for rows already in viewport on mount (before first scroll) ─
     let rafId = requestAnimationFrame(checkInView)
 
+    // ── Delayed fallback — catches the cross-page navigation race ──────
+    // When navigating from another page, Lenis scroll position is stale.
+    // The RAF fires before ScrollToTop's useEffect resets Lenis to 0, so
+    // getBoundingClientRect() returns wrong positions and cards 2/3 are
+    // missed. This timeout fires after all useEffects have settled
+    // (ScrollToTop reset + lenis.start()), giving correct positions.
+    let timeoutId = setTimeout(checkInView, 200)
+
     return () => {
       cancelAnimationFrame(rafId)
+      clearTimeout(timeoutId)
       lenis?.off('scroll', checkInView)
       window.removeEventListener('scroll', checkInView)
       catSplit.revert()
