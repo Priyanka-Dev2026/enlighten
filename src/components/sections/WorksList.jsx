@@ -257,19 +257,21 @@ function ProjectRow({ project }) {
     lenis?.on('scroll', checkInView)
     window.addEventListener('scroll', checkInView, { passive: true })
 
-    // ── RAF for rows already in viewport on mount (before first scroll) ─
-    let rafId = requestAnimationFrame(checkInView)
+    // ── Immediate check — same pattern as BoldInNumbers/WhatWeDo ───────
+    // Calling synchronously inside useGSAP context ensures the animation
+    // timeline is tracked by GSAP alongside the gsap.set initial states.
+    // RAF-based calls are async (outside context), which can cause gsap.set
+    // to revert on cleanup while the untracked timeline continues, making
+    // desc/tags/images appear to not animate (they revert to visible mid-tween).
+    checkInView()
 
     // ── Delayed fallback — catches the cross-page navigation race ──────
-    // When navigating from another page, Lenis scroll position is stale.
-    // The RAF fires before ScrollToTop's useEffect resets Lenis to 0, so
-    // getBoundingClientRect() returns wrong positions and cards 2/3 are
-    // missed. This timeout fires after all useEffects have settled
-    // (ScrollToTop reset + lenis.start()), giving correct positions.
+    // The immediate call above uses stale Lenis scroll position when coming
+    // from another page. This timeout fires after ScrollToTop's useEffect
+    // resets Lenis to 0, catching rows the immediate check missed.
     let timeoutId = setTimeout(checkInView, 200)
 
     return () => {
-      cancelAnimationFrame(rafId)
       clearTimeout(timeoutId)
       lenis?.off('scroll', checkInView)
       window.removeEventListener('scroll', checkInView)
