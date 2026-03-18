@@ -221,7 +221,7 @@ function ProjectRow({ project }) {
     gsap.set(leftImg, { y: isMobile ? 40 : 80, opacity: 0 })
     gsap.set(rightImg, { y: isMobile ? 40 : 80, opacity: 0 })
 
-    // ── Animation — fires exactly once, guarded by flag ─────────────────
+    // ── Animation — fires exactly once ──────────────────────────────────
     let animated = false
     const triggerAnimation = () => {
       if (animated) return
@@ -235,53 +235,17 @@ function ProjectRow({ project }) {
         .to(rightImg, { y: 0, opacity: 1, duration: 0.7, ease: 'smoothOut' }, isMobile ? '-=0.55' : '-=0.9')
     }
 
-    // ── Viewport check for scroll-listener trigger ──────────────────────
-    const checkInView = () => {
-      if (animated || !rowRef.current) return
-      const rect = rowRef.current.getBoundingClientRect()
-      // Use 95% of viewport height — proportional threshold for all screen sizes
-      if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
-        triggerAnimation()
-      }
-    }
-
-    // ── Layer 1: IntersectionObserver — viewport-based, works on all   ──
-    // browsers including iOS Safari regardless of scroll implementation.
-    // rootMargin '40px' fires just before element reaches viewport edge
-    // so animation is already starting as user scrolls to it.
+    // Each row is min-h-screen so when any part of it enters the viewport
+    // the card is fully coming into view — threshold: 0.1 is very reliable.
+    // No scroll listeners, timers, or ticker needed.
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) triggerAnimation() },
-      { threshold: 0, rootMargin: '0px 0px 40px 0px' }
+      { threshold: 0.1 }
     )
     observer.observe(rowRef.current)
 
-    // ── Layer 2: Lenis + native scroll listeners ─────────────────────────
-    // Lenis emits its own 'scroll' event on every RAF tick while scrolling.
-    // Native 'scroll' covers fallback for non-Lenis scroll (momentum, keyboard).
-    const lenis = window.__lenis
-    lenis?.on('scroll', checkInView)
-    window.addEventListener('scroll', checkInView, { passive: true })
-
-    // ── Layer 3: Immediate check ─────────────────────────────────────────
-    // Handles rows already in viewport at mount time (e.g. card 1).
-    // Called synchronously inside useGSAP so the timeline is tracked
-    // within the GSAP context alongside the gsap.set initial states.
-    checkInView()
-
-    // ── Layer 4: Staggered timeouts — cross-page navigation fallback ─────
-    // When navigating from another page, the immediate check (Layer 3)
-    // uses a stale Lenis scroll position (ScrollToTop's useEffect hasn't
-    // fired yet). Two timeouts at different intervals ensure we catch
-    // any rows the other layers missed, even on slow connections.
-    const t1 = setTimeout(checkInView, 300)
-    const t2 = setTimeout(checkInView, 800)
-
     return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
       observer.disconnect()
-      lenis?.off('scroll', checkInView)
-      window.removeEventListener('scroll', checkInView)
       catSplit.revert()
     }
   }, { scope: rowRef })
@@ -289,7 +253,7 @@ function ProjectRow({ project }) {
   return (
     <div
       ref={rowRef}
-      className="project-row pb-10 md:pb-16"
+      className="project-row min-h-screen py-10 md:py-16 flex flex-col justify-center"
       data-cursor-hover
       onClick={project.url ? () => window.open(project.url, '_blank', 'noopener,noreferrer') : undefined}
       style={project.url ? { cursor: 'pointer' } : undefined}
