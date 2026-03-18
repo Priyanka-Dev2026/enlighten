@@ -263,14 +263,14 @@ function ProjectRow({ project }) {
         ...(project.url ? { cursor: 'pointer' } : {}),
       }}
     >
-      {/* Divider — stays at top of card */}
+      {/* Divider — top edge separator between projects */}
       <div
         className="row-divider"
         style={{ height: 1, backgroundColor: '#c0c0c0', flexShrink: 0 }}
       />
 
       {/* Content — vertically centered in remaining space */}
-      <div style={{ marginTop: 'auto', marginBottom: 'auto' }}>
+      <div style={{ marginTop: 'auto', marginBottom: 'auto', paddingTop: 32, paddingBottom: 32 }}>
 
       {/* Info row — stacked on mobile, 2 cols on desktop (mirrors images row) */}
       <div className="grid grid-cols-1 gap-3 mb-7 md:grid-cols-[28%_1fr] md:gap-[2%] md:mb-7">
