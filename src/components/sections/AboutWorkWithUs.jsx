@@ -58,32 +58,47 @@ export default function AboutWorkWithUs() {
               className="text-[36px] font-medium leading-[38px] tracking-[-2.16px] text-[#393939] max-lg:text-[28px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
             >
-              Work with us
+              Brand Story
             </p>
           </div>
 
           {/* Body text */}
           <div className="wwu-text flex flex-col gap-6 flex-1">
             <p
-              className="text-[32px] leading-[34px] tracking-[0.32px] text-[#111] max-lg:text-[22px] max-lg:leading-[30px]"
+              className="text-[32px] leading-[38px] tracking-[0.32px] text-[#111] max-lg:text-[22px] max-lg:leading-[30px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
             >
-              Want to work alongside some of the most talented digital minds on the planet?
+              At its best, creativity does something quiet but powerful. It reveals more of what is possible.
             </p>
             <p
               className="text-[20px] leading-[30px] tracking-[0.2px] text-[#555] max-lg:text-[20px] max-lg:leading-[30px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
             >
-              So do we. We want Enlighten to represent the world that we live in, with talent that's diverse in background and skillsets. We want you to bring your whole self to work, and we believe that we're at our best when we tap into our differences and collaborate across varied personal experiences and perspectives to arrive at unique solutions.
+              To enlighten is to see something in its fullness. It means understanding the layers that make an idea meaningful, the details that make it distinctive, and the possibilities that make it powerful.
             </p>
             <p
               className="text-[20px] leading-[30px] tracking-[0.2px] text-[#555] max-lg:text-[20px] max-lg:leading-[30px]"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
             >
-              If this sounds like the type of place where you'd like to work, mail us at{' '}
-              <a href="mailto:priyanka@enlighten.in.net" className="text-[#111] underline underline-offset-2">
-                priyanka@enlighten.in.net
-              </a>
+              At Enlighten Creatives, we approach every project with that mindset. We listen, observe, question, and think carefully about what already exists. The strengths. The nuances. The untapped potential. Because when an idea is truly enlightened, something shifts.
+            </p>
+            <p
+              className="text-[20px] leading-[30px] tracking-[0.2px] text-[#555] italic max-lg:text-[20px] max-lg:leading-[30px]"
+              style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
+            >
+              It feels sharper | More confident | More expansive | More alive.
+            </p>
+            <p
+              className="text-[20px] leading-[30px] tracking-[0.2px] text-[#555] max-lg:text-[20px] max-lg:leading-[30px]"
+              style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
+            >
+              Through design, communication, strategy, and storytelling, we bring these ideas to life with greater clarity, strength, and vitality by giving them the form, voice, and presence they deserve.
+            </p>
+            <p
+              className="text-[20px] leading-[30px] tracking-[0.2px] text-[#555] max-lg:text-[20px] max-lg:leading-[30px]"
+              style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontWeight: 400 }}
+            >
+              This transformation, the moment when understanding becomes expression, is what we mean by <span className="text-[#111] font-medium">Enlighten</span>.
             </p>
           </div>
 
@@ -92,8 +107,8 @@ export default function AboutWorkWithUs() {
         {/* Right: image */}
         <div className="wwu-image overflow-hidden w-full lg:w-1/2 self-stretch max-lg:order-first max-lg:h-[400px]">
           <img
-            src="/images/about-work-with-us-new.png"
-            alt="Work with us at Enlighten"
+            src="/images/about-brand-story.png"
+            alt="Enlighten brand story"
             className="w-full h-full object-cover block"
           />
         </div>

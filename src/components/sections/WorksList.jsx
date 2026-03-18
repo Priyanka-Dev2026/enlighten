@@ -139,7 +139,7 @@ const PROJECTS = [
     client: 'Kanta Essential Oils',
     description:
       'Corporate website for Kanta Essential Oils, focused on product visibility, structured navigation, and clean professional design.',
-    tags: ['WORDPRESS', 'MARKETING', 'GRAPHIC DESIGN'],
+    tags: ['WORDPRESS', 'MARKETING'],
     imageLeft: '/images/wl-p12-left.png',
     imageRight: '/images/wl-p12-right.png',
     aspectLeft: '3/4',
@@ -253,19 +253,24 @@ function ProjectRow({ project }) {
   return (
     <div
       ref={rowRef}
-      className="project-row min-h-screen flex flex-col"
+      className="project-row"
       data-cursor-hover
       onClick={project.url ? () => window.open(project.url, '_blank', 'noopener,noreferrer') : undefined}
-      style={project.url ? { cursor: 'pointer' } : undefined}
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        ...(project.url ? { cursor: 'pointer' } : {}),
+      }}
     >
-      {/* my-auto centres this block vertically within the min-h-screen outer div */}
-      <div className="my-auto py-10 md:py-16">
-
-      {/* Divider */}
+      {/* Divider — stays at top of card */}
       <div
         className="row-divider"
-        style={{ height: 1, backgroundColor: '#c0c0c0', marginBottom: 32 }}
+        style={{ height: 1, backgroundColor: '#c0c0c0', flexShrink: 0 }}
       />
+
+      {/* Content — vertically centered in remaining space */}
+      <div style={{ marginTop: 'auto', marginBottom: 'auto' }}>
 
       {/* Info row — stacked on mobile, 2 cols on desktop (mirrors images row) */}
       <div className="grid grid-cols-1 gap-3 mb-7 md:grid-cols-[28%_1fr] md:gap-[2%] md:mb-7">
@@ -365,7 +370,7 @@ export default function WorksList({ filter }) {
       aria-label="Project portfolio"
     >
       <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        {filtered.map((project) => (
+        {filtered.map((project, index) => (
           <li key={`${project.id}-${filter}`}>
             <ProjectRow project={project} />
           </li>
