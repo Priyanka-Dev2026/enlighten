@@ -253,11 +253,13 @@ function ProjectRow({ project }) {
   return (
     <div
       ref={rowRef}
-      className="project-row min-h-screen py-10 md:py-16 flex flex-col justify-center"
+      className="project-row min-h-screen flex flex-col"
       data-cursor-hover
       onClick={project.url ? () => window.open(project.url, '_blank', 'noopener,noreferrer') : undefined}
       style={project.url ? { cursor: 'pointer' } : undefined}
     >
+      {/* my-auto centres this block vertically within the min-h-screen outer div */}
+      <div className="my-auto py-10 md:py-16">
 
       {/* Divider */}
       <div
@@ -342,6 +344,7 @@ function ProjectRow({ project }) {
           </div>
         </div>
       </div>
+      </div>{/* end my-auto wrapper */}
     </div>
   )
 }
