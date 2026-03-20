@@ -221,59 +221,53 @@ export default function Work() {
   }, [])
 
   // Detect active card and scramble text
+  // Uses IntersectionObserver instead of scroll events — Safari mobile
+  // throttles scroll events during momentum scrolling, so the scroll-based
+  // approach misses card transitions. IO fires reliably on all browsers.
   useEffect(() => {
     const container = cardsContainerRef.current
     if (!container) return
 
-    const onScroll = () => {
-      const cards = container.querySelectorAll('.project-card')
-      const vh = window.innerHeight
-      const center = vh * 0.5
+    const cards = container.querySelectorAll('.project-card')
+    if (!cards.length) return
 
-      let closestIndex = 0
-      let closestDist = Infinity
+    const updateActiveCard = (index) => {
+      if (index === activeIndexRef.current) return
+      activeIndexRef.current = index
+      const project = projects[index]
 
-      cards.forEach((card, i) => {
-        const rect = card.getBoundingClientRect()
-        const cardCenter = rect.top + rect.height / 2
-        const dist = Math.abs(cardCenter - center)
-        if (dist < closestDist) {
-          closestDist = dist
-          closestIndex = i
-        }
-      })
+      if (cancelScrambleRef.current.title) cancelScrambleRef.current.title()
+      if (cancelScrambleRef.current.desc) cancelScrambleRef.current.desc()
+      if (cancelScrambleRef.current.category) cancelScrambleRef.current.category()
+      if (cancelScrambleRef.current.year) cancelScrambleRef.current.year()
 
-      if (closestIndex !== activeIndexRef.current) {
-        activeIndexRef.current = closestIndex
-        const project = projects[closestIndex]
-
-        if (cancelScrambleRef.current.title) cancelScrambleRef.current.title()
-        if (cancelScrambleRef.current.desc) cancelScrambleRef.current.desc()
-        if (cancelScrambleRef.current.category) cancelScrambleRef.current.category()
-        if (cancelScrambleRef.current.year) cancelScrambleRef.current.year()
-
-        cancelScrambleRef.current.title = scrambleText(titleRef.current, project.title, 0.5)
-        cancelScrambleRef.current.desc = scrambleText(descRef.current, project.description, 0.5)
-        cancelScrambleRef.current.category = scrambleText(categoryRef.current, project.category, 0.3)
-        cancelScrambleRef.current.year = scrambleText(yearRef.current, project.year, 0.3)
-      }
+      cancelScrambleRef.current.title = scrambleText(titleRef.current, project.title, 0.5)
+      cancelScrambleRef.current.desc = scrambleText(descRef.current, project.description, 0.5)
+      cancelScrambleRef.current.category = scrambleText(categoryRef.current, project.category, 0.3)
+      cancelScrambleRef.current.year = scrambleText(yearRef.current, project.year, 0.3)
     }
 
-    let lenisSubscribed = false
-    const subscribeLenis = () => {
-      if (lenisSubscribed) return
-      const lenis = window.__lenis
-      if (lenis) { lenis.on('scroll', onScroll); lenisSubscribed = true }
-    }
-    subscribeLenis()
-    const rafId = requestAnimationFrame(subscribeLenis)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+    // rootMargin clips the observation zone to a 10% band in the centre of
+    // the viewport. When a card enters this band it is "active".
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.dataset.cardIndex)
+            if (!Number.isNaN(index)) updateActiveCard(index)
+          }
+        })
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    )
+
+    cards.forEach((card, i) => {
+      card.dataset.cardIndex = i
+      observer.observe(card)
+    })
 
     return () => {
-      cancelAnimationFrame(rafId)
-      if (window.__lenis) window.__lenis.off('scroll', onScroll)
-      window.removeEventListener('scroll', onScroll)
+      observer.disconnect()
       if (cancelScrambleRef.current.title) cancelScrambleRef.current.title()
       if (cancelScrambleRef.current.desc) cancelScrambleRef.current.desc()
       if (cancelScrambleRef.current.category) cancelScrambleRef.current.category()
