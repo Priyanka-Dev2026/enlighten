@@ -118,7 +118,7 @@ export default function AlwaysOn() {
     <section
       ref={sectionRef}
       id="always-on"
-      className="relative w-full overflow-hidden h-[60vh] lg:h-[90vh]"
+      className="relative w-full overflow-hidden min-h-[60vh] lg:min-h-[90vh]"
       data-scroll-section
     >
       {/* Background — MP4 video on desktop, MP4 video on mobile */}
@@ -150,12 +150,12 @@ export default function AlwaysOn() {
       {/* Content — vertically centered, left-aligned */}
       <div
         ref={contentRef}
-        className="relative z-10 flex h-full flex-col justify-center gap-10 p-[81px] max-lg:px-5 max-lg:py-0"
+        className="relative z-10 flex min-h-[60vh] lg:min-h-[90vh] flex-col justify-center gap-10 p-[81px] max-lg:px-5 max-lg:py-10"
         style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
       >
         {/* Heading + Clocks — left-aligned */}
         <div className="flex flex-col gap-[13px] max-w-[874px] text-white">
-          <h2 className="ao-heading text-[38px] lg:text-[66px] font-extrabold uppercase leading-[1.07] tracking-[0.01em]">
+          <h2 className="ao-heading text-[32px] lg:text-[54px] font-extrabold leading-[1.07] tracking-[0.01em]">
             Looks like we're both in the right place at the right time.{' '}
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-contact-popup'))}
