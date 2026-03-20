@@ -155,8 +155,14 @@ export default function AlwaysOn() {
       >
         {/* Heading + Clocks — left-aligned */}
         <div className="flex flex-col gap-[13px] max-w-[874px] text-white">
-          <h2 className="ao-heading text-[clamp(60px,10vw,157px)] font-extrabold uppercase leading-[1.07] tracking-[0.01em]">
-            Always on
+          <h2 className="ao-heading text-[38px] lg:text-[66px] font-extrabold uppercase leading-[1.07] tracking-[0.01em]">
+            Looks like we're both in the right place at the right time.{' '}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-contact-popup'))}
+              className="underline lg:no-underline lg:hover:underline underline-offset-4 cursor-pointer uppercase"
+            >
+              Let's talk
+            </button>
           </h2>
 
           <div className="flex gap-[94px] max-lg:flex-col max-lg:gap-8">
