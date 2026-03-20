@@ -61,9 +61,28 @@ export default function ContactPopup() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e) => {
+  const [submitting, setSubmitting] = useState(false)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: wire to backend / email service
+    if (submitting) return
+    setSubmitting(true)
+    try {
+      await fetch('https://formsubmit.co/ajax/connect@enlighten.in.net', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: 'New Contact Form Submission — Enlighten Website',
+        }),
+      })
+    } catch (_) {
+      // silent fail — still close popup
+    }
+    setForm({ name: '', email: '', message: '' })
+    setSubmitting(false)
     closePopup()
   }
 

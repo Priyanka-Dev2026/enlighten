@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { gsap } from '@/utils/gsap-utils'
 
 export default function Footer() {
@@ -49,6 +49,30 @@ export default function Footer() {
     }
   }, [])
 
+  const [footerSubmitting, setFooterSubmitting] = useState(false)
+
+  const handleFooterSubmit = async (e) => {
+    e.preventDefault()
+    if (footerSubmitting) return
+    setFooterSubmitting(true)
+    const formData = new FormData(e.target)
+    try {
+      await fetch('https://formsubmit.co/ajax/connect@enlighten.in.net', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          _subject: 'New Newsletter Signup — Enlighten Website',
+        }),
+      })
+    } catch (_) {
+      // silent fail
+    }
+    e.target.reset()
+    setFooterSubmitting(false)
+  }
+
   return (
     <>
       {/* Spacer — holds the footer's height in the document flow */}
@@ -67,7 +91,7 @@ export default function Footer() {
           <div className="flex items-start gap-[16px] shrink-0">
             <div className="size-[13px] bg-[#c96b00] mt-[5px]" />
             <div className="text-[20px] font-medium leading-[26px] tracking-[-1px] text-[#e0e0e0] max-lg:text-[18px]">
-              <p>Design and build by</p>
+              <p>Design and built by</p>
               <p>&copy; Enlighten {new Date().getFullYear()}</p>
             </div>
           </div>
@@ -94,7 +118,7 @@ export default function Footer() {
           {/* Contact form */}
           <form
             className="flex gap-[24px] items-end max-lg:flex-col max-lg:w-full max-sm:gap-3"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleFooterSubmit}
             aria-label="Quick contact form"
           >
             <div className="flex flex-col gap-[8px] w-[320px] max-lg:w-full">
