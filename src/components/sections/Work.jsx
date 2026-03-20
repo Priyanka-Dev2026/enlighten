@@ -146,6 +146,9 @@ export default function Work() {
   }, { scope: sectionRef })
 
   // Background transition + fixed overlay show/hide
+  // Uses a RAF loop instead of scroll events — Safari mobile throttles
+  // scroll events during momentum scrolling, causing the overlay to never
+  // appear and the background transition to stall.
   useEffect(() => {
     const section = sectionRef.current
     const overlay = overlayRef.current
@@ -154,6 +157,7 @@ export default function Work() {
 
     // Track overlay visibility so we only tween on state change
     let overlayVisible = false
+    let rafId = null
 
     const update = () => {
       const sectionRect = section.getBoundingClientRect()
@@ -180,11 +184,7 @@ export default function Work() {
         }
       })
 
-
       // ── Fixed overlay: clamp to last card ──
-      // As the last card scrolls away, translate the overlay upward so the
-      // text never floats outside the card. When containerRect.bottom is less
-      // than the overlay height, the delta is negative → overlay tracks the card.
       const overlayH = overlay.offsetHeight
       const clampedY = Math.min(0, containerRect.bottom - overlayH)
       overlay.style.transform = `translateY(${clampedY}px)`
@@ -194,29 +194,19 @@ export default function Work() {
       if (shouldShow !== overlayVisible) {
         overlayVisible = shouldShow
         if (shouldShow) {
-          // Appear instantly — no fade in
           gsap.set(overlay, { opacity: 1 })
         } else {
           gsap.to(overlay, { opacity: 0, duration: 0.25, overwrite: true, ease: 'power2.inOut' })
         }
       }
+
+      rafId = requestAnimationFrame(update)
     }
 
-    let lenisSubscribed = false
-    const subscribeLenis = () => {
-      if (lenisSubscribed) return
-      const lenis = window.__lenis
-      if (lenis) { lenis.on('scroll', update); lenisSubscribed = true }
-    }
-    subscribeLenis()
-    const rafId = requestAnimationFrame(subscribeLenis)
-    window.addEventListener('scroll', update, { passive: true })
-    update()
+    rafId = requestAnimationFrame(update)
 
     return () => {
-      cancelAnimationFrame(rafId)
-      if (window.__lenis) window.__lenis.off('scroll', update)
-      window.removeEventListener('scroll', update)
+      if (rafId) cancelAnimationFrame(rafId)
     }
   }, [])
 
