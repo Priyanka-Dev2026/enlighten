@@ -187,7 +187,7 @@ const PROJECTS = [
   },
 ]
 
-function ProjectRow({ project }) {
+function ProjectRow({ project, index }) {
   const rowRef = useRef(null)
 
   useGSAP(() => {
@@ -240,7 +240,7 @@ function ProjectRow({ project }) {
     // No scroll listeners, timers, or ticker needed.
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) triggerAnimation() },
-      { threshold: 0.1 }
+      { threshold: index === 0 ? 0.1 : 0.5 }
     )
     observer.observe(rowRef.current)
 
@@ -257,7 +257,6 @@ function ProjectRow({ project }) {
       data-cursor-hover
       onClick={project.url ? () => window.open(project.url, '_blank', 'noopener,noreferrer') : undefined}
       style={{
-        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         ...(project.url ? { cursor: 'pointer' } : {}),
@@ -270,7 +269,7 @@ function ProjectRow({ project }) {
       />
 
       {/* Content — vertically centered in remaining space */}
-      <div style={{ marginTop: 'auto', marginBottom: 'auto', paddingTop: 32, paddingBottom: 32 }}>
+      <div className="py-8 lg:py-16">
 
       {/* Info row — stacked on mobile, 2 cols on desktop (mirrors images row) */}
       <div className="grid grid-cols-1 gap-3 mb-7 md:grid-cols-[28%_1fr] md:gap-[2%] md:mb-7">
@@ -372,7 +371,7 @@ export default function WorksList({ filter }) {
       <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {filtered.map((project, index) => (
           <li key={`${project.id}-${filter}`}>
-            <ProjectRow project={project} />
+            <ProjectRow project={project} index={index} />
           </li>
         ))}
       </ol>

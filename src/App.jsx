@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import useSEO from '@/hooks/useSEO'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -31,6 +32,7 @@ import InsightsPage from '@/pages/InsightsPage'
 import InsightDetailPage from '@/pages/InsightDetailPage'
 
 function HomePage() {
+  useSEO({ title: 'Home', description: 'Enlighten Creatives — a creative agency that builds brands and digital experiences.' })
   const [entranceComplete, setEntranceComplete] = useState(false)
   const handleEntranceComplete = useCallback(() => setEntranceComplete(true), [])
 
