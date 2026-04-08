@@ -68,7 +68,7 @@ export default function ContactPopup() {
     if (submitting) return
     setSubmitting(true)
     try {
-      await fetch('https://formsubmit.co/ajax/connect@enlighten.in.net', {
+      await fetch('https://formsubmit.co/ajax/connect@enlightencreatives.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({

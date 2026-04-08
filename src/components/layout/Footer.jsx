@@ -57,7 +57,7 @@ export default function Footer() {
     setFooterSubmitting(true)
     const formData = new FormData(e.target)
     try {
-      await fetch('https://formsubmit.co/ajax/connect@enlighten.in.net', {
+      await fetch('https://formsubmit.co/ajax/connect@enlightencreatives.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -102,10 +102,10 @@ export default function Footer() {
               Contact Info
             </p>
             <a
-              href="mailto:connect@enlighten.in.net"
+              href="mailto:connect@enlightencreatives.com"
               className="text-[18px] font-normal leading-[28px] tracking-[-0.18px] text-[#aaa] hover:text-white transition-colors max-lg:text-[16px]"
             >
-              connect@enlighten.in.net
+              connect@enlightencreatives.com
             </a>
             <a
               href="tel:+919717069750"
