@@ -98,10 +98,10 @@ export default function ContactPopup() {
       />
 
       {/* Panel — centered, content-hugging, slides up from below */}
-      <div className="absolute inset-0 flex items-center justify-center p-4 max-lg:p-0 max-lg:items-start max-lg:overflow-y-auto pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center p-4 overflow-y-auto max-lg:p-0 max-lg:items-start pointer-events-none">
         <div
           ref={panelRef}
-          className="bg-white w-full max-w-[900px] pointer-events-auto shadow-2xl max-h-[82vh] overflow-y-auto max-lg:max-h-none max-lg:overflow-visible max-lg:min-h-full"
+          className="bg-white w-full max-w-[900px] pointer-events-auto shadow-2xl my-auto max-lg:max-h-none max-lg:overflow-visible max-lg:min-h-full"
           style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
         >
           <div>
@@ -147,7 +147,7 @@ export default function ContactPopup() {
                       onChange={handleChange}
                       placeholder="Jane Smith"
                       required
-                      className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:py-3 max-lg:text-[14px]"
+                      className="w-full py-3 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:py-2 max-lg:text-[14px]"
                     />
                   </div>
                 </div>
@@ -164,7 +164,7 @@ export default function ContactPopup() {
                       onChange={handleChange}
                       placeholder="jane@example.com"
                       required
-                      className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:py-3 max-lg:text-[14px]"
+                      className="w-full py-3 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none max-lg:py-2 max-lg:text-[14px]"
                     />
                   </div>
                 </div>
@@ -183,7 +183,7 @@ export default function ContactPopup() {
                     placeholder="Tell us about your project..."
                     required
                     rows={typeof window !== 'undefined' && window.innerWidth < 1024 ? 3 : 4}
-                    className="w-full py-5 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none resize-none max-lg:py-3 max-lg:text-[14px] max-lg:rows-3"
+                    className="w-full py-3 text-[18px] font-normal text-[#111] placeholder-[#b5b5b5] bg-transparent outline-none resize-none max-lg:py-2 max-lg:text-[14px] max-lg:rows-3"
                   />
                 </div>
               </div>

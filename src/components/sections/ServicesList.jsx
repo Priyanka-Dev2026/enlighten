@@ -107,12 +107,13 @@ export default function ServicesList() {
           observer.disconnect()
 
           const tl = gsap.timeline()
-          tl.to(divider, { scaleX: 1, duration: 0.8, ease: 'smoothOut' })
-            .to(number, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.4')
-            .to(titleSplit.lines, { yPercent: 0, duration: 0.7, ease: 'smooth', stagger: 0.05 }, '-=0.3')
-            .to(descSplit.lines, { yPercent: 0, duration: 0.9, ease: 'smooth', stagger: 0.06 }, '-=0.45')
-            .to(tags, { opacity: 1, y: 0, duration: 0.6, ease: 'smoothOut' }, '-=0.55')
-            .to(image, { clipPath: 'inset(0% 0 0 0)', opacity: 1, duration: 1.6, ease: 'smooth' }, '-=0.7')
+          tl.to(divider, { scaleX: 1, duration: 0.6, ease: 'smoothOut' })
+            .to(number, { opacity: 1, y: 0, duration: 0.4, ease: 'smoothOut' }, '-=0.3')
+            .to(titleSplit.lines, { yPercent: 0, duration: 0.55, ease: 'smooth', stagger: 0.04 }, '-=0.2')
+            .to(descSplit.lines, { yPercent: 0, duration: 0.65, ease: 'smooth', stagger: 0.04 }, '-=0.35')
+            .to(tags, { opacity: 1, y: 0, duration: 0.4, ease: 'smoothOut' }, '-=0.4')
+          // Image reveals in parallel with the text content
+          tl.to(image, { clipPath: 'inset(0% 0 0 0)', opacity: 1, duration: 1.0, ease: 'smooth' }, 0.15)
         },
         { threshold: 0, rootMargin: '0px 0px -40px 0px' }
       )
