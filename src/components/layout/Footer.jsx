@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { gsap } from '@/utils/gsap-utils'
 
 export default function Footer() {
@@ -93,6 +94,12 @@ export default function Footer() {
             <div className="text-[20px] font-medium leading-[26px] tracking-[-1px] text-[#e0e0e0] max-lg:text-[18px]">
               <p>Design and built by</p>
               <p>&copy; Enlighten {new Date().getFullYear()}</p>
+              <Link
+                to="/privacy-policy"
+                className="text-[18px] font-normal text-[#888] hover:text-white transition-colors duration-300 mt-[8px] inline-block max-lg:text-[16px]"
+              >
+                Privacy Policy
+              </Link>
             </div>
           </div>
 

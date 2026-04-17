@@ -30,6 +30,7 @@ import ServicesPage from '@/pages/ServicesPage'
 import WorksPage from '@/pages/WorksPage'
 import InsightsPage from '@/pages/InsightsPage'
 import InsightDetailPage from '@/pages/InsightDetailPage'
+import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage'
 
 function HomePage() {
   useSEO({ title: 'Home', description: 'Enlighten Creatives — a creative agency that builds brands and digital experiences.' })
@@ -69,6 +70,7 @@ function App() {
         <Route path="/works" element={<WorksPage />} />
         <Route path="/insights" element={<InsightsPage />} />
         <Route path="/insights/:slug" element={<InsightDetailPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       </Routes>
     </>
   )
